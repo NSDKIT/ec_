@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SILMO（シルモ） - 職人の魂が宿る、真銀の物語。</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+body { font-family: 'Noto Sans JP', sans-serif; background: #1A1A2E; color: #E8E0D0; margin: 0; }
+.page { display: none; }
+.page.active { display: block; }
+.cream { color: #F0E8D8; }
+.gold { color: #C9A84C; }
+.gold-bg { background: #C9A84C; }
+.navy { background: #1A1A2E; }
+.navy-light { background: #22223D; }
+.serif { font-family: 'Cormorant Garamond', serif; }
+.serif-jp { font-family: 'Noto Serif JP', serif; }
+.btn-gold { background: #C9A84C; color: #1A1A2E; padding: 0.75rem 2rem; border: none; cursor: pointer; font-size: 0.8rem; letter-spacing: 0.1em; transition: all 0.3s; font-family: 'Noto Sans JP'; font-weight: 500; display: inline-block; }
+.btn-gold:hover { background: #E0BB5A; }
+.btn-outline { border: 1.5px solid #C9A84C; color: #C9A84C; padding: 0.75rem 2rem; background: transparent; cursor: pointer; font-size: 0.8rem; letter-spacing: 0.1em; transition: all 0.3s; display: inline-block; }
+.btn-outline:hover { background: #C9A84C; color: #1A1A2E; }
+.input-d { background: #22223D; border: 1px solid #3A3A5A; color: #E8E0D0; padding: 0.75rem 1rem; width: 100%; outline: none; font-size: 0.85rem; font-family: 'Noto Sans JP'; transition: border-color 0.2s; }
+.input-d:focus { border-color: #C9A84C; }
+.card-d { background: #22223D; border: 1px solid #2E2E4E; }
+.product-card { cursor: pointer; transition: all 0.25s; background: #22223D; border: 1px solid #2E2E4E; }
+.product-card:hover { border-color: #C9A84C; transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+.nav-link { font-size: 0.72rem; color: #8080A0; cursor: pointer; transition: color 0.2s; letter-spacing: 0.1em; }
+.nav-link:hover, .nav-link.active { color: #C9A84C; }
+.star { color: #C9A84C; }
+.tag { background: #22223D; color: #8080A0; padding: 0.25rem 0.8rem; font-size: 0.7rem; border: 1px solid #3A3A5A; cursor: pointer; transition: all 0.2s; }
+.tag.active, .tag:hover { background: #C9A84C; color: #1A1A2E; border-color: #C9A84C; }
+.divider { border: none; border-top: 1px solid #2E2E4E; margin: 1.5rem 0; }
+.gold-line { width: 50px; height: 2px; background: linear-gradient(90deg, #C9A84C, transparent); margin-bottom: 1.5rem; }
+.sidebar-link { display: block; padding: 0.5rem 1rem; font-size: 0.78rem; cursor: pointer; transition: all 0.2s; border-left: 2px solid transparent; color: #8080A0; }
+.sidebar-link:hover, .sidebar-link.active { color: #C9A84C; border-left-color: #C9A84C; background: rgba(201,168,76,0.05); }
+::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: #1A1A2E; } ::-webkit-scrollbar-thumb { background: #3A3A5A; }
+/* Header */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: #14142A; border-bottom: 1px solid #2E2E4E; }
+.site-header-inner { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; height: 62px; display: flex; align-items: center; justify-content: space-between; }
+/* Demo Panel */
+#demo-btn { position: fixed; bottom: 24px; right: 24px; z-index: 200; background: #C9A84C; color: #1A1A2E; border: none; padding: 8px 14px; font-size: 11px; cursor: pointer; letter-spacing: 0.08em; font-family: 'Noto Sans JP'; font-weight: 500; box-shadow: 0 4px 16px rgba(201,168,76,0.35); }
+#demo-panel { position: fixed; bottom: 70px; right: 24px; z-index: 200; background: #22223D; border: 1px solid #3A3A5A; padding: 16px; width: 220px; display: none; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+#demo-panel.open { display: block; }
+.demo-section { font-size: 9px; color: #4A4A7A; letter-spacing: 0.25em; text-transform: uppercase; margin: 10px 0 4px; }
+.demo-link { display: block; padding: 5px 8px; font-size: 11px; color: #8080A0; cursor: pointer; }
+.demo-link:hover { color: #C9A84C; background: rgba(201,168,76,0.06); }
+</style>
+</head>
+<body>
+
+<!-- SITE HEADER -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <div>
+      <span class="serif" style="font-size:1.5rem;font-weight:300;letter-spacing:0.35em;color:#E8E0D0;cursor:pointer;" onclick="showPage('top')">SILMO</span>
+      <span style="font-size:0.55rem;color:#C9A84C;margin-left:0.75rem;letter-spacing:0.2em;vertical-align:middle;">SILVER ATELIER</span>
+    </div>
+    <nav style="display:flex;gap:2rem;">
+      <span class="nav-link" onclick="showPage('top')">HOME</span>
+      <span class="nav-link" onclick="showPage('about')">STORY</span>
+      <span class="nav-link" onclick="showPage('products')">COLLECTION</span>
+      <span class="nav-link" onclick="showPage('contact')">CONTACT</span>
+    </nav>
+    <div style="display:flex;gap:1.5rem;align-items:center;">
+      <span class="nav-link" onclick="showPage('login')">ログイン</span>
+      <span class="nav-link" style="position:relative;" onclick="showPage('cart')">
+        CART
+        <span style="position:absolute;top:-6px;right:-10px;background:#C9A84C;color:#1A1A2E;font-size:10px;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;">2</span>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div style="padding-top: 62px;">
+
+<!-- ===== TOP ===== -->
+<div id="page-top" class="page active">
+  <!-- Hero -->
+  <div style="position:relative;height:92vh;overflow:hidden;">
+    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1600&q=80" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.22) saturate(0.6);">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg, rgba(26,26,46,0.75) 0%, rgba(26,26,46,0.25) 100%);"></div>
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 8%;">
+      <p class="serif" style="font-size:0.75rem;letter-spacing:0.6em;color:#C9A84C;margin-bottom:1.2rem;font-style:italic;">— Silver Jewelry Atelier —</p>
+      <h1 class="serif" style="font-size:5.5rem;font-weight:300;color:#F0E8D8;line-height:1.05;letter-spacing:0.02em;margin-bottom:1.5rem;">職人の魂が宿る、<br>真銀の物語。</h1>
+      <div style="width:80px;height:1px;background:linear-gradient(90deg,#C9A84C,transparent);margin-bottom:1.5rem;"></div>
+      <p style="font-size:0.88rem;color:#A0A0C0;line-height:2.3;max-width:520px;margin-bottom:2.5rem;">ひとつのシルバーアクセサリーが生まれるまでに、無数の選択と想いがある。<br>素材の声を聴き、形を与え、光を宿す。それが私たちの仕事です。</p>
+      <div style="display:flex;gap:1rem;">
+        <button class="btn-gold" onclick="showPage('about')">私たちの物語を読む</button>
+        <button class="btn-outline" onclick="showPage('products')">コレクションを見る</button>
+      </div>
+    </div>
+    <div style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);text-align:center;">
+      <p style="font-size:0.58rem;letter-spacing:0.4em;color:#6060A0;">SCROLL</p>
+      <div style="width:1px;height:40px;background:linear-gradient(#6060A0,transparent);margin:0.5rem auto 0;"></div>
+    </div>
+  </div>
+
+  <!-- Philosophy -->
+  <div style="background:#14142A;padding:5rem 8%;">
+    <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:5rem;align-items:center;">
+      <div>
+        <p style="font-size:0.65rem;letter-spacing:0.4em;color:#C9A84C;margin-bottom:1rem;">OUR PHILOSOPHY</p>
+        <h2 class="serif" style="font-size:2.5rem;font-weight:300;color:#F0E8D8;line-height:1.4;margin-bottom:1.5rem;">なぜ、<br>手で作るのか</h2>
+        <div class="gold-line"></div>
+        <p style="font-size:0.83rem;color:#8080A0;line-height:2.5;margin-bottom:1.5rem;">機械では決して生み出せない表情がある。槌打ちの微細なムラ、やすりの跡が作る光の陰影。作り手の呼吸が宿る、生きたシルバー。</p>
+        <button class="btn-outline" onclick="showPage('about')">詳しく読む →</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+        <div class="card-d" style="padding:2rem;">
+          <p class="gold serif" style="font-size:2.5rem;margin-bottom:0.5rem;">10</p>
+          <p style="font-size:0.65rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.75rem;">YEARS</p>
+          <p style="font-size:0.78rem;color:#8080A0;line-height:2;">職人として10年以上、シルバーと向き合い続けた経験</p>
+        </div>
+        <div class="card-d" style="padding:2rem;">
+          <p class="gold serif" style="font-size:2.5rem;margin-bottom:0.5rem;">500<span style="font-size:1.2rem;">+</span></p>
+          <p style="font-size:0.65rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.75rem;">PIECES</p>
+          <p style="font-size:0.78rem;color:#8080A0;line-height:2;">これまでに手がけた作品。すべてが一期一会の出会い</p>
+        </div>
+        <div class="card-d" style="padding:2rem;">
+          <p class="gold serif" style="font-size:2.5rem;margin-bottom:0.5rem;">925</p>
+          <p style="font-size:0.65rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.75rem;">STERLING</p>
+          <p style="font-size:0.78rem;color:#8080A0;line-height:2;">純度92.5%のスターリングシルバーのみを使用</p>
+        </div>
+        <div class="card-d" style="padding:2rem;">
+          <p class="gold serif" style="font-size:2.5rem;margin-bottom:0.5rem;">100<span style="font-size:1.2rem;">%</span></p>
+          <p style="font-size:0.65rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.75rem;">HANDMADE</p>
+          <p style="font-size:0.78rem;color:#8080A0;line-height:2;">すべての工程を手作業で。妥協のない仕上がり</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Arrivals -->
+  <div style="padding:5rem 8%;background:#1A1A2E;">
+    <div style="max-width:1280px;margin:0 auto;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2.5rem;">
+        <div>
+          <p style="font-size:0.62rem;letter-spacing:0.4em;color:#C9A84C;margin-bottom:0.4rem;">LATEST WORKS</p>
+          <h2 class="serif" style="font-size:2rem;font-weight:300;color:#F0E8D8;">新着コレクション</h2>
+        </div>
+        <span class="nav-link" onclick="showPage('products')">ALL COLLECTION →</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;">
+        <div class="product-card" onclick="showPage('product-detail')">
+          <div style="position:relative;aspect-ratio:1;overflow:hidden;"><img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&q=80" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8) saturate(0.9);"></div>
+          <div style="padding:1.2rem;">
+            <p style="font-size:0.58rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.3rem;">RING</p>
+            <p class="serif" style="font-size:0.95rem;color:#E8E0D0;margin-bottom:0.3rem;">Silver Ring No.01</p>
+            <div style="display:flex;align-items:center;gap:0.3rem;margin-bottom:0.4rem;"><span class="star" style="font-size:0.65rem;">★★★★★</span><span style="font-size:0.6rem;color:#4A4A7A;">(24)</span></div>
+            <p class="gold" style="font-size:0.9rem;">¥8,800</p>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('product-detail')">
+          <div style="aspect-ratio:1;overflow:hidden;"><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&q=80" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8) saturate(0.9);"></div>
+          <div style="padding:1.2rem;">
+            <p style="font-size:0.58rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.3rem;">NECKLACE</p>
+            <p class="serif" style="font-size:0.95rem;color:#E8E0D0;margin-bottom:0.3rem;">Feather Necklace</p>
+            <div style="display:flex;align-items:center;gap:0.3rem;margin-bottom:0.4rem;"><span class="star" style="font-size:0.65rem;">★★★★☆</span><span style="font-size:0.6rem;color:#4A4A7A;">(18)</span></div>
+            <p class="gold" style="font-size:0.9rem;">¥12,800</p>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('product-detail')">
+          <div style="aspect-ratio:1;overflow:hidden;"><img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&q=80" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8) saturate(0.9);"></div>
+          <div style="padding:1.2rem;">
+            <p style="font-size:0.58rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.3rem;">BANGLE</p>
+            <p class="serif" style="font-size:0.95rem;color:#E8E0D0;margin-bottom:0.3rem;">Bangle 03</p>
+            <div style="display:flex;align-items:center;gap:0.3rem;margin-bottom:0.4rem;"><span class="star" style="font-size:0.65rem;">★★★★★</span><span style="font-size:0.6rem;color:#4A4A7A;">(31)</span></div>
+            <p class="gold" style="font-size:0.9rem;">¥15,400</p>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('product-detail')">
+          <div style="aspect-ratio:1;overflow:hidden;"><img src="https://images.unsplash.com/photo-1589128777073-263566ae5e4d?w=400&q=80" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8) saturate(0.9);"></div>
+          <div style="padding:1.2rem;">
+            <p style="font-size:0.58rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.3rem;">RING</p>
+            <p class="serif" style="font-size:0.95rem;color:#E8E0D0;margin-bottom:0.3rem;">Signet Ring</p>
+            <div style="display:flex;align-items:center;gap:0.3rem;margin-bottom:0.4rem;"><span class="star" style="font-size:0.65rem;">★★★★☆</span><span style="font-size:0.6rem;color:#4A4A7A;">(12)</span></div>
+            <p class="gold" style="font-size:0.9rem;">¥9,800</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer style="background:#10101E;border-top:1px solid #2E2E4E;padding:4rem 8%;">
+    <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3rem;margin-bottom:2rem;">
+      <div>
+        <p class="serif" style="font-size:1.3rem;letter-spacing:0.4em;color:#A0A0C0;margin-bottom:1rem;">SILMO</p>
+        <p style="font-size:0.75rem;color:#4A4A7A;line-height:2.3;">東京・蔵前のアトリエで生まれるシルバーアクセサリー。職人の手から、あなたの手へ。</p>
+      </div>
+      <div>
+        <p style="font-size:0.62rem;letter-spacing:0.25em;color:#6060A0;margin-bottom:1rem;">NAVIGATION</p>
+        <div style="display:grid;gap:0.5rem;">
+          <span class="nav-link" onclick="showPage('top')">HOME</span>
+          <span class="nav-link" onclick="showPage('about')">STORY</span>
+          <span class="nav-link" onclick="showPage('products')">COLLECTION</span>
+          <span class="nav-link" onclick="showPage('contact')">CONTACT</span>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:0.62rem;letter-spacing:0.25em;color:#6060A0;margin-bottom:1rem;">CONTACT</p>
+        <p style="font-size:0.75rem;color:#4A4A7A;line-height:2.3;">info@silmo-atelier.jp<br>平日 10:00〜18:00</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #2E2E4E;padding-top:1.5rem;text-align:center;">
+      <p style="font-size:0.62rem;color:#3A3A5A;letter-spacing:0.2em;">© 2025 SILMO SILVER ATELIER. ALL RIGHTS RESERVED.</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== ABOUT (STORY) - 3 Chapters ===== -->
+<div id="page-about" class="page">
+  <!-- Story Hero -->
+  <div style="position:relative;height:55vh;overflow:hidden;">
+    <img src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=1600&q=80" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.22) saturate(0.6);">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+      <p style="font-size:0.65rem;letter-spacing:0.5em;color:#C9A84C;margin-bottom:1rem;font-style:italic;" class="serif">— Our Story —</p>
+      <h1 class="serif" style="font-size:3.5rem;font-weight:300;color:#F0E8D8;letter-spacing:0.1em;">職人の物語</h1>
+      <div style="width:40px;height:1px;background:#C9A84C;margin:1.5rem auto 0;"></div>
+    </div>
+  </div>
+
+  <div style="background:#14142A;padding:6rem 8%;">
+    <!-- Chapter 1 -->
+    <div style="max-width:1050px;margin:0 auto 6rem;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;">
+        <div>
+          <p style="font-size:0.62rem;letter-spacing:0.4em;color:#C9A84C;margin-bottom:1rem;">CHAPTER 01</p>
+          <h2 class="serif" style="font-size:2rem;font-weight:300;color:#F0E8D8;line-height:1.5;margin-bottom:1.5rem;">シルバーとの<br>出会い</h2>
+          <div class="gold-line"></div>
+          <p style="font-size:0.83rem;color:#8080A0;line-height:2.8;margin-bottom:1.2rem;">金属工芸を学び始めたのは、20代の頃。初めてシルバーのインゴットを溶かし、形を与えたとき、何か大切なものと繋がった感覚があった。それが私の原点です。</p>
+          <p style="font-size:0.83rem;color:#8080A0;line-height:2.8;margin-bottom:1.2rem;">素材には意志がある。押しつけず、導くように。その対話の中から作品が生まれてくる。10年以上経った今も、その感覚は変わらない。</p>
+          <p style="font-size:0.83rem;color:#8080A0;line-height:2.8;">アトリエの窓から差し込む光の中、今日も槌を持つ。それが私にとっての日常であり、喜びです。</p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=600&q=80" style="width:100%;aspect-ratio:4/5;object-fit:cover;filter:brightness(0.7) saturate(0.8);">
+      </div>
+    </div>
+
+    <!-- Chapter 2 -->
+    <div style="max-width:1050px;margin:0 auto 6rem;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;">
+        <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&q=80" style="width:100%;aspect-ratio:4/5;object-fit:cover;filter:brightness(0.7) saturate(0.8);">
+        <div>
+          <p style="font-size:0.62rem;letter-spacing:0.4em;color:#C9A84C;margin-bottom:1rem;">CHAPTER 02</p>
+          <h2 class="serif" style="font-size:2rem;font-weight:300;color:#F0E8D8;line-height:1.5;margin-bottom:1.5rem;">技法へのこだわり</h2>
+          <div class="gold-line"></div>
+          <p style="font-size:0.83rem;color:#8080A0;line-height:2.8;margin-bottom:1.2rem;">鍛金・鋳造・彫金・ロウ付け。使う技法によって、同じシルバーでも全く異なる表情が生まれます。私はその違いを徹底的に追求してきました。</p>
+          <p style="font-size:0.83rem;color:#8080A0;line-height:2.8;margin-bottom:1.2rem;">特に槌目技法には特別な愛着があります。リズミカルに打つ槌の跡が、光を複雑に反射させ、生き物のような輝きを生み出す。その瞬間が、何度経験しても感動的です。</p>
+          <p style="font-size:0.83rem;color:#8080A0;line-height:2.8;">使い込むほどに育つシルバー。経年変化も含め、それが「完成」だと思っています。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 3 -->
+    <div style="max-width:1050px;margin:0 auto 5rem;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;">
+        <div>
+          <p style="font-size:0.62rem;letter-spacing:0.4em;color:#C9A84C;margin-bottom:1rem;">CHAPTER 03</p>
+          <h2 class="serif" style="font-size:2rem;font-weight:300;color:#F0E8D8;line-height:1.5;margin-bottom:1.5rem;">あなたへ届けること</h2>
+          <div class="gold-line"></div>
+          <p style="font-size:0.83rem;color:#8080A0;line-height:2.8;margin-bottom:1.2rem;">アクセサリーは、身に着ける人と一緒に歴史を刻みます。傷ひとつ、変色ひとつにも、あなたの日常が宿っていく。それが手仕事のアクセサリーの本当の価値だと思います。</p>
+          <p style="font-size:0.83rem;color:#8080A0;line-height:2.8;">箱を開けた瞬間の感動、初めて手にした時の重さと温もり。そのために、すべての工程を丁寧に積み重ねています。</p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=600&q=80" style="width:100%;aspect-ratio:4/5;object-fit:cover;filter:brightness(0.7) saturate(0.8);">
+      </div>
+    </div>
+
+    <!-- Quote Block -->
+    <div style="max-width:700px;margin:0 auto;text-align:center;padding:3rem;border:1px solid #2E2E4E;">
+      <p class="gold serif" style="font-size:0.65rem;letter-spacing:0.4em;margin-bottom:1.5rem;">— MAKER'S WORDS —</p>
+      <p class="serif" style="font-size:1.5rem;font-weight:300;color:#F0E8D8;line-height:1.8;font-style:italic;">"素材と向き合い、使う人を想う。<br>その繰り返しの先に、<br>本物の作品が生まれる。"</p>
+      <div style="width:40px;height:1px;background:#C9A84C;margin:1.5rem auto 0;"></div>
+    </div>
+
+    <!-- Process Photos -->
+    <div style="max-width:1050px;margin:4rem auto 0;">
+      <p style="font-size:0.62rem;letter-spacing:0.4em;color:#C9A84C;margin-bottom:1.5rem;text-align:center;">制作工程</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+        <div>
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&q=80" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.7) saturate(0.8);">
+          <p style="font-size:0.72rem;color:#6060A0;text-align:center;margin-top:0.75rem;letter-spacing:0.1em;">素材の選定</p>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=400&q=80" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.7) saturate(0.8);">
+          <p style="font-size:0.72rem;color:#6060A0;text-align:center;margin-top:0.75rem;letter-spacing:0.1em;">成形・鍛造</p>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&q=80" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.7) saturate(0.8);">
+          <p style="font-size:0.72rem;color:#6060A0;text-align:center;margin-top:0.75rem;letter-spacing:0.1em;">磨き・仕上げ</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div style="text-align:center;margin-top:4rem;">
+      <button class="btn-gold" onclick="showPage('products')">コレクションを見る</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONTACT ===== -->
+<div id="page-contact" class="page">
+  <div style="max-width:580px;margin:0 auto;padding:5rem 2rem;">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <p style="font-size:0.62rem;letter-spacing:0.5em;color:#C9A84C;margin-bottom:1rem;">CONTACT</p>
+      <h1 class="serif" style="font-size:2.2rem;font-weight:300;color:#F0E8D8;margin-bottom:1rem;">お問い合わせ</h1>
+      <div style="width:40px;height:1px;background:#C9A84C;margin:0 auto 1.5rem;"></div>
+      <p style="font-size:0.8rem;color:#8080A0;line-height:2.3;">ご質問、カスタムオーダー、企業・メディアへのご依頼など、<br>なんでもお気軽にご連絡ください。</p>
+    </div>
+    <div class="card-d" style="padding:2rem;">
+      <div style="margin-bottom:1.2rem;"><label style="font-size:0.62rem;letter-spacing:0.15em;color:#6060A0;display:block;margin-bottom:0.4rem;">お名前 *</label><input class="input-d" placeholder="山田 太郎"></div>
+      <div style="margin-bottom:1.2rem;"><label style="font-size:0.62rem;letter-spacing:0.15em;color:#6060A0;display:block;margin-bottom:0.4rem;">メールアドレス *</label><input class="input-d" type="email" placeholder="example@email.com"></div>
+      <div style="margin-bottom:1.2rem;"><label style="font-size:0.62rem;letter-spacing:0.15em;color:#6060A0;display:block;margin-bottom:0.4rem;">件名</label><input class="input-d" placeholder="カスタムオーダーについて"></div>
+      <div style="margin-bottom:1.8rem;"><label style="font-size:0.62rem;letter-spacing:0.15em;color:#6060A0;display:block;margin-bottom:0.4rem;">お問い合わせ内容 *</label><textarea class="input-d" rows="6" style="resize:vertical;" placeholder="ご自由にご記入ください"></textarea></div>
+      <button class="btn-gold" style="width:100%;">送信する</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PRODUCTS ===== -->
+<div id="page-products" class="page">
+  <div style="max-width:1280px;margin:0 auto;padding:4rem 2.5rem;">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <p style="font-size:0.62rem;letter-spacing:0.5em;color:#C9A84C;margin-bottom:0.5rem;">COLLECTION</p>
+      <h1 class="serif" style="font-size:2.2rem;font-weight:300;color:#F0E8D8;">全コレクション</h1>
+    </div>
+    <div style="display:flex;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap;align-items:center;">
+      <input class="input-d" type="text" placeholder="作品を検索..." style="max-width:260px;font-size:0.8rem;">
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <span class="tag active">ALL</span><span class="tag">RING</span><span class="tag">NECKLACE</span><span class="tag">BANGLE</span><span class="tag">BRACELET</span><span class="tag">EARRING</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;">
+      <div class="product-card" onclick="showPage('product-detail')"><div style="aspect-ratio:1;overflow:hidden;"><img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&q=80" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8);"></div><div style="padding:1.2rem;"><p style="font-size:0.58rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.3rem;">RING</p><p class="serif" style="font-size:0.9rem;color:#E8E0D0;margin-bottom:0.3rem;">Silver Ring No.01</p><div style="display:flex;align-items:center;gap:0.3rem;margin-bottom:0.3rem;"><span class="star" style="font-size:0.62rem;">★★★★★</span><span style="font-size:0.58rem;color:#4A4A7A;">(24)</span></div><p class="gold" style="font-size:0.88rem;">¥8,800</p></div></div>
+      <div class="product-card" onclick="showPage('product-detail')"><div style="aspect-ratio:1;overflow:hidden;"><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&q=80" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8);"></div><div style="padding:1.2rem;"><p style="font-size:0.58rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.3rem;">NECKLACE</p><p class="serif" style="font-size:0.9rem;color:#E8E0D0;margin-bottom:0.3rem;">Feather Necklace</p><div style="display:flex;align-items:center;gap:0.3rem;margin-bottom:0.3rem;"><span class="star" style="font-size:0.62rem;">★★★★☆</span><span style="font-size:0.58rem;color:#4A4A7A;">(18)</span></div><p class="gold" style="font-size:0.88rem;">¥12,800</p></div></div>
+      <div class="product-card" onclick="showPage('product-detail')"><div style="aspect-ratio:1;overflow:hidden;"><img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&q=80" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8);"></div><div style="padding:1.2rem;"><p style="font-size:0.58rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.3rem;">BANGLE</p><p class="serif" style="font-size:0.9rem;color:#E8E0D0;margin-bottom:0.3rem;">Bangle 03</p><div style="display:flex;align-items:center;gap:0.3rem;margin-bottom:0.3rem;"><span class="star" style="font-size:0.62rem;">★★★★★</span><span style="font-size:0.58rem;color:#4A4A7A;">(31)</span></div><p class="gold" style="font-size:0.88rem;">¥15,400</p></div></div>
+      <div class="product-card" onclick="showPage('product-detail')"><div style="aspect-ratio:1;overflow:hidden;"><img src="https://images.unsplash.com/photo-1589128777073-263566ae5e4d?w=400&q=80" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8);"></div><div style="padding:1.2rem;"><p style="font-size:0.58rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.3rem;">RING</p><p class="serif" style="font-size:0.9rem;color:#E8E0D0;margin-bottom:0.3rem;">Signet Ring</p><div style="display:flex;align-items:center;gap:0.3rem;margin-bottom:0.3rem;"><span class="star" style="font-size:0.62rem;">★★★★☆</span><span style="font-size:0.58rem;color:#4A4A7A;">(12)</span></div><p class="gold" style="font-size:0.88rem;">¥9,800</p></div></div>
+      <div class="product-card" onclick="showPage('product-detail')"><div style="aspect-ratio:1;overflow:hidden;"><img src="https://images.unsplash.com/photo-1588144377399-aa4f5750c2a5?w=400&q=80" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8);"></div><div style="padding:1.2rem;"><p style="font-size:0.58rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.3rem;">BRACELET</p><p class="serif" style="font-size:0.9rem;color:#E8E0D0;margin-bottom:0.3rem;">Chain Bracelet</p><div style="display:flex;align-items:center;gap:0.3rem;margin-bottom:0.3rem;"><span class="star" style="font-size:0.62rem;">★★★★★</span><span style="font-size:0.58rem;color:#4A4A7A;">(9)</span></div><p class="gold" style="font-size:0.88rem;">¥11,200</p></div></div>
+      <div class="product-card" style="position:relative;opacity:0.6;" onclick="showPage('product-detail')"><div style="aspect-ratio:1;overflow:hidden;"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&q=80" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.5);"></div><div style="position:absolute;top:8px;left:8px;background:#1A1A2E;border:1px solid #3A3A5A;padding:2px 8px;font-size:0.6rem;color:#8080A0;letter-spacing:0.1em;">SOLD OUT</div><div style="padding:1.2rem;"><p style="font-size:0.58rem;letter-spacing:0.2em;color:#4A4A7A;margin-bottom:0.3rem;">NECKLACE</p><p class="serif" style="font-size:0.9rem;color:#6060A0;margin-bottom:0.3rem;">Cross Pendant</p><p style="font-size:0.88rem;color:#4A4A7A;">¥14,600</p></div></div>
+      <div class="product-card" style="position:relative;opacity:0.6;" onclick="showPage('product-detail')"><div style="aspect-ratio:1;overflow:hidden;"><img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?w=400&q=80" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.5);"></div><div style="position:absolute;top:8px;left:8px;background:#1A1A2E;border:1px solid #3A3A5A;padding:2px 8px;font-size:0.6rem;color:#8080A0;letter-spacing:0.1em;">SOLD OUT</div><div style="padding:1.2rem;"><p style="font-size:0.58rem;letter-spacing:0.2em;color:#4A4A7A;margin-bottom:0.3rem;">EARRING</p><p class="serif" style="font-size:0.9rem;color:#6060A0;margin-bottom:0.3rem;">Ear Cuff Set</p><p style="font-size:0.88rem;color:#4A4A7A;">¥6,800</p></div></div>
+      <div class="product-card" onclick="showPage('product-detail')"><div style="position:relative;aspect-ratio:1;overflow:hidden;"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&q=80" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8);"><div style="position:absolute;top:8px;right:8px;background:#C9A84C;color:#1A1A2E;font-size:0.58rem;padding:2px 8px;letter-spacing:0.1em;">残り3</div></div><div style="padding:1.2rem;"><p style="font-size:0.58rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.3rem;">RING</p><p class="serif" style="font-size:0.9rem;color:#E8E0D0;margin-bottom:0.3rem;">Wave Ring</p><div style="display:flex;align-items:center;gap:0.3rem;margin-bottom:0.3rem;"><span class="star" style="font-size:0.62rem;">★★★★★</span><span style="font-size:0.58rem;color:#4A4A7A;">(21)</span></div><p class="gold" style="font-size:0.88rem;">¥7,400</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PRODUCT DETAIL ===== -->
+<div id="page-product-detail" class="page">
+  <div style="max-width:1100px;margin:0 auto;padding:4rem 2.5rem;">
+    <p style="font-size:0.7rem;color:#6060A0;cursor:pointer;margin-bottom:2rem;letter-spacing:0.1em;" onclick="showPage('products')">← COLLECTION</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;">
+      <div>
+        <div style="overflow:hidden;margin-bottom:0.75rem;"><img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=700&q=80" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.85);"></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=150&q=60" style="width:100%;aspect-ratio:1;object-fit:cover;cursor:pointer;filter:brightness(0.7);border:1px solid #C9A84C;">
+          <img src="https://images.unsplash.com/photo-1589128777073-263566ae5e4d?w=150&q=60" style="width:100%;aspect-ratio:1;object-fit:cover;cursor:pointer;filter:brightness(0.7);">
+          <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=150&q=60" style="width:100%;aspect-ratio:1;object-fit:cover;cursor:pointer;filter:brightness(0.7);">
+          <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=150&q=60" style="width:100%;aspect-ratio:1;object-fit:cover;cursor:pointer;filter:brightness(0.7);">
+        </div>
+      </div>
+      <div style="padding-top:0.5rem;">
+        <p style="font-size:0.6rem;letter-spacing:0.3em;color:#6060A0;margin-bottom:0.4rem;">RING</p>
+        <h1 class="serif" style="font-size:2rem;font-weight:300;color:#F0E8D8;margin-bottom:0.5rem;">Silver Ring No.01</h1>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;"><span class="star">★★★★★</span><span style="font-size:0.7rem;color:#6060A0;">24件のレビュー</span></div>
+        <p class="gold serif" style="font-size:1.7rem;font-weight:300;margin-bottom:1rem;">¥8,800 <span style="font-size:0.8rem;color:#6060A0;font-family:'Noto Sans JP';">（税込）</span></p>
+        <hr class="divider">
+        <!-- Maker's Note -->
+        <div style="background:#14142A;border-left:2px solid #C9A84C;padding:1rem 1.2rem;margin-bottom:1.2rem;">
+          <p style="font-size:0.6rem;letter-spacing:0.2em;color:#C9A84C;margin-bottom:0.4rem;">— MAKER'S NOTE —</p>
+          <p class="serif" style="font-size:0.88rem;color:#A0A0C0;line-height:2;font-style:italic;">「槌目の模様は、手で一打一打打ち出したもの。全く同じものは二つと存在しません。あなたの手の上で育つシルバーを楽しんでください。」</p>
+        </div>
+        <p style="font-size:0.82rem;color:#8080A0;line-height:2.5;margin-bottom:1.2rem;">職人が一点一点丁寧に仕上げた純銀リング。シンプルながら繊細な槌目模様が特徴で、どんなスタイルにも馴染む万能なデザインです。</p>
+        <div style="margin-bottom:1.2rem;">
+          <p style="font-size:0.62rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:0.7rem;">SIZE</p>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <button style="width:46px;height:38px;border:1px solid #3A3A5A;background:#22223D;font-size:0.72rem;cursor:pointer;color:#8080A0;">10号</button>
+            <button style="width:46px;height:38px;border:1px solid #C9A84C;background:#C9A84C;font-size:0.72rem;cursor:pointer;color:#1A1A2E;">11号</button>
+            <button style="width:46px;height:38px;border:1px solid #3A3A5A;background:#22223D;font-size:0.72rem;cursor:pointer;color:#8080A0;">12号</button>
+            <button style="width:46px;height:38px;border:1px solid #3A3A5A;background:#22223D;font-size:0.72rem;cursor:pointer;color:#8080A0;">13号</button>
+            <button style="width:46px;height:38px;border:1px solid #3A3A5A;background:#22223D;font-size:0.72rem;cursor:pointer;color:#8080A0;">14号</button>
+          </div>
+        </div>
+        <button class="btn-gold" style="width:100%;margin-bottom:0.75rem;" onclick="showPage('cart')">カートに入れる</button>
+        <button class="btn-outline" style="width:100%;margin-bottom:1.2rem;">♡ お気に入りに追加</button>
+        <div style="font-size:0.72rem;color:#6060A0;line-height:2.5;">
+          <p>素材：Sterling Silver 925</p><p>重量：約8g</p><p>製造：東京・蔵前アトリエ</p><p>配送：3〜7営業日</p>
+        </div>
+      </div>
+    </div>
+    <!-- Reviews -->
+    <div style="margin-top:4rem;padding-top:3rem;border-top:1px solid #2E2E4E;">
+      <h2 class="serif" style="font-size:1.4rem;color:#F0E8D8;font-weight:300;margin-bottom:2rem;">カスタマーレビュー</h2>
+      <div style="display:grid;gap:1.2rem;">
+        <div class="card-d" style="padding:1.5rem;"><div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="font-size:0.82rem;color:#E8E0D0;">山田 美咲</span><span style="font-size:0.62rem;color:#4A4A7A;">2025.04.12</span></div><div class="star" style="font-size:0.75rem;margin-bottom:0.5rem;">★★★★★</div><p style="font-size:0.8rem;color:#8080A0;line-height:2.3;">つけ心地が良く、毎日使っています。作り手のノートを読んで、さらに愛着が湧きました。</p></div>
+        <div class="card-d" style="padding:1.5rem;"><div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="font-size:0.82rem;color:#E8E0D0;">田中 健一</span><span style="font-size:0.62rem;color:#4A4A7A;">2025.03.28</span></div><div class="star" style="font-size:0.75rem;margin-bottom:0.5rem;">★★★★★</div><p style="font-size:0.8rem;color:#8080A0;line-height:2.3;">プレゼントに購入。ブランドの物語に感動し、相手も喜んでくれました。本物の職人の仕事です。</p></div>
+        <div class="card-d" style="padding:1.5rem;"><div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="font-size:0.82rem;color:#E8E0D0;">佐藤 玲奈</span><span style="font-size:0.62rem;color:#4A4A7A;">2025.03.15</span></div><div class="star" style="font-size:0.75rem;margin-bottom:0.5rem;">★★★★☆</div><p style="font-size:0.8rem;color:#8080A0;line-height:2.3;">2ヶ月使い続けていますが、確かに「育っている」感じがします。経年変化が楽しいです。</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CART ===== -->
+<div id="page-cart" class="page">
+  <div style="max-width:880px;margin:0 auto;padding:4rem 2.5rem;">
+    <h1 class="serif" style="font-size:1.8rem;font-weight:300;color:#F0E8D8;margin-bottom:2rem;">ショッピングカート</h1>
+    <div style="display:grid;grid-template-columns:3fr 2fr;gap:2rem;">
+      <div>
+        <div class="card-d" style="display:flex;gap:1.2rem;align-items:center;padding:1.2rem;margin-bottom:0.75rem;">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=100&q=80" style="width:72px;height:72px;object-fit:cover;filter:brightness(0.8);">
+          <div style="flex:1;"><p class="serif" style="font-size:0.88rem;color:#E8E0D0;margin-bottom:0.2rem;">Silver Ring No.01</p><p style="font-size:0.7rem;color:#6060A0;">サイズ：11号</p></div>
+          <div style="display:flex;align-items:center;gap:0.4rem;"><button style="width:26px;height:26px;border:1px solid #3A3A5A;background:#22223D;color:#A0A0C0;cursor:pointer;font-size:0.8rem;">−</button><span style="font-size:0.82rem;padding:0 0.4rem;color:#E8E0D0;">1</span><button style="width:26px;height:26px;border:1px solid #3A3A5A;background:#22223D;color:#A0A0C0;cursor:pointer;font-size:0.8rem;">+</button></div>
+          <p class="gold" style="font-size:0.88rem;min-width:60px;text-align:right;">¥8,800</p>
+          <button style="border:none;background:none;color:#4A4A7A;cursor:pointer;font-size:0.8rem;">✕</button>
+        </div>
+        <div class="card-d" style="display:flex;gap:1.2rem;align-items:center;padding:1.2rem;">
+          <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=100&q=80" style="width:72px;height:72px;object-fit:cover;filter:brightness(0.8);">
+          <div style="flex:1;"><p class="serif" style="font-size:0.88rem;color:#E8E0D0;margin-bottom:0.2rem;">Feather Necklace</p><p style="font-size:0.7rem;color:#6060A0;">チェーン：45cm</p></div>
+          <div style="display:flex;align-items:center;gap:0.4rem;"><button style="width:26px;height:26px;border:1px solid #3A3A5A;background:#22223D;color:#A0A0C0;cursor:pointer;font-size:0.8rem;">−</button><span style="font-size:0.82rem;padding:0 0.4rem;color:#E8E0D0;">1</span><button style="width:26px;height:26px;border:1px solid #3A3A5A;background:#22223D;color:#A0A0C0;cursor:pointer;font-size:0.8rem;">+</button></div>
+          <p class="gold" style="font-size:0.88rem;min-width:60px;text-align:right;">¥12,800</p>
+          <button style="border:none;background:none;color:#4A4A7A;cursor:pointer;font-size:0.8rem;">✕</button>
+        </div>
+        <button style="background:none;border:none;color:#6060A0;font-size:0.72rem;cursor:pointer;margin-top:1rem;letter-spacing:0.05em;" onclick="showPage('products')">← 買い物を続ける</button>
+      </div>
+      <div class="card-d" style="padding:1.5rem;align-self:start;">
+        <h3 style="font-size:0.65rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:1.2rem;">ORDER SUMMARY</h3>
+        <div style="font-size:0.8rem;margin-bottom:1.2rem;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:0.6rem;"><span style="color:#8080A0;">小計</span><span style="color:#E8E0D0;">¥21,600</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:0.6rem;"><span style="color:#8080A0;">送料</span><span style="color:#E8E0D0;">¥800</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:#8080A0;">消費税</span><span style="color:#E8E0D0;">¥2,160</span></div>
+        </div>
+        <hr class="divider">
+        <div style="display:flex;justify-content:space-between;margin-bottom:1.5rem;"><span class="gold" style="font-size:0.75rem;letter-spacing:0.1em;">合計</span><span class="gold serif" style="font-size:1.2rem;font-weight:300;">¥24,560</span></div>
+        <button class="btn-gold" style="width:100%;" onclick="showPage('checkout')">決済へ進む</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CHECKOUT ===== -->
+<div id="page-checkout" class="page">
+  <div style="max-width:800px;margin:0 auto;padding:4rem 2.5rem;">
+    <div style="display:flex;align-items:center;justify-content:center;margin-bottom:3rem;">
+      <div style="text-align:center;"><div style="width:30px;height:30px;background:#C9A84C;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.68rem;color:#1A1A2E;margin:0 auto 0.3rem;font-weight:bold;">1</div><p style="font-size:0.58rem;color:#C9A84C;letter-spacing:0.1em;">CART</p></div>
+      <div style="width:50px;height:1px;background:#C9A84C;"></div>
+      <div style="text-align:center;"><div style="width:30px;height:30px;background:#C9A84C;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.68rem;color:#1A1A2E;margin:0 auto 0.3rem;font-weight:bold;">2</div><p style="font-size:0.58rem;color:#C9A84C;letter-spacing:0.1em;">INFO</p></div>
+      <div style="width:50px;height:1px;background:#2E2E4E;"></div>
+      <div style="text-align:center;"><div style="width:30px;height:30px;background:#22223D;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.68rem;color:#6060A0;margin:0 auto 0.3rem;">3</div><p style="font-size:0.58rem;color:#6060A0;">CONFIRM</p></div>
+      <div style="width:50px;height:1px;background:#2E2E4E;"></div>
+      <div style="text-align:center;"><div style="width:30px;height:30px;background:#22223D;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.68rem;color:#6060A0;margin:0 auto 0.3rem;">4</div><p style="font-size:0.58rem;color:#6060A0;">DONE</p></div>
+    </div>
+    <div style="display:grid;grid-template-columns:3fr 2fr;gap:2rem;">
+      <div>
+        <div class="card-d" style="padding:1.5rem;margin-bottom:1rem;">
+          <h3 style="font-size:0.65rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:1rem;">配送先情報</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;"><div><label style="font-size:0.62rem;color:#6060A0;display:block;margin-bottom:0.3rem;">姓</label><input class="input-d" placeholder="山田"></div><div><label style="font-size:0.62rem;color:#6060A0;display:block;margin-bottom:0.3rem;">名</label><input class="input-d" placeholder="太郎"></div></div>
+          <div style="margin-bottom:0.75rem;"><label style="font-size:0.62rem;color:#6060A0;display:block;margin-bottom:0.3rem;">郵便番号</label><input class="input-d" placeholder="000-0000"></div>
+          <div style="margin-bottom:0.75rem;"><label style="font-size:0.62rem;color:#6060A0;display:block;margin-bottom:0.3rem;">住所</label><input class="input-d" placeholder="東京都渋谷区〇〇1-2-3"></div>
+          <div><label style="font-size:0.62rem;color:#6060A0;display:block;margin-bottom:0.3rem;">電話番号</label><input class="input-d" placeholder="090-0000-0000"></div>
+        </div>
+        <div class="card-d" style="padding:1.5rem;">
+          <h3 style="font-size:0.65rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:1rem;">お支払い方法</h3>
+          <div style="display:grid;gap:0.5rem;">
+            <label style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid #C9A84C;cursor:pointer;font-size:0.8rem;color:#E8E0D0;"><input type="radio" name="pay" checked style="accent-color:#C9A84C;"> クレジットカード</label>
+            <label style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid #2E2E4E;cursor:pointer;font-size:0.8rem;color:#8080A0;"><input type="radio" name="pay"> コンビニ払い</label>
+            <label style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid #2E2E4E;cursor:pointer;font-size:0.8rem;color:#8080A0;"><input type="radio" name="pay"> 銀行振込</label>
+          </div>
+        </div>
+        <button class="btn-gold" style="width:100%;margin-top:1.5rem;" onclick="showPage('checkout-complete')">注文を確定する</button>
+      </div>
+      <div class="card-d" style="padding:1.5rem;align-self:start;">
+        <h3 style="font-size:0.65rem;letter-spacing:0.2em;color:#6060A0;margin-bottom:1.2rem;">ご注文内容</h3>
+        <div style="font-size:0.78rem;margin-bottom:1.2rem;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:#8080A0;">Silver Ring No.01</span><span style="color:#E8E0D0;">¥8,800</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:#8080A0;">Feather Necklace</span><span style="color:#E8E0D0;">¥12,800</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:#8080A0;">送料</span><span style="color:#E8E0D0;">¥800</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:#8080A0;">消費税</span><span style="color:#E8E0D0;">¥2,160</span></div>
+        </div>
+        <hr class="divider">
+        <div style="display:flex;justify-content:space-between;"><span class="gold" style="font-size:0.75rem;">合計</span><span class="gold serif" style="font-size:1.2rem;font-weight:300;">¥24,560</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CHECKOUT COMPLETE ===== -->
+<div id="page-checkout-complete" class="page">
+  <div style="max-width:520px;margin:0 auto;padding:6rem 2rem;text-align:center;">
+    <div style="width:60px;height:60px;border:1px solid #C9A84C;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;font-size:1.3rem;color:#C9A84C;">✓</div>
+    <p style="font-size:0.62rem;letter-spacing:0.5em;color:#C9A84C;margin-bottom:1rem;">ORDER COMPLETE</p>
+    <h1 class="serif" style="font-size:2rem;font-weight:300;color:#F0E8D8;margin-bottom:1.5rem;">ご注文ありがとうございます</h1>
+    <div style="width:40px;height:1px;background:#C9A84C;margin:0 auto 1.5rem;"></div>
+    <p style="font-size:0.82rem;color:#8080A0;line-height:2.5;margin-bottom:2rem;">注文番号：<span class="gold">#SILMO-20250524-0047</span><br>確認メールをお送りしました。<br>職人が心を込めて制作・梱包してお届けします。</p>
+    <div style="display:flex;gap:1rem;justify-content:center;">
+      <button class="btn-outline" onclick="showPage('mypage')">マイページへ</button>
+      <button class="btn-gold" onclick="showPage('top')">TOPへ戻る</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LOGIN ===== -->
+<div id="page-login" class="page">
+  <div style="max-width:420px;margin:0 auto;padding:5rem 2rem;">
+    <div style="text-align:center;margin-bottom:2.5rem;">
+      <p class="serif" style="font-size:1.5rem;letter-spacing:0.4em;color:#E8E0D0;margin-bottom:0.3rem;">SILMO</p>
+      <p style="font-size:0.6rem;letter-spacing:0.3em;color:#6060A0;">MEMBER LOGIN</p>
+    </div>
+    <div class="card-d" style="padding:2rem;">
+      <div style="margin-bottom:1.2rem;"><label style="font-size:0.62rem;letter-spacing:0.15em;color:#6060A0;display:block;margin-bottom:0.4rem;">メールアドレス</label><input class="input-d" type="email" placeholder="example@email.com"></div>
+      <div style="margin-bottom:2rem;"><label style="font-size:0.62rem;letter-spacing:0.15em;color:#6060A0;display:block;margin-bottom:0.4rem;">パスワード</label><input class="input-d" type="password" placeholder="••••••••"></div>
+      <button class="btn-gold" style="width:100%;margin-bottom:1.2rem;" onclick="showPage('mypage')">ログイン</button>
+      <div style="text-align:center;font-size:0.72rem;color:#6060A0;"><span style="cursor:pointer;" onclick="showPage('register')">新規会員登録</span><span style="margin:0 0.5rem;color:#2E2E4E;">|</span><span style="cursor:pointer;">パスワードをお忘れの方</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REGISTER ===== -->
+<div id="page-register" class="page">
+  <div style="max-width:420px;margin:0 auto;padding:4rem 2rem;">
+    <div style="text-align:center;margin-bottom:2.5rem;"><p style="font-size:0.62rem;letter-spacing:0.4em;color:#C9A84C;margin-bottom:0.5rem;">NEW MEMBER</p><h1 class="serif" style="font-size:1.8rem;font-weight:300;color:#F0E8D8;">会員登録</h1></div>
+    <div class="card-d" style="padding:2rem;">
+      <div style="margin-bottom:1.1rem;"><label style="font-size:0.62rem;color:#6060A0;display:block;margin-bottom:0.4rem;">お名前</label><input class="input-d" placeholder="山田 太郎"></div>
+      <div style="margin-bottom:1.1rem;"><label style="font-size:0.62rem;color:#6060A0;display:block;margin-bottom:0.4rem;">メールアドレス</label><input class="input-d" type="email" placeholder="example@email.com"></div>
+      <div style="margin-bottom:1.1rem;"><label style="font-size:0.62rem;color:#6060A0;display:block;margin-bottom:0.4rem;">パスワード</label><input class="input-d" type="password" placeholder="8文字以上"></div>
+      <div style="margin-bottom:1.8rem;"><label style="font-size:0.62rem;color:#6060A0;display:block;margin-bottom:0.4rem;">パスワード確認</label><input class="input-d" type="password" placeholder="もう一度入力"></div>
+      <div style="margin-bottom:1.2rem;"><label style="display:flex;align-items:flex-start;gap:8px;font-size:0.72rem;color:#6060A0;cursor:pointer;"><input type="checkbox" style="accent-color:#C9A84C;margin-top:2px;">利用規約およびプライバシーポリシーに同意します</label></div>
+      <button class="btn-gold" style="width:100%;margin-bottom:1rem;" onclick="showPage('mypage')">登録する</button>
+      <p style="text-align:center;font-size:0.7rem;color:#6060A0;cursor:pointer;" onclick="showPage('login')">すでに会員の方はこちら</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MYPAGE ===== -->
+<div id="page-mypage" class="page">
+  <div style="max-width:920px;margin:0 auto;padding:4rem 2.5rem;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem;">
+      <div><p style="font-size:0.62rem;letter-spacing:0.3em;color:#C9A84C;margin-bottom:0.3rem;">MEMBER AREA</p><h1 class="serif" style="font-size:1.8rem;font-weight:300;color:#F0E8D8;">マイページ</h1></div>
+      <p style="font-size:0.8rem;color:#8080A0;">山田 太郎 様</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2.5rem;">
+      <div class="card-d" style="padding:1.5rem;text-align:center;"><p style="font-size:0.6rem;letter-spacing:0.15em;color:#6060A0;margin-bottom:0.5rem;">POINTS</p><p class="gold serif" style="font-size:1.8rem;font-weight:300;">1,240 pt</p></div>
+      <div class="card-d" style="padding:1.5rem;text-align:center;"><p style="font-size:0.6rem;letter-spacing:0.15em;color:#6060A0;margin-bottom:0.5rem;">注文数</p><p class="serif" style="font-size:1.8rem;font-weight:300;color:#E8E0D0;">8 件</p></div>
+      <div class="card-d" style="padding:1.5rem;text-align:center;"><p style="font-size:0.6rem;letter-spacing:0.15em;color:#6060A0;margin-bottom:0.5rem;">お気に入り</p><p class="serif" style="font-size:1.8rem;font-weight:300;color:#E8E0D0;">3 点</p></div>
+    </div>
+    <h2 style="font-size:0.65rem;letter-spacing:0.25em;color:#6060A0;margin-bottom:1rem;">ORDER HISTORY</h2>
+    <div class="card-d" style="overflow:hidden;">
+      <table style="width:100%;border-collapse:collapse;">
+        <thead><tr><th style="background:#14142A;color:#6060A0;font-size:0.62rem;letter-spacing:0.15em;padding:10px 14px;text-align:left;border-bottom:1px solid #2E2E4E;font-weight:400;">注文番号</th><th style="background:#14142A;color:#6060A0;font-size:0.62rem;letter-spacing:0.15em;padding:10px 14px;text-align:left;border-bottom:1px solid #2E2E4E;font-weight:400;">注文日</th><th style="background:#14142A;color:#6060A0;font-size:0.62rem;letter-spacing:0.15em;padding:10px 14px;text-align:left;border-bottom:1px solid #2E2E4E;font-weight:400;">商品</th><th style="background:#14142A;color:#6060A0;font-size:0.62rem;letter-spacing:0.15em;padding:10px 14px;text-align:left;border-bottom:1px solid #2E2E4E;font-weight:400;">金額</th><th style="background:#14142A;color:#6060A0;font-size:0.62rem;letter-spacing:0.15em;padding:10px 14px;text-align:left;border-bottom:1px solid #2E2E4E;font-weight:400;">状態</th><th style="background:#14142A;padding:10px 14px;border-bottom:1px solid #2E2E4E;"></th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #22223D;"><td style="padding:10px 14px;font-size:0.8rem;color:#A0A0C0;">#SILMO-0047</td><td style="padding:10px 14px;font-size:0.8rem;color:#A0A0C0;">2025.05.24</td><td style="padding:10px 14px;font-size:0.8rem;color:#A0A0C0;">Silver Ring No.01 他1点</td><td style="padding:10px 14px;font-size:0.8rem;" class="gold">¥24,560</td><td style="padding:10px 14px;"><span style="background:#2A1800;color:#FBB040;border:1px solid #3A2800;padding:2px 8px;font-size:0.63rem;border-radius:2px;">処理中</span></td><td style="padding:10px 14px;"><span class="gold" style="cursor:pointer;font-size:0.72rem;" onclick="showPage('order-detail')">詳細 →</span></td></tr>
+          <tr style="border-bottom:1px solid #22223D;"><td style="padding:10px 14px;font-size:0.8rem;color:#A0A0C0;">#SILMO-0038</td><td style="padding:10px 14px;font-size:0.8rem;color:#A0A0C0;">2025.04.12</td><td style="padding:10px 14px;font-size:0.8rem;color:#A0A0C0;">Bangle 03</td><td style="padding:10px 14px;font-size:0.8rem;" class="gold">¥15,400</td><td style="padding:10px 14px;"><span style="background:#001820;color:#34D399;border:1px solid #002830;padding:2px 8px;font-size:0.63rem;border-radius:2px;">完了</span></td><td style="padding:10px 14px;"><span class="gold" style="cursor:pointer;font-size:0.72rem;" onclick="showPage('order-detail')">詳細 →</span></td></tr>
+          <tr><td style="padding:10px 14px;font-size:0.8rem;color:#A0A0C0;">#SILMO-0029</td><td style="padding:10px 14px;font-size:0.8rem;color:#A0A0C0;">2025.03.01</td><td style="padding:10px 14px;font-size:0.8rem;color:#A0A0C0;">Feather Necklace</td><td style="padding:10px 14px;font-size:0.8rem;" class="gold">¥12,800</td><td style="padding:10px 14px;"><span style="background:#001820;color:#34D399;border:1px solid #002830;padding:2px 8px;font-size:0.63rem;border-radius:2px;">完了</span></td><td style="padding:10px 14px;"><span class="gold" style="cursor:pointer;font-size:0.72rem;" onclick="showPage('order-detail')">詳細 →</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:1.5rem;text-align:right;">
+      <button style="background:none;border:none;color:#6060A0;font-size:0.72rem;cursor:pointer;letter-spacing:0.05em;" onclick="showPage('login')">ログアウト</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ORDER DETAIL ===== -->
+<div id="page-order-detail" class="page">
+  <div style="max-width:720px;margin:0 auto;padding:4rem 2.5rem;">
+    <button style="background:none;border:none;color:#6060A0;cursor:pointer;font-size:0.7rem;letter-spacing:0.1em;margin-bottom:1.5rem;" onclick="showPage('mypage')">← ORDER HISTORY</button>
+    <h1 class="serif" style="font-size:1.6rem;font-weight:300;color:#F0E8D8;margin-bottom:0.5rem;">注文詳細</h1>
+    <p style="font-size:0.7rem;color:#6060A0;margin-bottom:2.5rem;">#SILMO-0047　2025年5月24日</p>
+    <div style="display:grid;gap:0.75rem;margin-bottom:2rem;">
+      <div class="card-d" style="display:flex;gap:1.2rem;align-items:center;padding:1rem;">
+        <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=80" style="width:64px;height:64px;object-fit:cover;filter:brightness(0.8);">
+        <div style="flex:1;"><p class="serif" style="font-size:0.88rem;color:#E8E0D0;">Silver Ring No.01</p><p style="font-size:0.7rem;color:#6060A0;">サイズ：11号 ×1</p></div>
+        <p class="gold">¥8,800</p>
+      </div>
+      <div class="card-d" style="display:flex;gap:1.2rem;align-items:center;padding:1rem;">
+        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=80" style="width:64px;height:64px;object-fit:cover;filter:brightness(0.8);">
+        <div style="flex:1;"><p class="serif" style="font-size:0.88rem;color:#E8E0D0;">Feather Necklace</p><p style="font-size:0.7rem;color:#6060A0;">チェーン：45cm ×1</p></div>
+        <p class="gold">¥12,800</p>
+      </div>
+    </div>
+    <div class="card-d" style="padding:1.5rem;font-size:0.78rem;color:#8080A0;line-height:2.5;">
+      <p>配送先：東京都渋谷区〇〇1-2-3</p>
+      <p>お支払い：クレジットカード</p>
+      <p>合計：<span class="gold">¥24,560</span></p>
+      <p>ステータス：<span style="background:#2A1800;color:#FBB040;border:1px solid #3A2800;padding:2px 8px;font-size:0.63rem;border-radius:2px;">処理中</span></p>
+    </div>
+    <div style="text-align:center;margin-top:2rem;">
+      <button class="btn-outline" onclick="showPage('mypage')">マイページへ戻る</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- end padding-top wrapper -->
+
+<!-- DEMO Navigation Button -->
+<button id="demo-btn" onclick="toggleDemo()">DEMO</button>
+<div id="demo-panel">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+    <span style="font-size:11px;font-weight:500;color:#E8E0D0;font-family:'Noto Sans JP';letter-spacing:0.05em;">ページ一覧</span>
+    <span onclick="toggleDemo()" style="cursor:pointer;color:#6060A0;font-size:14px;">✕</span>
+  </div>
+  <div class="demo-section">HP</div>
+  <span class="demo-link" onclick="showPage('top');toggleDemo()">① トップページ</span>
+  <span class="demo-link" onclick="showPage('about');toggleDemo()">② ブランドストーリー</span>
+  <span class="demo-link" onclick="showPage('contact');toggleDemo()">③ お問い合わせ</span>
+  <div class="demo-section">ショップ</div>
+  <span class="demo-link" onclick="showPage('products');toggleDemo()">④ コレクション一覧</span>
+  <span class="demo-link" onclick="showPage('product-detail');toggleDemo()">⑤ 商品詳細</span>
+  <span class="demo-link" onclick="showPage('cart');toggleDemo()">⑥ カート</span>
+  <span class="demo-link" onclick="showPage('checkout');toggleDemo()">⑦ お支払い</span>
+  <span class="demo-link" onclick="showPage('checkout-complete');toggleDemo()">⑧ 注文完了</span>
+  <div class="demo-section">マイページ</div>
+  <span class="demo-link" onclick="showPage('login');toggleDemo()">⑨ ログイン</span>
+  <span class="demo-link" onclick="showPage('register');toggleDemo()">⑩ 新規登録</span>
+  <span class="demo-link" onclick="showPage('mypage');toggleDemo()">⑪ マイページ</span>
+  <span class="demo-link" onclick="showPage('order-detail');toggleDemo()">⑫ 注文詳細</span>
+</div>
+
+<script>
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + pageId);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+}
+function toggleDemo() {
+  const panel = document.getElementById('demo-panel');
+  panel.classList.toggle('open');
+}
+</script>
+</body>
+</html>

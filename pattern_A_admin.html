@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SILMO ADMIN - Pattern A</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Noto Serif JP', serif; background: #0D0D0D; color: #C0C0C0; margin: 0; }
+  .gold { color: #B8960C; }
+  .dark-card { background: #1A1A1A; border: 1px solid #2A2A2A; }
+  .page { display: none; }
+  .page.active { display: block; }
+  .btn-gold { background: #B8960C; color: #0D0D0D; font-weight: 600; letter-spacing: 0.1em; padding: 0.6rem 1.5rem; cursor: pointer; transition: all 0.3s; border: none; font-size: 0.75rem; }
+  .btn-gold:hover { background: #D4A820; }
+  .btn-outline { border: 1px solid #B8960C; color: #B8960C; padding: 0.6rem 1.5rem; cursor: pointer; background: transparent; transition: all 0.3s; letter-spacing: 0.05em; font-size: 0.75rem; }
+  .btn-outline:hover { background: #B8960C; color: #0D0D0D; }
+  .input-dark { background: #111; border: 1px solid #2A2A2A; color: #C0C0C0; padding: 0.6rem 0.8rem; width: 100%; outline: none; font-size: 0.82rem; font-family: 'Noto Serif JP', serif; }
+  .input-dark:focus { border-color: #B8960C; }
+  .sidebar { background: #080808; border-right: 1px solid #1A1A1A; width: 220px; min-height: calc(100vh - 48px); flex-shrink: 0; }
+  .sidebar-link { display: block; padding: 0.6rem 1.5rem; color: #555; font-size: 0.7rem; letter-spacing: 0.08em; cursor: pointer; border-left: 2px solid transparent; transition: all 0.2s; }
+  .sidebar-link:hover { color: #C0C0C0; background: #111; }
+  .sidebar-link.active { color: #B8960C; border-left-color: #B8960C; background: #111; }
+  .sidebar-section { color: #333; font-size: 0.58rem; letter-spacing: 0.25em; padding: 1rem 1.5rem 0.3rem; text-transform: uppercase; }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #0A0A0A; color: #555; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #1A1A1A; font-weight: 400; }
+  td { padding: 0.75rem 1rem; border-bottom: 1px solid #141414; font-size: 0.78rem; color: #AAA; }
+  tr:hover td { background: #111; }
+  .badge { display: inline-block; padding: 0.15rem 0.55rem; font-size: 0.62rem; border-radius: 2px; }
+  .badge-pending { background: #2A1A00; color: #F59E0B; }
+  .badge-shipped { background: #0A1A2A; color: #60A5FA; }
+  .badge-done { background: #0A1A0A; color: #34D399; }
+  .badge-alert { background: #1A0A0A; color: #F87171; }
+  ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: #0D0D0D; } ::-webkit-scrollbar-thumb { background: #2A2A2A; }
+  .admin-topbar { background: #050505; border-bottom: 1px solid #1A1A1A; height: 48px; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .content-area { flex: 1; padding: 2rem; background: #0D0D0D; min-height: calc(100vh - 48px); overflow-y: auto; }
+  .stat-card { background: #111; border: 1px solid #1E1E1E; padding: 1.25rem; }
+  .breadcrumb { font-size: 0.65rem; color: #444; letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+  .breadcrumb span { color: #666; }
+</style>
+</head>
+<body>
+
+<!-- TOP ADMIN BAR -->
+<div class="admin-topbar">
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:0.3em;color:#C0C0C0;">SILMO</span>
+    <span style="color:#2A2A2A;font-size:0.8rem;">|</span>
+    <span style="font-size:0.6rem;letter-spacing:0.2em;color:#555;text-transform:uppercase;">Admin Panel</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:1.5rem;">
+    <span style="font-size:0.72rem;color:#666;">管理者：admin@silmo.jp</span>
+    <a href="pattern_A_customer.html" target="_blank" style="font-size:0.7rem;color:#B8960C;text-decoration:none;border:1px solid #B8960C;padding:0.25rem 0.8rem;letter-spacing:0.08em;transition:all 0.2s;" onmouseover="this.style.background='#B8960C';this.style.color='#0D0D0D'" onmouseout="this.style.background='transparent';this.style.color='#B8960C'">サイトを表示 ↗</a>
+    <span style="font-size:0.7rem;color:#444;cursor:pointer;letter-spacing:0.08em;" onmouseover="this.style.color='#C0C0C0'" onmouseout="this.style.color='#444'">ログアウト</span>
+  </div>
+</div>
+
+<div style="padding-top:48px;display:flex;min-height:100vh;">
+
+<!-- ===== ADMIN DASHBOARD ===== -->
+<div id="page-admin-dashboard" class="page active" style="display:flex;width:100%;">
+  <div class="sidebar">
+    <p class="sidebar-section">ダッシュボード</p>
+    <span class="sidebar-link active" onclick="showPage('admin-dashboard')">ダッシュボード</span>
+    <p class="sidebar-section">商品管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-products')">商品一覧</span>
+    <span class="sidebar-link" onclick="showPage('admin-product-add')">商品を追加</span>
+    <p class="sidebar-section">注文管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-orders')">注文一覧</span>
+    <p class="sidebar-section">サイト管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-pages')">ページ管理</span>
+    <p class="sidebar-section">アカウント</p>
+    <span class="sidebar-link" style="color:#B8960C;"><a href="pattern_A_customer.html" target="_blank" style="color:inherit;text-decoration:none;">サイトを表示</a></span>
+    <span class="sidebar-link">ログアウト</span>
+  </div>
+  <div class="content-area">
+    <p class="breadcrumb">ダッシュボード</p>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.5rem;">
+      <h1 style="font-size:1.1rem;color:#E0E0E0;font-weight:400;">ダッシュボード</h1>
+      <p style="font-size:0.7rem;color:#444;">2025年5月24日（土）</p>
+    </div>
+    <!-- Stat Cards -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;">
+      <div class="stat-card">
+        <p style="font-size:0.6rem;letter-spacing:0.15em;color:#555;margin-bottom:0.5rem;text-transform:uppercase;">今日の売上</p>
+        <p class="gold" style="font-size:1.5rem;font-family:'Cormorant Garamond',serif;margin-bottom:0.3rem;">¥128,400</p>
+        <p style="font-size:0.62rem;color:#34D399;">↑ 前日比 +12%</p>
+      </div>
+      <div class="stat-card">
+        <p style="font-size:0.6rem;letter-spacing:0.15em;color:#555;margin-bottom:0.5rem;text-transform:uppercase;">注文数</p>
+        <p style="font-size:1.5rem;color:#C0C0C0;font-family:'Cormorant Garamond',serif;margin-bottom:0.3rem;">23 件</p>
+        <p style="font-size:0.62rem;color:#34D399;">↑ 前日比 +5件</p>
+      </div>
+      <div class="stat-card">
+        <p style="font-size:0.6rem;letter-spacing:0.15em;color:#555;margin-bottom:0.5rem;text-transform:uppercase;">アクセス</p>
+        <p style="font-size:1.5rem;color:#C0C0C0;font-family:'Cormorant Garamond',serif;margin-bottom:0.3rem;">1,240 PV</p>
+        <p style="font-size:0.62rem;color:#60A5FA;">→ 前日比 ±0%</p>
+      </div>
+      <div class="stat-card">
+        <p style="font-size:0.6rem;letter-spacing:0.15em;color:#555;margin-bottom:0.5rem;text-transform:uppercase;">在庫アラート</p>
+        <p style="font-size:1.5rem;color:#F87171;font-family:'Cormorant Garamond',serif;margin-bottom:0.3rem;">2 件</p>
+        <p style="font-size:0.62rem;color:#F87171;">⚠ 在庫切れあり</p>
+      </div>
+    </div>
+    <!-- Recent Orders -->
+    <div class="dark-card p-4 mb-4">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+        <h3 style="font-size:0.7rem;letter-spacing:0.2em;color:#666;">直近の注文</h3>
+        <span style="font-size:0.68rem;color:#B8960C;cursor:pointer;" onclick="showPage('admin-orders')">すべて見る →</span>
+      </div>
+      <table>
+        <thead><tr><th>注文番号</th><th>顧客名</th><th>商品</th><th>金額</th><th>ステータス</th></tr></thead>
+        <tbody>
+          <tr><td>#0047</td><td>山田 美咲</td><td>Silver Ring No.01 他1点</td><td class="gold">¥24,560</td><td><span class="badge badge-pending">未対応</span></td></tr>
+          <tr><td>#0046</td><td>田中 健一</td><td>Bangle 03</td><td class="gold">¥15,400</td><td><span class="badge badge-shipped">発送済</span></td></tr>
+          <tr><td>#0045</td><td>佐藤 玲奈</td><td>Feather Necklace</td><td class="gold">¥12,800</td><td><span class="badge badge-shipped">発送済</span></td></tr>
+          <tr><td>#0044</td><td>鈴木 陽介</td><td>Wave Ring</td><td class="gold">¥7,400</td><td><span class="badge badge-done">完了</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Stock Alerts -->
+    <div class="dark-card p-4">
+      <h3 style="font-size:0.7rem;letter-spacing:0.2em;color:#666;margin-bottom:1rem;">在庫アラート</h3>
+      <div style="display:flex;gap:1rem;">
+        <div style="background:#1A0A0A;border:1px solid #3A1A1A;padding:1rem;flex:1;"><p style="font-size:0.75rem;color:#F87171;margin-bottom:0.2rem;">Ear Cuff Set</p><p style="font-size:0.68rem;color:#555;">在庫：0点 <span style="color:#F87171;">（在庫切れ）</span></p><button class="btn-outline" style="margin-top:0.75rem;font-size:0.62rem;padding:0.25rem 0.6rem;" onclick="showPage('admin-product-edit')">編集</button></div>
+        <div style="background:#1A0A0A;border:1px solid #3A1A1A;padding:1rem;flex:1;"><p style="font-size:0.75rem;color:#F87171;margin-bottom:0.2rem;">Cross Pendant</p><p style="font-size:0.68rem;color:#555;">在庫：0点 <span style="color:#F87171;">（在庫切れ）</span></p><button class="btn-outline" style="margin-top:0.75rem;font-size:0.62rem;padding:0.25rem 0.6rem;" onclick="showPage('admin-product-edit')">編集</button></div>
+        <div style="background:#0A1A0A;border:1px solid #1A3A1A;padding:1rem;flex:1;"><p style="font-size:0.75rem;color:#34D399;margin-bottom:0.2rem;">Wave Ring</p><p style="font-size:0.68rem;color:#555;">在庫：3点 <span style="color:#F59E0B;">（残り少）</span></p><button class="btn-outline" style="margin-top:0.75rem;font-size:0.62rem;padding:0.25rem 0.6rem;" onclick="showPage('admin-product-edit')">編集</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADMIN PRODUCTS ===== -->
+<div id="page-admin-products" class="page" style="display:none;width:100%;">
+  <div class="sidebar">
+    <p class="sidebar-section">ダッシュボード</p>
+    <span class="sidebar-link" onclick="showPage('admin-dashboard')">ダッシュボード</span>
+    <p class="sidebar-section">商品管理</p>
+    <span class="sidebar-link active" onclick="showPage('admin-products')">商品一覧</span>
+    <span class="sidebar-link" onclick="showPage('admin-product-add')">商品を追加</span>
+    <p class="sidebar-section">注文管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-orders')">注文一覧</span>
+    <p class="sidebar-section">サイト管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-pages')">ページ管理</span>
+    <p class="sidebar-section">アカウント</p>
+    <span class="sidebar-link" style="color:#B8960C;"><a href="pattern_A_customer.html" target="_blank" style="color:inherit;text-decoration:none;">サイトを表示</a></span>
+    <span class="sidebar-link">ログアウト</span>
+  </div>
+  <div class="content-area">
+    <p class="breadcrumb">商品管理 <span>&gt; 商品一覧</span></p>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+      <h1 style="font-size:1.1rem;color:#E0E0E0;font-weight:400;">商品一覧</h1>
+      <button class="btn-gold" onclick="showPage('admin-product-add')">+ 商品を追加</button>
+    </div>
+    <div class="dark-card p-4">
+      <table>
+        <thead><tr><th>画像</th><th>商品名</th><th>価格</th><th>在庫</th><th>公開状態</th><th>操作</th></tr></thead>
+        <tbody>
+          <tr><td><img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=60&q=60" style="width:40px;height:40px;object-fit:cover;filter:brightness(0.7);"></td><td>Silver Ring No.01</td><td class="gold">¥8,800</td><td>12</td><td><span class="badge badge-done">公開中</span></td><td style="white-space:nowrap;"><button class="btn-outline" style="font-size:0.62rem;padding:0.2rem 0.6rem;margin-right:0.3rem;" onclick="showPage('admin-product-edit')">編集</button><button style="background:#1A0A0A;border:1px solid #3A1A1A;color:#F87171;font-size:0.62rem;padding:0.2rem 0.6rem;cursor:pointer;">削除</button></td></tr>
+          <tr><td><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=60&q=60" style="width:40px;height:40px;object-fit:cover;filter:brightness(0.7);"></td><td>Feather Necklace</td><td class="gold">¥12,800</td><td>8</td><td><span class="badge badge-done">公開中</span></td><td style="white-space:nowrap;"><button class="btn-outline" style="font-size:0.62rem;padding:0.2rem 0.6rem;margin-right:0.3rem;" onclick="showPage('admin-product-edit')">編集</button><button style="background:#1A0A0A;border:1px solid #3A1A1A;color:#F87171;font-size:0.62rem;padding:0.2rem 0.6rem;cursor:pointer;">削除</button></td></tr>
+          <tr><td><img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=60&q=60" style="width:40px;height:40px;object-fit:cover;filter:brightness(0.7);"></td><td>Bangle 03</td><td class="gold">¥15,400</td><td>5</td><td><span class="badge badge-done">公開中</span></td><td style="white-space:nowrap;"><button class="btn-outline" style="font-size:0.62rem;padding:0.2rem 0.6rem;margin-right:0.3rem;" onclick="showPage('admin-product-edit')">編集</button><button style="background:#1A0A0A;border:1px solid #3A1A1A;color:#F87171;font-size:0.62rem;padding:0.2rem 0.6rem;cursor:pointer;">削除</button></td></tr>
+          <tr><td><img src="https://images.unsplash.com/photo-1589128777073-263566ae5e4d?w=60&q=60" style="width:40px;height:40px;object-fit:cover;filter:brightness(0.7);"></td><td>Signet Ring</td><td class="gold">¥9,800</td><td>7</td><td><span class="badge badge-done">公開中</span></td><td style="white-space:nowrap;"><button class="btn-outline" style="font-size:0.62rem;padding:0.2rem 0.6rem;margin-right:0.3rem;" onclick="showPage('admin-product-edit')">編集</button><button style="background:#1A0A0A;border:1px solid #3A1A1A;color:#F87171;font-size:0.62rem;padding:0.2rem 0.6rem;cursor:pointer;">削除</button></td></tr>
+          <tr><td><img src="https://images.unsplash.com/photo-1588144377399-aa4f5750c2a5?w=60&q=60" style="width:40px;height:40px;object-fit:cover;filter:brightness(0.7);"></td><td>Chain Bracelet</td><td class="gold">¥11,200</td><td>4</td><td><span class="badge badge-done">公開中</span></td><td style="white-space:nowrap;"><button class="btn-outline" style="font-size:0.62rem;padding:0.2rem 0.6rem;margin-right:0.3rem;" onclick="showPage('admin-product-edit')">編集</button><button style="background:#1A0A0A;border:1px solid #3A1A1A;color:#F87171;font-size:0.62rem;padding:0.2rem 0.6rem;cursor:pointer;">削除</button></td></tr>
+          <tr><td><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=60&q=60" style="width:40px;height:40px;object-fit:cover;filter:brightness(0.7);"></td><td>Cross Pendant</td><td class="gold">¥14,600</td><td style="color:#F87171;font-weight:600;">0</td><td><span class="badge badge-alert">在庫切れ</span></td><td style="white-space:nowrap;"><button class="btn-outline" style="font-size:0.62rem;padding:0.2rem 0.6rem;margin-right:0.3rem;" onclick="showPage('admin-product-edit')">編集</button><button style="background:#1A0A0A;border:1px solid #3A1A1A;color:#F87171;font-size:0.62rem;padding:0.2rem 0.6rem;cursor:pointer;">削除</button></td></tr>
+          <tr><td><img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?w=60&q=60" style="width:40px;height:40px;object-fit:cover;filter:brightness(0.7);"></td><td>Ear Cuff Set</td><td class="gold">¥6,800</td><td style="color:#F87171;font-weight:600;">0</td><td><span class="badge badge-alert">在庫切れ</span></td><td style="white-space:nowrap;"><button class="btn-outline" style="font-size:0.62rem;padding:0.2rem 0.6rem;margin-right:0.3rem;" onclick="showPage('admin-product-edit')">編集</button><button style="background:#1A0A0A;border:1px solid #3A1A1A;color:#F87171;font-size:0.62rem;padding:0.2rem 0.6rem;cursor:pointer;">削除</button></td></tr>
+          <tr><td><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=60&q=60" style="width:40px;height:40px;object-fit:cover;filter:brightness(0.7);"></td><td>Wave Ring</td><td class="gold">¥7,400</td><td>3</td><td><span class="badge badge-done">公開中</span></td><td style="white-space:nowrap;"><button class="btn-outline" style="font-size:0.62rem;padding:0.2rem 0.6rem;margin-right:0.3rem;" onclick="showPage('admin-product-edit')">編集</button><button style="background:#1A0A0A;border:1px solid #3A1A1A;color:#F87171;font-size:0.62rem;padding:0.2rem 0.6rem;cursor:pointer;">削除</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADMIN PRODUCT ADD ===== -->
+<div id="page-admin-product-add" class="page" style="display:none;width:100%;">
+  <div class="sidebar">
+    <p class="sidebar-section">ダッシュボード</p>
+    <span class="sidebar-link" onclick="showPage('admin-dashboard')">ダッシュボード</span>
+    <p class="sidebar-section">商品管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-products')">商品一覧</span>
+    <span class="sidebar-link active" onclick="showPage('admin-product-add')">商品を追加</span>
+    <p class="sidebar-section">注文管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-orders')">注文一覧</span>
+    <p class="sidebar-section">サイト管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-pages')">ページ管理</span>
+    <p class="sidebar-section">アカウント</p>
+    <span class="sidebar-link" style="color:#B8960C;"><a href="pattern_A_customer.html" target="_blank" style="color:inherit;text-decoration:none;">サイトを表示</a></span>
+    <span class="sidebar-link">ログアウト</span>
+  </div>
+  <div class="content-area">
+    <p class="breadcrumb">商品管理 <span>&gt; 商品を追加</span></p>
+    <h1 style="font-size:1.1rem;color:#E0E0E0;font-weight:400;margin-bottom:1.5rem;">新しい商品を追加</h1>
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:2rem;">
+      <div class="dark-card p-6">
+        <div style="margin-bottom:1.2rem;"><label style="display:block;font-size:0.62rem;letter-spacing:0.15em;color:#555;margin-bottom:0.5rem;">商品名 *</label><input class="input-dark" placeholder="例：Silver Ring No.01"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem;">
+          <div><label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.5rem;">価格（税込）*</label><input class="input-dark" placeholder="例：8800"></div>
+          <div><label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.5rem;">在庫数 *</label><input class="input-dark" placeholder="例：10"></div>
+        </div>
+        <div style="margin-bottom:1.2rem;"><label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.5rem;">カテゴリ</label><select class="input-dark"><option value="">選択してください</option><option>リング</option><option>ネックレス</option><option>バングル</option><option>ブレスレット</option><option>ピアス・イヤリング</option></select></div>
+        <div style="margin-bottom:1.2rem;"><label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.5rem;">商品説明</label><textarea class="input-dark" rows="5" placeholder="商品の説明文を入力してください" style="resize:vertical;"></textarea></div>
+      </div>
+      <div>
+        <div class="dark-card p-6 mb-4">
+          <label style="display:block;font-size:0.62rem;color:#555;margin-bottom:1rem;">商品画像</label>
+          <div style="border:2px dashed #2A2A2A;padding:2.5rem;text-align:center;cursor:pointer;" onmouseover="this.style.borderColor='#B8960C'" onmouseout="this.style.borderColor='#2A2A2A'">
+            <p style="font-size:1.5rem;color:#333;margin-bottom:0.5rem;">+</p>
+            <p style="font-size:0.72rem;color:#444;">クリックして画像をアップロード</p>
+            <p style="font-size:0.62rem;color:#333;margin-top:0.3rem;">JPG, PNG, WEBP</p>
+          </div>
+        </div>
+        <div class="dark-card p-6 mb-4">
+          <label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.75rem;">公開設定</label>
+          <div style="display:flex;gap:1.5rem;">
+            <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.8rem;color:#C0C0C0;"><input type="radio" name="pub_add" checked style="accent-color:#B8960C;"> 公開</label>
+            <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.8rem;color:#555;"><input type="radio" name="pub_add" style="accent-color:#B8960C;"> 非公開</label>
+          </div>
+        </div>
+        <button class="btn-gold" style="width:100%;margin-bottom:0.5rem;">保存する</button>
+        <button class="btn-outline" style="width:100%;" onclick="showPage('admin-products')">キャンセル</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADMIN PRODUCT EDIT ===== -->
+<div id="page-admin-product-edit" class="page" style="display:none;width:100%;">
+  <div class="sidebar">
+    <p class="sidebar-section">ダッシュボード</p>
+    <span class="sidebar-link" onclick="showPage('admin-dashboard')">ダッシュボード</span>
+    <p class="sidebar-section">商品管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-products')">商品一覧</span>
+    <span class="sidebar-link" onclick="showPage('admin-product-add')">商品を追加</span>
+    <p class="sidebar-section">注文管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-orders')">注文一覧</span>
+    <p class="sidebar-section">サイト管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-pages')">ページ管理</span>
+    <p class="sidebar-section">アカウント</p>
+    <span class="sidebar-link" style="color:#B8960C;"><a href="pattern_A_customer.html" target="_blank" style="color:inherit;text-decoration:none;">サイトを表示</a></span>
+    <span class="sidebar-link">ログアウト</span>
+  </div>
+  <div class="content-area">
+    <p class="breadcrumb">商品管理 <span>&gt; <span onclick="showPage('admin-products')" style="cursor:pointer;">商品一覧</span></span> <span>&gt; Silver Ring No.01 を編集</span></p>
+    <h1 style="font-size:1.1rem;color:#E0E0E0;font-weight:400;margin-bottom:1.5rem;">Silver Ring No.01 を編集</h1>
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:2rem;">
+      <div class="dark-card p-6">
+        <div style="margin-bottom:1.2rem;"><label style="display:block;font-size:0.62rem;letter-spacing:0.15em;color:#555;margin-bottom:0.5rem;">商品名 *</label><input class="input-dark" value="Silver Ring No.01"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem;">
+          <div><label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.5rem;">価格（税込）*</label><input class="input-dark" value="8800"></div>
+          <div><label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.5rem;">在庫数 *</label><input class="input-dark" value="12"></div>
+        </div>
+        <div style="margin-bottom:1.2rem;"><label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.5rem;">カテゴリ</label><select class="input-dark"><option selected>リング</option><option>ネックレス</option><option>バングル</option><option>ブレスレット</option><option>ピアス・イヤリング</option></select></div>
+        <div style="margin-bottom:1.2rem;"><label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.5rem;">商品説明</label><textarea class="input-dark" rows="5" style="resize:vertical;">職人が一点一点丁寧に仕上げた純銀リング。シンプルながら繊細な槌目模様が特徴で、どんなスタイルにも馴染む万能なデザインです。</textarea></div>
+      </div>
+      <div>
+        <div class="dark-card p-6 mb-4">
+          <label style="display:block;font-size:0.62rem;color:#555;margin-bottom:1rem;">商品画像</label>
+          <div style="border:2px dashed #2A2A2A;padding:1rem;text-align:center;cursor:pointer;" onmouseover="this.style.borderColor='#B8960C'" onmouseout="this.style.borderColor='#2A2A2A'">
+            <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=200&q=60" style="width:100%;height:120px;object-fit:cover;filter:brightness(0.7);margin-bottom:0.5rem;">
+            <p style="font-size:0.68rem;color:#444;">クリックで画像を変更</p>
+          </div>
+        </div>
+        <div class="dark-card p-6 mb-4">
+          <label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.75rem;">公開設定</label>
+          <div style="display:flex;gap:1.5rem;">
+            <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.8rem;color:#C0C0C0;"><input type="radio" name="pub_edit" checked style="accent-color:#B8960C;"> 公開</label>
+            <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.8rem;color:#555;"><input type="radio" name="pub_edit" style="accent-color:#B8960C;"> 非公開</label>
+          </div>
+        </div>
+        <button class="btn-gold" style="width:100%;margin-bottom:0.5rem;">変更を保存</button>
+        <button class="btn-outline" style="width:100%;" onclick="showPage('admin-products')">キャンセル</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADMIN ORDERS ===== -->
+<div id="page-admin-orders" class="page" style="display:none;width:100%;">
+  <div class="sidebar">
+    <p class="sidebar-section">ダッシュボード</p>
+    <span class="sidebar-link" onclick="showPage('admin-dashboard')">ダッシュボード</span>
+    <p class="sidebar-section">商品管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-products')">商品一覧</span>
+    <span class="sidebar-link" onclick="showPage('admin-product-add')">商品を追加</span>
+    <p class="sidebar-section">注文管理</p>
+    <span class="sidebar-link active" onclick="showPage('admin-orders')">注文一覧</span>
+    <p class="sidebar-section">サイト管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-pages')">ページ管理</span>
+    <p class="sidebar-section">アカウント</p>
+    <span class="sidebar-link" style="color:#B8960C;"><a href="pattern_A_customer.html" target="_blank" style="color:inherit;text-decoration:none;">サイトを表示</a></span>
+    <span class="sidebar-link">ログアウト</span>
+  </div>
+  <div class="content-area">
+    <p class="breadcrumb">注文管理 <span>&gt; 注文一覧</span></p>
+    <h1 style="font-size:1.1rem;color:#E0E0E0;font-weight:400;margin-bottom:1.5rem;">注文一覧</h1>
+    <div style="display:flex;gap:0.5rem;margin-bottom:1.5rem;">
+      <button class="btn-gold" style="font-size:0.68rem;padding:0.35rem 1rem;">全て(23)</button>
+      <button class="btn-outline" style="font-size:0.68rem;padding:0.35rem 1rem;">未対応(3)</button>
+      <button class="btn-outline" style="font-size:0.68rem;padding:0.35rem 1rem;">発送済(12)</button>
+      <button class="btn-outline" style="font-size:0.68rem;padding:0.35rem 1rem;">完了(8)</button>
+    </div>
+    <div class="dark-card p-4">
+      <table>
+        <thead><tr><th>注文番号</th><th>注文日</th><th>顧客名</th><th>商品</th><th>金額</th><th>ステータス変更</th></tr></thead>
+        <tbody>
+          <tr><td>#0047</td><td>2025.05.24</td><td>山田 美咲</td><td>Silver Ring No.01 他1点</td><td class="gold">¥24,560</td><td><select class="input-dark" style="padding:0.2rem 0.5rem;font-size:0.7rem;"><option>未対応</option><option>発送済</option><option>完了</option></select></td></tr>
+          <tr><td>#0046</td><td>2025.05.23</td><td>田中 健一</td><td>Bangle 03</td><td class="gold">¥15,400</td><td><select class="input-dark" style="padding:0.2rem 0.5rem;font-size:0.7rem;"><option>未対応</option><option selected>発送済</option><option>完了</option></select></td></tr>
+          <tr><td>#0045</td><td>2025.05.22</td><td>佐藤 玲奈</td><td>Feather Necklace</td><td class="gold">¥12,800</td><td><select class="input-dark" style="padding:0.2rem 0.5rem;font-size:0.7rem;"><option>未対応</option><option selected>発送済</option><option>完了</option></select></td></tr>
+          <tr><td>#0044</td><td>2025.05.20</td><td>鈴木 陽介</td><td>Wave Ring</td><td class="gold">¥7,400</td><td><select class="input-dark" style="padding:0.2rem 0.5rem;font-size:0.7rem;"><option>未対応</option><option>発送済</option><option selected>完了</option></select></td></tr>
+          <tr><td>#0043</td><td>2025.05.18</td><td>加藤 真由</td><td>Signet Ring</td><td class="gold">¥9,800</td><td><select class="input-dark" style="padding:0.2rem 0.5rem;font-size:0.7rem;"><option>未対応</option><option>発送済</option><option selected>完了</option></select></td></tr>
+          <tr><td>#0042</td><td>2025.05.16</td><td>伊藤 裕介</td><td>Chain Bracelet</td><td class="gold">¥11,200</td><td><select class="input-dark" style="padding:0.2rem 0.5rem;font-size:0.7rem;"><option>未対応</option><option>発送済</option><option selected>完了</option></select></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADMIN PAGES ===== -->
+<div id="page-admin-pages" class="page" style="display:none;width:100%;">
+  <div class="sidebar">
+    <p class="sidebar-section">ダッシュボード</p>
+    <span class="sidebar-link" onclick="showPage('admin-dashboard')">ダッシュボード</span>
+    <p class="sidebar-section">商品管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-products')">商品一覧</span>
+    <span class="sidebar-link" onclick="showPage('admin-product-add')">商品を追加</span>
+    <p class="sidebar-section">注文管理</p>
+    <span class="sidebar-link" onclick="showPage('admin-orders')">注文一覧</span>
+    <p class="sidebar-section">サイト管理</p>
+    <span class="sidebar-link active" onclick="showPage('admin-pages')">ページ管理</span>
+    <p class="sidebar-section">アカウント</p>
+    <span class="sidebar-link" style="color:#B8960C;"><a href="pattern_A_customer.html" target="_blank" style="color:inherit;text-decoration:none;">サイトを表示</a></span>
+    <span class="sidebar-link">ログアウト</span>
+  </div>
+  <div class="content-area">
+    <p class="breadcrumb">サイト管理 <span>&gt; ページ管理</span></p>
+    <h1 style="font-size:1.1rem;color:#E0E0E0;font-weight:400;margin-bottom:0.5rem;">ページ管理</h1>
+    <p style="font-size:0.72rem;color:#444;margin-bottom:2rem;">HPのテキストや画像をここから簡単に更新できます。</p>
+    <div style="display:grid;gap:1.5rem;">
+      <!-- Top page -->
+      <div class="dark-card p-6">
+        <h3 style="font-size:0.8rem;color:#C0C0C0;margin-bottom:1.5rem;border-bottom:1px solid #1E1E1E;padding-bottom:0.75rem;">トップページ</h3>
+        <div style="margin-bottom:1.2rem;">
+          <label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.5rem;">メインビジュアル バナー画像</label>
+          <div style="border:2px dashed #2A2A2A;padding:1.5rem;text-align:center;cursor:pointer;background:#111;" onmouseover="this.style.borderColor='#B8960C'" onmouseout="this.style.borderColor='#2A2A2A'">
+            <p style="font-size:0.72rem;color:#444;">現在の画像：hero_banner.jpg</p>
+            <p style="font-size:0.65rem;color:#333;margin-top:0.2rem;">クリックして新しい画像をアップロード</p>
+          </div>
+        </div>
+        <div style="margin-bottom:1.2rem;"><label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.5rem;">キャッチコピー（大見出し）</label><input class="input-dark" value="手仕事から生まれる、一点のきらめき。"></div>
+        <div style="margin-bottom:1.5rem;"><label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.5rem;">コンセプト文</label><textarea class="input-dark" rows="3" style="resize:vertical;">一点一点、職人の手によって丁寧に仕上げられるシルバーアクセサリー。</textarea></div>
+        <button class="btn-gold" style="font-size:0.72rem;padding:0.4rem 1.2rem;">保存する</button>
+      </div>
+      <!-- About page -->
+      <div class="dark-card p-6">
+        <h3 style="font-size:0.8rem;color:#C0C0C0;margin-bottom:1.5rem;border-bottom:1px solid #1E1E1E;padding-bottom:0.75rem;">ブランドについてページ</h3>
+        <div style="margin-bottom:1.2rem;">
+          <label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.5rem;">作り手プロフィール画像</label>
+          <div style="border:2px dashed #2A2A2A;padding:1rem;text-align:center;cursor:pointer;background:#111;" onmouseover="this.style.borderColor='#B8960C'" onmouseout="this.style.borderColor='#2A2A2A'">
+            <p style="font-size:0.72rem;color:#444;">craftsman_photo.jpg　クリックで変更</p>
+          </div>
+        </div>
+        <div style="margin-bottom:1.5rem;"><label style="display:block;font-size:0.62rem;color:#555;margin-bottom:0.5rem;">プロフィール文</label><textarea class="input-dark" rows="4" style="resize:vertical;">東京・蔵前のアトリエにて、ひとつひとつ手作りでシルバーアクセサリーを制作しています。金属工芸を学んだ後、10年以上にわたりシルバーの魅力を探求してきました。</textarea></div>
+        <button class="btn-gold" style="font-size:0.72rem;padding:0.4rem 1.2rem;">保存する</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end flex wrapper -->
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(function(p) {
+    p.style.display = 'none';
+    p.classList.remove('active');
+  });
+  var el = document.getElementById('page-' + id);
+  if (el) {
+    el.style.display = 'flex';
+    el.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+}
+// Init: show default
+document.addEventListener('DOMContentLoaded', function() {
+  showPage('admin-dashboard');
+});
+</script>
+</body>
+</html>
