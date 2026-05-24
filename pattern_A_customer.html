@@ -72,114 +72,270 @@
 
 <!-- ===== TOP PAGE ===== -->
 <div id="page-top" class="page active">
-  <div style="position:relative; height:90vh; overflow:hidden;">
+  <!-- Hero -->
+  <div style="position:relative;height:90vh;overflow:hidden;">
     <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1600&q=80" alt="hero" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.3);">
     <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
       <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;letter-spacing:0.5em;color:#B8960C;margin-bottom:1.5rem;">SILVER JEWELRY ATELIER</p>
       <h1 style="font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:300;letter-spacing:0.3em;color:#E8E8E8;line-height:1.1;margin-bottom:1.5rem;">SILMO</h1>
       <div style="width:60px;height:1px;background:#B8960C;margin:0 auto 1.5rem;"></div>
       <p style="font-size:0.85rem;letter-spacing:0.2em;color:#999;margin-bottom:2.5rem;">手仕事から生まれる、一点のきらめき。</p>
-      <button class="btn-outline" onclick="showPage('products')">COLLECTION →</button>
+      <div style="display:flex;gap:1rem;">
+        <button class="btn-gold" onclick="showPage('products')">COLLECTION</button>
+        <button class="btn-outline" onclick="showPage('about')">OUR STORY</button>
+      </div>
     </div>
   </div>
 
   <!-- Concept -->
-  <div class="max-w-5xl mx-auto px-8 py-24 text-center">
-    <p style="font-size:0.7rem;letter-spacing:0.4em;color:#B8960C;margin-bottom:1rem;">CONCEPT</p>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:#E0E0E0;letter-spacing:0.1em;margin-bottom:2rem;">純銀が語る、静寂の美学</h2>
-    <div style="width:40px;height:1px;background:#B8960C;margin:0 auto 2rem;"></div>
-    <p style="color:#888;line-height:2;font-size:0.85rem;max-width:600px;margin:0 auto;">一点一点、職人の手によって丁寧に仕上げられるシルバーアクセサリー。素材の持つ自然な輝きを最大限に引き出し、日常に静かな贅沢をお届けします。量産品にはない、手仕事ならではの微細な表情が、あなたの個性を際立てます。</p>
+  <div style="background:#0A0A0A;padding:6rem 8%;">
+    <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;">
+      <div>
+        <p style="font-size:0.65rem;letter-spacing:0.4em;color:#B8960C;margin-bottom:1rem;">CONCEPT</p>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:#E0E0E0;letter-spacing:0.1em;line-height:1.4;margin-bottom:1.5rem;">純銀が語る、<br>静寂の美学</h2>
+        <div style="width:40px;height:1px;background:#B8960C;margin-bottom:2rem;"></div>
+        <p style="color:#888;line-height:2.3;font-size:0.85rem;margin-bottom:1.5rem;">一点一点、職人の手によって丁寧に仕上げられるシルバーアクセサリー。素材の持つ自然な輝きを最大限に引き出し、日常に静かな贅沢をお届けします。</p>
+        <p style="color:#888;line-height:2.3;font-size:0.85rem;margin-bottom:2rem;">量産品にはない、手仕事ならではの微細な表情が、あなたの個性を際立てます。経年変化を楽しみながら、長く愛用できる作品を目指しています。</p>
+        <button class="btn-outline" onclick="showPage('about')">私たちについて →</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#1E1E1E;">
+        <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=300&q=80" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.7);">
+        <img src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=300&q=80" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.7);">
+        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=300&q=80" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.7);">
+        <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=300&q=80" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.7);">
+      </div>
+    </div>
+  </div>
+
+  <!-- Craft Process -->
+  <div style="padding:6rem 8%;background:#0D0D0D;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:4rem;">
+        <p style="font-size:0.65rem;letter-spacing:0.4em;color:#B8960C;margin-bottom:0.8rem;">PROCESS</p>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:#E0E0E0;letter-spacing:0.1em;">制作の工程</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3rem;">
+        <div style="text-align:center;">
+          <div style="width:60px;height:60px;border:1px solid #B8960C;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#B8960C;">01</span>
+          </div>
+          <p style="font-size:0.7rem;letter-spacing:0.2em;color:#B8960C;margin-bottom:0.8rem;">素材の厳選</p>
+          <p style="font-size:0.8rem;color:#666;line-height:2;">純度92.5%のスターリングシルバーのみを使用。素材の選定から品質へのこだわりが始まります。</p>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:60px;height:60px;border:1px solid #B8960C;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#B8960C;">02</span>
+          </div>
+          <p style="font-size:0.7rem;letter-spacing:0.2em;color:#B8960C;margin-bottom:0.8rem;">成形・鍛造</p>
+          <p style="font-size:0.8rem;color:#666;line-height:2;">槌を手で振り、一打一打丁寧に形を整えます。この工程で生まれる槌目が作品の個性となります。</p>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:60px;height:60px;border:1px solid #B8960C;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#B8960C;">03</span>
+          </div>
+          <p style="font-size:0.7rem;letter-spacing:0.2em;color:#B8960C;margin-bottom:0.8rem;">仕上げ・磨き</p>
+          <p style="font-size:0.8rem;color:#666;line-height:2;">丁寧に磨き上げ、シルバー本来の輝きを引き出します。仕上がりの美しさに妥協はありません。</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- New Arrivals -->
-  <div class="max-w-7xl mx-auto px-8 pb-24">
-    <div class="text-center mb-12">
-      <p style="font-size:0.7rem;letter-spacing:0.4em;color:#B8960C;margin-bottom:0.5rem;">NEW ARRIVAL</p>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:#E0E0E0;letter-spacing:0.1em;">新着コレクション</h2>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#1E1E1E;">
-      <div class="product-card" onclick="showPage('product-detail')">
-        <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&q=80" alt="ring" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.8);">
-        <div style="padding:1.2rem;background:#0D0D0D;">
-          <p style="font-size:0.65rem;letter-spacing:0.2em;color:#666;margin-bottom:0.3rem;">RING</p>
-          <p style="font-size:0.85rem;color:#C0C0C0;margin-bottom:0.5rem;">Silver Ring No.01</p>
-          <p class="gold" style="font-size:0.9rem;letter-spacing:0.05em;">¥8,800</p>
+  <div style="padding:6rem 8%;background:#080808;border-top:1px solid #1A1A1A;">
+    <div style="max-width:1280px;margin:0 auto;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3rem;">
+        <div>
+          <p style="font-size:0.65rem;letter-spacing:0.4em;color:#B8960C;margin-bottom:0.5rem;">NEW ARRIVAL</p>
+          <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:#E0E0E0;letter-spacing:0.1em;">新着コレクション</h2>
+        </div>
+        <button class="btn-outline" style="font-size:0.7rem;padding:0.5rem 1.5rem;" onclick="showPage('products')">VIEW ALL →</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#1E1E1E;">
+        <div class="product-card" onclick="showPage('product-detail')">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&q=80" alt="ring" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.8);">
+          <div style="padding:1.2rem;background:#0D0D0D;">
+            <p style="font-size:0.6rem;letter-spacing:0.2em;color:#666;margin-bottom:0.3rem;">RING</p>
+            <p style="font-size:0.85rem;color:#C0C0C0;margin-bottom:0.5rem;">Silver Ring No.01</p>
+            <p class="gold" style="font-size:0.9rem;">¥8,800</p>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('product-detail')">
+          <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&q=80" alt="necklace" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.8);">
+          <div style="padding:1.2rem;background:#0D0D0D;">
+            <p style="font-size:0.6rem;letter-spacing:0.2em;color:#666;margin-bottom:0.3rem;">NECKLACE</p>
+            <p style="font-size:0.85rem;color:#C0C0C0;margin-bottom:0.5rem;">Feather Necklace</p>
+            <p class="gold" style="font-size:0.9rem;">¥12,800</p>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('product-detail')">
+          <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&q=80" alt="bangle" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.8);">
+          <div style="padding:1.2rem;background:#0D0D0D;">
+            <p style="font-size:0.6rem;letter-spacing:0.2em;color:#666;margin-bottom:0.3rem;">BANGLE</p>
+            <p style="font-size:0.85rem;color:#C0C0C0;margin-bottom:0.5rem;">Bangle 03</p>
+            <p class="gold" style="font-size:0.9rem;">¥15,400</p>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('product-detail')">
+          <img src="https://images.unsplash.com/photo-1589128777073-263566ae5e4d?w=400&q=80" alt="ring" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.8);">
+          <div style="padding:1.2rem;background:#0D0D0D;">
+            <p style="font-size:0.6rem;letter-spacing:0.2em;color:#666;margin-bottom:0.3rem;">RING</p>
+            <p style="font-size:0.85rem;color:#C0C0C0;margin-bottom:0.5rem;">Signet Ring</p>
+            <p class="gold" style="font-size:0.9rem;">¥9,800</p>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('product-detail')">
+          <img src="https://images.unsplash.com/photo-1588144377399-aa4f5750c2a5?w=400&q=80" alt="bracelet" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.8);">
+          <div style="padding:1.2rem;background:#0D0D0D;">
+            <p style="font-size:0.6rem;letter-spacing:0.2em;color:#666;margin-bottom:0.3rem;">BRACELET</p>
+            <p style="font-size:0.85rem;color:#C0C0C0;margin-bottom:0.5rem;">Chain Bracelet</p>
+            <p class="gold" style="font-size:0.9rem;">¥11,200</p>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('product-detail')">
+          <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&q=80" alt="ring" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.8);">
+          <div style="padding:1.2rem;background:#0D0D0D;">
+            <p style="font-size:0.6rem;letter-spacing:0.2em;color:#666;margin-bottom:0.3rem;">RING</p>
+            <p style="font-size:0.85rem;color:#C0C0C0;margin-bottom:0.5rem;">Wave Ring</p>
+            <p class="gold" style="font-size:0.9rem;">¥7,400</p>
+          </div>
         </div>
       </div>
-      <div class="product-card" onclick="showPage('product-detail')">
-        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&q=80" alt="necklace" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.8);">
-        <div style="padding:1.2rem;background:#0D0D0D;">
-          <p style="font-size:0.65rem;letter-spacing:0.2em;color:#666;margin-bottom:0.3rem;">NECKLACE</p>
-          <p style="font-size:0.85rem;color:#C0C0C0;margin-bottom:0.5rem;">Feather Necklace</p>
-          <p class="gold" style="font-size:0.9rem;">¥12,800</p>
-        </div>
-      </div>
-      <div class="product-card" onclick="showPage('product-detail')">
-        <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&q=80" alt="bangle" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.8);">
-        <div style="padding:1.2rem;background:#0D0D0D;">
-          <p style="font-size:0.65rem;letter-spacing:0.2em;color:#666;margin-bottom:0.3rem;">BANGLE</p>
-          <p style="font-size:0.85rem;color:#C0C0C0;margin-bottom:0.5rem;">Bangle 03</p>
-          <p class="gold" style="font-size:0.9rem;">¥15,400</p>
-        </div>
-      </div>
-      <div class="product-card" onclick="showPage('product-detail')">
-        <img src="https://images.unsplash.com/photo-1589128777073-263566ae5e4d?w=400&q=80" alt="ring" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.8);">
-        <div style="padding:1.2rem;background:#0D0D0D;">
-          <p style="font-size:0.65rem;letter-spacing:0.2em;color:#666;margin-bottom:0.3rem;">RING</p>
-          <p style="font-size:0.85rem;color:#C0C0C0;margin-bottom:0.5rem;">Signet Ring</p>
-          <p class="gold" style="font-size:0.9rem;">¥9,800</p>
-        </div>
-      </div>
-    </div>
-    <div class="text-center mt-10">
-      <button class="btn-outline" onclick="showPage('products')">VIEW ALL COLLECTION</button>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer style="background:#050505;border-top:1px solid #1E1E1E;padding:3rem 0;">
-    <div class="max-w-7xl mx-auto px-8 text-center">
-      <p style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;letter-spacing:0.3em;color:#666;margin-bottom:1rem;">SILMO</p>
-      <p style="font-size:0.65rem;color:#444;letter-spacing:0.2em;">© 2025 SILMO. ALL RIGHTS RESERVED.</p>
+  <!-- Testimonials -->
+  <div style="background:#0A0A0A;padding:6rem 8%;border-top:1px solid #1A1A1A;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:4rem;">
+        <p style="font-size:0.65rem;letter-spacing:0.4em;color:#B8960C;margin-bottom:0.8rem;">TESTIMONIALS</p>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:#E0E0E0;letter-spacing:0.1em;">お客様の声</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;">
+        <div style="background:#111;border:1px solid #1E1E1E;padding:2rem;">
+          <p class="gold" style="font-size:1rem;margin-bottom:1rem;">★★★★★</p>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;color:#C0C0C0;line-height:2;font-style:italic;margin-bottom:1.5rem;">"手にした瞬間、その重みと輝きに感動しました。量産品とは全く違う存在感があります。"</p>
+          <p style="font-size:0.7rem;color:#555;letter-spacing:0.1em;">— A.Y. 東京都</p>
+        </div>
+        <div style="background:#111;border:1px solid #1E1E1E;padding:2rem;">
+          <p class="gold" style="font-size:1rem;margin-bottom:1rem;">★★★★★</p>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;color:#C0C0C0;line-height:2;font-style:italic;margin-bottom:1.5rem;">"プレゼントに贈りましたが、相手がとても喜んでくれました。一生ものの品だと思います。"</p>
+          <p style="font-size:0.7rem;color:#555;letter-spacing:0.1em;">— K.M. 神奈川県</p>
+        </div>
+        <div style="background:#111;border:1px solid #1E1E1E;padding:2rem;">
+          <p class="gold" style="font-size:1rem;margin-bottom:1rem;">★★★★★</p>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;color:#C0C0C0;line-height:2;font-style:italic;margin-bottom:1.5rem;">"毎日つけています。使うたびに表情が変わり、経年変化をとても楽しんでいます。"</p>
+          <p style="font-size:0.7rem;color:#555;letter-spacing:0.1em;">— R.T. 大阪府</p>
+        </div>
+      </div>
     </div>
-  </footer>
+  </div>
+
+  <!-- CTA -->
+  <div style="background:#0D0D0D;padding:6rem 8%;text-align:center;border-top:1px solid #1A1A1A;">
+    <p style="font-size:0.65rem;letter-spacing:0.5em;color:#B8960C;margin-bottom:1rem;">CUSTOM ORDER</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:#E0E0E0;margin-bottom:1rem;">あなただけの一点を</h2>
+    <div style="width:40px;height:1px;background:#B8960C;margin:0 auto 1.5rem;"></div>
+    <p style="font-size:0.83rem;color:#888;line-height:2.3;max-width:500px;margin:0 auto 2.5rem;">オーダーメイドも承っております。世界に一つだけのシルバーアクセサリーを、ご一緒に作りましょう。</p>
+    <button class="btn-gold" onclick="showPage('contact')">お問い合わせ</button>
+  </div>
 </div>
 
 <!-- ===== ABOUT ===== -->
 <div id="page-about" class="page">
-  <div style="position:relative;height:50vh;overflow:hidden;">
-    <img src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=1600&q=80" alt="about" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.3);">
-    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-      <p style="font-size:0.7rem;letter-spacing:0.5em;color:#B8960C;margin-bottom:1rem;">ABOUT</p>
-      <h1 style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:#E0E0E0;letter-spacing:0.2em;">ATELIER STORY</h1>
+  <!-- Hero -->
+  <div style="position:relative;height:55vh;overflow:hidden;">
+    <img src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=1600&q=80" alt="about" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.25);">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:0.7rem;letter-spacing:0.5em;color:#B8960C;margin-bottom:1rem;font-style:italic;">— Atelier Story —</p>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:#E0E0E0;letter-spacing:0.2em;">ABOUT SILMO</h1>
+      <div style="width:40px;height:1px;background:#B8960C;margin:1.5rem auto 0;"></div>
     </div>
   </div>
-  <div class="max-w-6xl mx-auto px-8 py-20">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:5rem;">
+
+  <!-- Creator -->
+  <div style="background:#0D0D0D;padding:6rem 8%;">
+    <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;">
       <div>
-        <p style="font-size:0.7rem;letter-spacing:0.4em;color:#B8960C;margin-bottom:1rem;">CRAFTSMAN</p>
+        <p style="font-size:0.65rem;letter-spacing:0.4em;color:#B8960C;margin-bottom:1rem;">CRAFTSMAN</p>
         <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:#E0E0E0;margin-bottom:1.5rem;">作り手について</h2>
-        <div style="width:40px;height:1px;background:#B8960C;margin-bottom:1.5rem;"></div>
-        <p style="color:#888;line-height:2.2;font-size:0.85rem;margin-bottom:1rem;">東京・蔵前のアトリエにて、ひとつひとつ手作りでシルバーアクセサリーを制作しています。金属工芸を学んだ後、10年以上にわたりシルバーの魅力を探求してきました。</p>
-        <p style="color:#888;line-height:2.2;font-size:0.85rem;">素材の持つ固有の表情を大切にしながら、現代の感性に合わせたデザインを追求。すべての作品に、作り手の魂が宿っています。</p>
+        <div style="width:40px;height:1px;background:#B8960C;margin-bottom:2rem;"></div>
+        <p style="color:#888;line-height:2.3;font-size:0.85rem;margin-bottom:1.2rem;">東京・蔵前のアトリエにて、ひとつひとつ手作りでシルバーアクセサリーを制作しています。金属工芸を学んだ後、10年以上にわたりシルバーの魅力を探求してきました。</p>
+        <p style="color:#888;line-height:2.3;font-size:0.85rem;margin-bottom:1.2rem;">素材の持つ固有の表情を大切にしながら、現代の感性に合わせたデザインを追求。鍛金・鋳造・彫金など、伝統的な技法と独自の感性を融合させた作品を制作しています。</p>
+        <p style="color:#888;line-height:2.3;font-size:0.85rem;">すべての作品に、作り手の魂が宿っています。それが機械では決して生み出せない、手仕事の本当の価値だと信じています。</p>
       </div>
       <img src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=600&q=80" alt="craftsman" style="width:100%;aspect-ratio:4/5;object-fit:cover;filter:brightness(0.7);">
     </div>
-    <hr class="divider">
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;text-align:center;">
-      <div>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:3rem;color:#B8960C;margin-bottom:0.5rem;">10+</p>
-        <p style="font-size:0.7rem;letter-spacing:0.2em;color:#666;">YEARS OF CRAFT</p>
+  </div>
+
+  <!-- Philosophy Quote -->
+  <div style="background:#080808;padding:5rem 8%;border-top:1px solid #1A1A1A;">
+    <div style="max-width:700px;margin:0 auto;text-align:center;border:1px solid #2A2A2A;padding:3.5rem;">
+      <p style="font-size:0.62rem;letter-spacing:0.4em;color:#B8960C;margin-bottom:1.5rem;">— MAKER'S WORDS —</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:#E0E0E0;line-height:1.9;font-style:italic;">"素材と向き合い、使う人を想う。<br>その繰り返しの先に、<br>本物の作品が生まれる。"</p>
+      <div style="width:40px;height:1px;background:#B8960C;margin:1.5rem auto 0;"></div>
+    </div>
+  </div>
+
+  <!-- Process -->
+  <div style="background:#0D0D0D;padding:6rem 8%;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:4rem;">
+        <p style="font-size:0.65rem;letter-spacing:0.4em;color:#B8960C;margin-bottom:0.8rem;">PROCESS</p>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:#E0E0E0;letter-spacing:0.1em;">制作工程</h2>
       </div>
-      <div>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:3rem;color:#B8960C;margin-bottom:0.5rem;">500+</p>
-        <p style="font-size:0.7rem;letter-spacing:0.2em;color:#666;">PIECES CREATED</p>
-      </div>
-      <div>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:3rem;color:#B8960C;margin-bottom:0.5rem;">100%</p>
-        <p style="font-size:0.7rem;letter-spacing:0.2em;color:#666;">HANDCRAFTED</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;">
+        <div style="text-align:center;">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=300&q=80" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.6);margin-bottom:1rem;">
+          <p style="font-size:0.65rem;letter-spacing:0.2em;color:#B8960C;margin-bottom:0.5rem;">01 · 素材の選定</p>
+          <p style="font-size:0.75rem;color:#555;line-height:1.8;">SV925のインゴットを厳選</p>
+        </div>
+        <div style="text-align:center;">
+          <img src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=300&q=80" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.6);margin-bottom:1rem;">
+          <p style="font-size:0.65rem;letter-spacing:0.2em;color:#B8960C;margin-bottom:0.5rem;">02 · 成形・鍛造</p>
+          <p style="font-size:0.75rem;color:#555;line-height:1.8;">手で叩き、形を与える</p>
+        </div>
+        <div style="text-align:center;">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=300&q=80" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.6);margin-bottom:1rem;">
+          <p style="font-size:0.65rem;letter-spacing:0.2em;color:#B8960C;margin-bottom:0.5rem;">03 · 彫金・装飾</p>
+          <p style="font-size:0.75rem;color:#555;line-height:1.8;">細部を丁寧に仕上げる</p>
+        </div>
+        <div style="text-align:center;">
+          <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=300&q=80" style="width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(0.6);margin-bottom:1rem;">
+          <p style="font-size:0.65rem;letter-spacing:0.2em;color:#B8960C;margin-bottom:0.5rem;">04 · 磨き・仕上げ</p>
+          <p style="font-size:0.75rem;color:#555;line-height:1.8;">輝きを引き出す最終工程</p>
+        </div>
       </div>
     </div>
+  </div>
+
+  <!-- Stats -->
+  <div style="background:#080808;padding:5rem 8%;border-top:1px solid #1A1A1A;">
+    <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center;">
+      <div style="padding:2rem;border:1px solid #1E1E1E;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:3rem;color:#B8960C;margin-bottom:0.5rem;">10+</p>
+        <p style="font-size:0.65rem;letter-spacing:0.2em;color:#555;">YEARS OF CRAFT</p>
+      </div>
+      <div style="padding:2rem;border:1px solid #1E1E1E;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:3rem;color:#B8960C;margin-bottom:0.5rem;">500+</p>
+        <p style="font-size:0.65rem;letter-spacing:0.2em;color:#555;">PIECES CREATED</p>
+      </div>
+      <div style="padding:2rem;border:1px solid #1E1E1E;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:3rem;color:#B8960C;margin-bottom:0.5rem;">925</p>
+        <p style="font-size:0.65rem;letter-spacing:0.2em;color:#555;">STERLING SILVER</p>
+      </div>
+      <div style="padding:2rem;border:1px solid #1E1E1E;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:3rem;color:#B8960C;margin-bottom:0.5rem;">100%</p>
+        <p style="font-size:0.65rem;letter-spacing:0.2em;color:#555;">HANDCRAFTED</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div style="background:#0D0D0D;padding:5rem 8%;text-align:center;">
+    <p style="font-size:0.65rem;letter-spacing:0.4em;color:#B8960C;margin-bottom:1rem;">CUSTOM ORDER</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:#E0E0E0;margin-bottom:2rem;">あなただけの一点を</h2>
+    <p style="font-size:0.83rem;color:#888;line-height:2.3;max-width:500px;margin:0 auto 2.5rem;">世界に一つだけのシルバーアクセサリーを、ご一緒に作りましょう。お気軽にご相談ください。</p>
+    <button class="btn-outline" onclick="showPage('contact')">CONTACT US →</button>
   </div>
 </div>
 
@@ -566,6 +722,40 @@
     </div>
   </div>
 </div>
+
+<!-- Shared Footer -->
+<footer style="background:#050505;border-top:1px solid #1E1E1E;padding:4rem 8%;">
+  <div style="max-width:1280px;margin:0 auto 2.5rem;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3rem;">
+    <div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;letter-spacing:0.3em;color:#888;margin-bottom:1rem;">SILMO</p>
+      <p style="font-size:0.72rem;color:#444;line-height:2.2;">東京・蔵前のアトリエで生まれるシルバーアクセサリー。職人の手から、あなたの手へ。</p>
+    </div>
+    <div>
+      <p style="font-size:0.6rem;letter-spacing:0.25em;color:#555;margin-bottom:1rem;">NAVIGATION</p>
+      <div style="display:grid;gap:0.5rem;">
+        <span class="nav-link" onclick="showPage('top')" style="font-size:0.72rem;">HOME</span>
+        <span class="nav-link" onclick="showPage('products')" style="font-size:0.72rem;">COLLECTION</span>
+        <span class="nav-link" onclick="showPage('about')" style="font-size:0.72rem;">ABOUT</span>
+        <span class="nav-link" onclick="showPage('contact')" style="font-size:0.72rem;">CONTACT</span>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:0.6rem;letter-spacing:0.25em;color:#555;margin-bottom:1rem;">MEMBER</p>
+      <div style="display:grid;gap:0.5rem;">
+        <span class="nav-link" onclick="showPage('login')" style="font-size:0.72rem;">ログイン</span>
+        <span class="nav-link" onclick="showPage('register')" style="font-size:0.72rem;">新規登録</span>
+        <span class="nav-link" onclick="showPage('mypage')" style="font-size:0.72rem;">マイページ</span>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:0.6rem;letter-spacing:0.25em;color:#555;margin-bottom:1rem;">CONTACT</p>
+      <p style="font-size:0.72rem;color:#444;line-height:2.2;">info@silmo-atelier.jp<br>平日 10:00〜18:00</p>
+    </div>
+  </div>
+  <div style="border-top:1px solid #1E1E1E;padding-top:1.5rem;text-align:center;">
+    <p style="font-size:0.6rem;color:#333;letter-spacing:0.2em;">© 2025 SILMO. ALL RIGHTS RESERVED.</p>
+  </div>
+</footer>
 
 </div><!-- end padding-top -->
 

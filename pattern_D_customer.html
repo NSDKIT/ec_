@@ -184,31 +184,41 @@ body { font-family: 'Noto Sans JP', sans-serif; background: #1A1A2E; color: #E8E
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer style="background:#10101E;border-top:1px solid #2E2E4E;padding:4rem 8%;">
-    <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3rem;margin-bottom:2rem;">
-      <div>
-        <p class="serif" style="font-size:1.3rem;letter-spacing:0.4em;color:#A0A0C0;margin-bottom:1rem;">SILMO</p>
-        <p style="font-size:0.75rem;color:#4A4A7A;line-height:2.3;">東京・蔵前のアトリエで生まれるシルバーアクセサリー。職人の手から、あなたの手へ。</p>
+  <!-- Testimonials -->
+  <div style="background:#14142A;padding:5rem 8%;border-top:1px solid #2E2E4E;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:3rem;">
+        <p style="font-size:0.62rem;letter-spacing:0.4em;color:#C9A84C;margin-bottom:0.5rem;">TESTIMONIALS</p>
+        <h2 class="serif" style="font-size:2rem;font-weight:300;color:#F0E8D8;">お客様の声</h2>
       </div>
-      <div>
-        <p style="font-size:0.62rem;letter-spacing:0.25em;color:#6060A0;margin-bottom:1rem;">NAVIGATION</p>
-        <div style="display:grid;gap:0.5rem;">
-          <span class="nav-link" onclick="showPage('top')">HOME</span>
-          <span class="nav-link" onclick="showPage('about')">STORY</span>
-          <span class="nav-link" onclick="showPage('products')">COLLECTION</span>
-          <span class="nav-link" onclick="showPage('contact')">CONTACT</span>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+        <div class="card-d" style="padding:2rem;">
+          <p style="color:#C9A84C;font-size:0.85rem;margin-bottom:1rem;">★★★★★</p>
+          <p class="serif" style="font-size:0.9rem;color:#C0B8A8;line-height:2.2;font-style:italic;margin-bottom:1.2rem;">"手にした瞬間、その重みと輝きに感動しました。量産品とは全く違う存在感があります。"</p>
+          <p style="font-size:0.65rem;color:#4A4A7A;letter-spacing:0.1em;">— A.Y. 東京都</p>
+        </div>
+        <div class="card-d" style="padding:2rem;">
+          <p style="color:#C9A84C;font-size:0.85rem;margin-bottom:1rem;">★★★★★</p>
+          <p class="serif" style="font-size:0.9rem;color:#C0B8A8;line-height:2.2;font-style:italic;margin-bottom:1.2rem;">"プレゼントに購入。ブランドの物語に感動し、相手も大変喜んでくれました。"</p>
+          <p style="font-size:0.65rem;color:#4A4A7A;letter-spacing:0.1em;">— K.M. 神奈川県</p>
+        </div>
+        <div class="card-d" style="padding:2rem;">
+          <p style="color:#C9A84C;font-size:0.85rem;margin-bottom:1rem;">★★★★★</p>
+          <p class="serif" style="font-size:0.9rem;color:#C0B8A8;line-height:2.2;font-style:italic;margin-bottom:1.2rem;">"毎日つけています。確かに育っている感じがして、経年変化が楽しいです。"</p>
+          <p style="font-size:0.65rem;color:#4A4A7A;letter-spacing:0.1em;">— R.T. 大阪府</p>
         </div>
       </div>
-      <div>
-        <p style="font-size:0.62rem;letter-spacing:0.25em;color:#6060A0;margin-bottom:1rem;">CONTACT</p>
-        <p style="font-size:0.75rem;color:#4A4A7A;line-height:2.3;">info@silmo-atelier.jp<br>平日 10:00〜18:00</p>
-      </div>
     </div>
-    <div style="border-top:1px solid #2E2E4E;padding-top:1.5rem;text-align:center;">
-      <p style="font-size:0.62rem;color:#3A3A5A;letter-spacing:0.2em;">© 2025 SILMO SILVER ATELIER. ALL RIGHTS RESERVED.</p>
-    </div>
-  </footer>
+  </div>
+
+  <!-- CTA -->
+  <div style="background:#1A1A2E;padding:5rem 8%;text-align:center;border-top:1px solid #2E2E4E;">
+    <p style="font-size:0.62rem;letter-spacing:0.4em;color:#C9A84C;margin-bottom:1rem;">CUSTOM ORDER</p>
+    <h2 class="serif" style="font-size:2rem;font-weight:300;color:#F0E8D8;margin-bottom:1rem;">あなただけの一点を</h2>
+    <div style="width:40px;height:1px;background:#C9A84C;margin:0 auto 1.5rem;"></div>
+    <p style="font-size:0.82rem;color:#8080A0;line-height:2.3;max-width:500px;margin:0 auto 2.5rem;">世界に一つだけのシルバーアクセサリーをご一緒に作りましょう。お気軽にご相談ください。</p>
+    <button class="btn-outline" onclick="showPage('contact')">CONTACT US →</button>
+  </div>
 </div>
 
 <!-- ===== ABOUT (STORY) - 3 Chapters ===== -->
@@ -589,6 +599,40 @@ body { font-family: 'Noto Sans JP', sans-serif; background: #1A1A2E; color: #E8E
     </div>
   </div>
 </div>
+
+<!-- Shared Footer -->
+<footer style="background:#10101E;border-top:1px solid #2E2E4E;padding:4rem 8%;">
+  <div style="max-width:1280px;margin:0 auto 2rem;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3rem;">
+    <div>
+      <p class="serif" style="font-size:1.3rem;letter-spacing:0.4em;color:#A0A0C0;margin-bottom:1rem;">SILMO</p>
+      <p style="font-size:0.75rem;color:#4A4A7A;line-height:2.3;">東京・蔵前のアトリエで生まれるシルバーアクセサリー。職人の手から、あなたの手へ。</p>
+    </div>
+    <div>
+      <p style="font-size:0.62rem;letter-spacing:0.25em;color:#6060A0;margin-bottom:1rem;">NAVIGATION</p>
+      <div style="display:grid;gap:0.5rem;">
+        <span class="nav-link" onclick="showPage('top')">HOME</span>
+        <span class="nav-link" onclick="showPage('about')">STORY</span>
+        <span class="nav-link" onclick="showPage('products')">COLLECTION</span>
+        <span class="nav-link" onclick="showPage('contact')">CONTACT</span>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:0.62rem;letter-spacing:0.25em;color:#6060A0;margin-bottom:1rem;">MEMBER</p>
+      <div style="display:grid;gap:0.5rem;">
+        <span class="nav-link" onclick="showPage('login')">ログイン</span>
+        <span class="nav-link" onclick="showPage('register')">新規登録</span>
+        <span class="nav-link" onclick="showPage('mypage')">マイページ</span>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:0.62rem;letter-spacing:0.25em;color:#6060A0;margin-bottom:1rem;">CONTACT</p>
+      <p style="font-size:0.75rem;color:#4A4A7A;line-height:2.3;">info@silmo-atelier.jp<br>平日 10:00〜18:00</p>
+    </div>
+  </div>
+  <div style="border-top:1px solid #2E2E4E;padding-top:1.5rem;text-align:center;">
+    <p style="font-size:0.62rem;color:#3A3A5A;letter-spacing:0.2em;">© 2025 SILMO SILVER ATELIER. ALL RIGHTS RESERVED.</p>
+  </div>
+</footer>
 
 </div><!-- end padding-top wrapper -->
 

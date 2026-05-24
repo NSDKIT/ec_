@@ -215,35 +215,40 @@ tailwind.config = {
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-darkBrown text-beige py-12">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex gap-12">
-        <div class="w-1/3">
-          <p class="font-accent text-terracottaLight text-3xl mb-3">ARGENT</p>
-          <p class="text-xs text-warmGray leading-relaxed">東京・蔵前のアトリエから、てしごとのシルバーアクセサリーをお届けします。</p>
-        </div>
-        <div class="w-1/3">
-          <p class="text-sm font-medium mb-3">LINKS</p>
-          <ul class="space-y-1 text-xs text-warmGray">
-            <li class="cursor-pointer hover:text-beige" onclick="showPage('products')">SHOP</li>
-            <li class="cursor-pointer hover:text-beige" onclick="showPage('about')">ABOUT</li>
-            <li class="cursor-pointer hover:text-beige" onclick="showPage('contact')">CONTACT</li>
-            <li class="cursor-pointer hover:text-beige">特定商取引法表記</li>
-            <li class="cursor-pointer hover:text-beige">プライバシーポリシー</li>
-          </ul>
-        </div>
-        <div class="w-1/3">
-          <p class="text-sm font-medium mb-3">CONTACT</p>
-          <p class="text-xs text-warmGray">info@argent-jewelry.jp</p>
-          <p class="text-xs text-warmGray mt-1">営業時間：平日 10:00〜18:00</p>
-        </div>
+  <!-- Testimonials -->
+  <div class="max-w-6xl mx-auto px-6 py-16">
+    <div class="text-center mb-10">
+      <p class="font-accent text-terracotta text-xl">testimonials</p>
+      <h2 class="font-serif text-3xl text-darkBrown">お客様の声</h2>
+      <div class="w-16 h-0.5 bg-terracotta mx-auto mt-3"></div>
+    </div>
+    <div class="grid grid-cols-3 gap-6">
+      <div class="bg-white rounded-sm shadow-sm p-6">
+        <div class="text-terracotta text-sm mb-3">★★★★★</div>
+        <p class="font-serif text-darkBrown text-sm leading-relaxed italic mb-4">"手にした瞬間、その重みと温もりに感動しました。量産品とは全く違う存在感があります。"</p>
+        <p class="text-xs text-warmGray">— A.Y. 東京都</p>
       </div>
-      <div class="border-t border-warmGray/30 mt-8 pt-4 text-center text-xs text-warmGray">
-        © 2025 ARGENT アルジャン. All rights reserved.
+      <div class="bg-white rounded-sm shadow-sm p-6">
+        <div class="text-terracotta text-sm mb-3">★★★★★</div>
+        <p class="font-serif text-darkBrown text-sm leading-relaxed italic mb-4">"プレゼントに贈りましたが、相手がとても喜んでくれました。鎚目の繊細さに驚いていました。"</p>
+        <p class="text-xs text-warmGray">— K.M. 神奈川県</p>
+      </div>
+      <div class="bg-white rounded-sm shadow-sm p-6">
+        <div class="text-terracotta text-sm mb-3">★★★★★</div>
+        <p class="font-serif text-darkBrown text-sm leading-relaxed italic mb-4">"毎日つけています。使うたびに味が出てきて、経年変化をとても楽しんでいます。"</p>
+        <p class="text-xs text-warmGray">— R.T. 大阪府</p>
       </div>
     </div>
-  </footer>
+  </div>
+
+  <!-- CTA -->
+  <div class="beige-texture py-16 text-center">
+    <p class="font-accent text-terracotta text-xl mb-2">custom order</p>
+    <h2 class="font-serif text-3xl text-darkBrown mb-4">あなただけの一点を</h2>
+    <div class="w-16 h-0.5 bg-terracotta mx-auto mb-6"></div>
+    <p class="text-warmGray text-sm leading-relaxed max-w-md mx-auto mb-8">世界に一つだけのシルバーアクセサリーをご一緒に作りましょう。カスタムオーダーもお気軽にご相談ください。</p>
+    <button onclick="showPage('contact')" class="btn-terracotta px-10 py-3 rounded-sm text-sm tracking-widest">お問い合わせ</button>
+  </div>
 </div>
 
 <!-- ②ABOUT PAGE -->
@@ -271,6 +276,13 @@ tailwind.config = {
         <p class="text-warmGray text-sm leading-relaxed mb-4">シルバーは生きています。使い込むほどに味が出て、あなたの体温に馴染んでいく。そんな「経年変化」を楽しんでほしくて、一つひとつに鎚目を刻んでいます。</p>
         <p class="text-warmGray text-sm leading-relaxed">毎日身につけるものだから、丁寧に、誠実に。ARGENTのアクセサリーが、あなたの毎日のお守りになりますように。</p>
       </div>
+    </div>
+
+    <!-- Philosophy Quote -->
+    <div class="text-center py-10 px-8 mb-12 border border-beige rounded-sm bg-white">
+      <p class="font-accent text-terracotta text-lg mb-3">~ philosophy ~</p>
+      <p class="font-serif text-2xl text-darkBrown leading-relaxed italic">"てしごとには、<br>作り手の呼吸が宿る。<br>それが、本物の価値です。"</p>
+      <div class="w-16 h-0.5 bg-terracotta mx-auto mt-4"></div>
     </div>
 
     <div class="beige-texture p-8 rounded-sm mb-12">
@@ -928,6 +940,43 @@ tailwind.config = {
     </div>
   </div>
 </div>
+
+<!-- Shared Footer -->
+<footer class="bg-darkBrown text-beige py-12">
+  <div class="max-w-6xl mx-auto px-6">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2rem;">
+      <div>
+        <p class="font-accent text-terracottaLight text-3xl mb-3">ARGENT</p>
+        <p class="text-xs text-warmGray leading-relaxed">東京・蔵前のアトリエから、てしごとのシルバーアクセサリーをお届けします。</p>
+      </div>
+      <div>
+        <p class="text-xs font-medium mb-3 tracking-wider">SHOP</p>
+        <ul class="space-y-1 text-xs text-warmGray">
+          <li class="cursor-pointer hover:text-beige" onclick="showPage('products')">コレクション</li>
+          <li class="cursor-pointer hover:text-beige" onclick="showPage('product-detail')">新着アイテム</li>
+          <li class="cursor-pointer hover:text-beige" onclick="showPage('contact')">カスタムオーダー</li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs font-medium mb-3 tracking-wider">LINKS</p>
+        <ul class="space-y-1 text-xs text-warmGray">
+          <li class="cursor-pointer hover:text-beige" onclick="showPage('about')">ABOUT</li>
+          <li class="cursor-pointer hover:text-beige" onclick="showPage('contact')">CONTACT</li>
+          <li class="cursor-pointer hover:text-beige">特定商取引法表記</li>
+          <li class="cursor-pointer hover:text-beige">プライバシーポリシー</li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs font-medium mb-3 tracking-wider">CONTACT</p>
+        <p class="text-xs text-warmGray">info@argent-jewelry.jp</p>
+        <p class="text-xs text-warmGray mt-1">営業時間：平日 10:00〜18:00</p>
+      </div>
+    </div>
+    <div class="border-t border-warmGray/30 pt-4 text-center text-xs text-warmGray">
+      © 2025 ARGENT アルジャン. All rights reserved.
+    </div>
+  </div>
+</footer>
 
 </div><!-- end padding-top wrapper -->
 
