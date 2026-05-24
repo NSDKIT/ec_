@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARGENT（アルジャン） - てしごとのシルバーアクセサリー</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Caveat:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        offwhite: '#FAF8F5',
+        beige: '#E8DDD0',
+        terracotta: '#C4714A',
+        terracottaLight: '#E8967A',
+        warmGray: '#8C7B6B',
+        darkBrown: '#3D2B1F',
+      },
+      fontFamily: {
+        sans: ['Noto Sans JP', 'sans-serif'],
+        accent: ['Caveat', 'cursive'],
+        serif: ['Cormorant Garamond', 'serif'],
+      }
+    }
+  }
+}
+</script>
+<style>
+  body { background-color: #FAF8F5; color: #3D2B1F; font-family: 'Noto Sans JP', sans-serif; }
+  .texture-bg {
+    background-color: #FAF8F5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+  .beige-texture {
+    background-color: #E8DDD0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+  }
+  .nav-link { transition: color 0.2s; cursor: pointer; }
+  .nav-link:hover { color: #C4714A; }
+  .nav-link.active { color: #C4714A; border-bottom: 1px solid #C4714A; }
+  .btn-terracotta { background: #C4714A; color: white; transition: background 0.2s; }
+  .btn-terracotta:hover { background: #a85c38; }
+  .btn-outline { border: 1px solid #C4714A; color: #C4714A; transition: all 0.2s; }
+  .btn-outline:hover { background: #C4714A; color: white; }
+  .card-hover { transition: transform 0.3s, box-shadow 0.3s; }
+  .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(61,43,31,0.12); }
+  .star { color: #C4714A; }
+  .page { display: none; }
+  .page.active { display: block; }
+  .sidebar-link { cursor: pointer; padding: 8px 16px; border-radius: 6px; transition: background 0.2s; display: block; }
+  .sidebar-link:hover { background: #E8DDD0; }
+  .sidebar-link.active { background: #E8DDD0; color: #C4714A; font-weight: 500; }
+  .step-active { background: #C4714A; color: white; }
+  .step-done { background: #C4714A; color: white; opacity: 0.6; }
+  .step-inactive { background: #E8DDD0; color: #8C7B6B; }
+  input, textarea, select { outline: none; }
+  input:focus, textarea:focus, select:focus { border-color: #C4714A !important; }
+  .hand-underline { border-bottom: 2px solid #C4714A; display: inline-block; }
+  .mega-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .nav-drawer { position: fixed; top: 64px; left: 0; right: 0; background: #FAF8F5; border-bottom: 1px solid #E8DDD0; z-index: 99; padding: 12px 0; display: none; }
+  .admin-sidebar { width: 220px; min-height: 100vh; background: #3D2B1F; color: #E8DDD0; }
+  .admin-sidebar-link { cursor: pointer; padding: 10px 20px; display: block; transition: background 0.2s; font-size: 14px; }
+  .admin-sidebar-link:hover { background: rgba(232,221,208,0.15); }
+  .admin-sidebar-link.active { background: rgba(196,113,74,0.3); color: #E8967A; }
+  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; }
+  .qty-btn { width: 28px; height: 28px; border: 1px solid #E8DDD0; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 4px; }
+  .qty-btn:hover { background: #E8DDD0; }
+</style>
+</head>
+<body class="texture-bg">
+
+<!-- NAVIGATION -->
+<nav class="mega-nav bg-offwhite border-b border-beige shadow-sm">
+  <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
+    <div class="font-accent text-3xl text-terracotta cursor-pointer" onclick="showPage('top')">ARGENT</div>
+    <div class="flex items-center gap-6 text-sm font-sans">
+      <span class="nav-link" onclick="showPage('top')">HOME</span>
+      <span class="nav-link" onclick="showPage('products')">SHOP</span>
+      <span class="nav-link" onclick="showPage('about')">ABOUT</span>
+      <span class="nav-link" onclick="showPage('contact')">CONTACT</span>
+      <span class="text-warmGray mx-2">|</span>
+      <span class="nav-link" onclick="showPage('login')">LOGIN</span>
+      <span class="nav-link" onclick="showPage('mypage')">MY PAGE</span>
+      <span class="nav-link relative" onclick="showPage('cart')">
+        🛒 <span class="absolute -top-1 -right-2 text-xs bg-terracotta text-white rounded-full w-4 h-4 flex items-center justify-center">2</span>
+      </span>
+      <span class="text-warmGray mx-2">|</span>
+      <span class="nav-link text-xs text-warmGray" onclick="showPage('admin-dashboard')">ADMIN</span>
+    </div>
+  </div>
+  <!-- Page Quick Nav -->
+  <div class="bg-beige px-6 py-1.5 text-xs flex gap-4 overflow-x-auto">
+    <span class="text-warmGray font-medium">Pages:</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('top')">①Top</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('about')">②About</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('contact')">③Contact</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('products')">④Products</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('product-detail')">⑤Detail</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('cart')">⑥Cart</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('checkout')">⑦Checkout</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('checkout-complete')">⑧Complete</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('login')">⑨Login</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('register')">⑩Register</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('mypage')">⑪MyPage</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('order-detail')">⑫Order</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('admin-dashboard')">⑬Admin</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('admin-products')">⑭Products管理</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('admin-product-edit')">⑮商品編集</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('admin-orders')">⑯注文管理</span>
+    <span class="nav-link cursor-pointer" onclick="showPage('admin-pages')">⑰ページ管理</span>
+  </div>
+</nav>
+
+<div style="padding-top: 88px;">
+
+<!-- ①TOP PAGE -->
+<div id="page-top" class="page active">
+  <!-- Hero -->
+  <div class="relative h-screen max-h-[700px] overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1600&q=80" class="w-full h-full object-cover" alt="hero">
+    <div class="absolute inset-0 bg-gradient-to-r from-offwhite/80 via-offwhite/40 to-transparent"></div>
+    <div class="absolute inset-0 flex items-center">
+      <div class="max-w-6xl mx-auto px-12 w-full">
+        <p class="font-accent text-terracotta text-xl mb-3 tracking-wide">handcrafted silver jewelry</p>
+        <h1 class="font-serif text-5xl md:text-7xl text-darkBrown leading-tight mb-6">ARGENT<br><span class="font-accent text-4xl text-terracotta">アルジャン</span></h1>
+        <p class="font-sans text-warmGray text-lg mb-2 tracking-wider">あなたの日常に、てしごとのぬくもりを。</p>
+        <p class="text-warmGray text-sm mb-8 max-w-md leading-relaxed">一つひとつ手で鎚目をつけ、磨き上げた純銀のアクセサリー。<br>作り手の温もりが、あなたの毎日に寄り添います。</p>
+        <div class="flex gap-4">
+          <button onclick="showPage('products')" class="btn-terracotta px-8 py-3 rounded-sm text-sm tracking-widest font-sans">SHOP NOW</button>
+          <button onclick="showPage('about')" class="btn-outline px-8 py-3 rounded-sm text-sm tracking-widest font-sans">OUR STORY</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concept Band -->
+  <div class="beige-texture py-12 text-center">
+    <p class="font-accent text-terracotta text-2xl mb-2">~ our philosophy ~</p>
+    <p class="text-darkBrown text-sm tracking-widest">HANDMADE &nbsp;·&nbsp; STERLING SILVER &nbsp;·&nbsp; ONE BY ONE</p>
+  </div>
+
+  <!-- New Arrivals -->
+  <div class="max-w-6xl mx-auto px-6 py-16">
+    <div class="text-center mb-10">
+      <p class="font-accent text-terracotta text-xl">new arrivals</p>
+      <h2 class="font-serif text-3xl text-darkBrown">新着アイテム</h2>
+      <div class="w-16 h-0.5 bg-terracotta mx-auto mt-3"></div>
+    </div>
+    <div class="grid grid-cols-4 gap-6">
+      <!-- Product 1 -->
+      <div class="card-hover cursor-pointer bg-white rounded-sm shadow-sm overflow-hidden" onclick="showPage('product-detail')">
+        <div class="aspect-square overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="ring">
+        </div>
+        <div class="p-4">
+          <p class="font-accent text-terracotta text-sm">Silver Ring No.01</p>
+          <p class="text-xs text-warmGray mb-1">シルバーリング No.01</p>
+          <div class="flex gap-0.5 mb-1">★★★★★ <span class="text-xs text-warmGray ml-1">(24)</span></div>
+          <p class="text-darkBrown font-medium">¥8,800</p>
+        </div>
+      </div>
+      <!-- Product 2 -->
+      <div class="card-hover cursor-pointer bg-white rounded-sm shadow-sm overflow-hidden" onclick="showPage('product-detail')">
+        <div class="aspect-square overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="necklace">
+        </div>
+        <div class="p-4">
+          <p class="font-accent text-terracotta text-sm">Feather Necklace</p>
+          <p class="text-xs text-warmGray mb-1">フェザーネックレス</p>
+          <div class="flex gap-0.5 mb-1 text-terracotta text-sm">★★★★★ <span class="text-xs text-warmGray ml-1">(18)</span></div>
+          <p class="text-darkBrown font-medium">¥12,800</p>
+        </div>
+      </div>
+      <!-- Product 3 -->
+      <div class="card-hover cursor-pointer bg-white rounded-sm shadow-sm overflow-hidden" onclick="showPage('product-detail')">
+        <div class="aspect-square overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="bangle">
+        </div>
+        <div class="p-4">
+          <p class="font-accent text-terracotta text-sm">Bangle 03</p>
+          <p class="text-xs text-warmGray mb-1">バングル 03</p>
+          <div class="flex gap-0.5 mb-1 text-terracotta text-sm">★★★★☆ <span class="text-xs text-warmGray ml-1">(12)</span></div>
+          <p class="text-darkBrown font-medium">¥15,400</p>
+        </div>
+      </div>
+      <!-- Product 4 -->
+      <div class="card-hover cursor-pointer bg-white rounded-sm shadow-sm overflow-hidden" onclick="showPage('product-detail')">
+        <div class="aspect-square overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1573408301185-9519f94816b4?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="signet">
+        </div>
+        <div class="p-4">
+          <p class="font-accent text-terracotta text-sm">Signet Ring</p>
+          <p class="text-xs text-warmGray mb-1">シグネットリング</p>
+          <div class="flex gap-0.5 mb-1 text-terracotta text-sm">★★★★★ <span class="text-xs text-warmGray ml-1">(31)</span></div>
+          <p class="text-darkBrown font-medium">¥9,800</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-10">
+      <button onclick="showPage('products')" class="btn-outline px-10 py-3 rounded-sm text-sm tracking-widest">VIEW ALL ITEMS</button>
+    </div>
+  </div>
+
+  <!-- Brand Story Teaser -->
+  <div class="beige-texture py-16">
+    <div class="max-w-6xl mx-auto px-6 flex gap-12 items-center">
+      <div class="w-1/2">
+        <img src="https://images.unsplash.com/photo-1574634534894-89d7576c8259?w=800&q=80" class="w-full aspect-video object-cover rounded-sm shadow-md" alt="workshop">
+      </div>
+      <div class="w-1/2">
+        <p class="font-accent text-terracotta text-xl mb-2">our story</p>
+        <h2 class="font-serif text-3xl text-darkBrown mb-4">手仕事から生まれる<br>一点もの</h2>
+        <p class="text-warmGray text-sm leading-relaxed mb-4">東京・蔵前のアトリエで、一つひとつ手で作り上げる純銀のアクセサリー。鎚目の深さ、磨きの光り方、すべてに作り手の想いが込められています。</p>
+        <p class="text-warmGray text-sm leading-relaxed mb-6">量産品では出せない、その日の気温や湿度が刻み込まれたアクセサリーは、あなただけの一点ものです。</p>
+        <button onclick="showPage('about')" class="btn-terracotta px-8 py-2.5 rounded-sm text-sm tracking-wider">MORE ABOUT US</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instagram-like Gallery -->
+  <div class="max-w-6xl mx-auto px-6 py-16">
+    <div class="text-center mb-8">
+      <p class="font-accent text-terracotta text-xl">gallery</p>
+      <h2 class="font-serif text-3xl text-darkBrown">作品ギャラリー</h2>
+    </div>
+    <div class="grid grid-cols-5 gap-3">
+      <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=300&q=80" class="aspect-square object-cover rounded-sm hover:opacity-80 transition cursor-pointer" alt="">
+      <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=300&q=80" class="aspect-square object-cover rounded-sm hover:opacity-80 transition cursor-pointer" alt="">
+      <img src="https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=300&q=80" class="aspect-square object-cover rounded-sm hover:opacity-80 transition cursor-pointer" alt="">
+      <img src="https://images.unsplash.com/photo-1573408301185-9519f94816b4?w=300&q=80" class="aspect-square object-cover rounded-sm hover:opacity-80 transition cursor-pointer" alt="">
+      <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=300&q=80" class="aspect-square object-cover rounded-sm hover:opacity-80 transition cursor-pointer" alt="">
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-darkBrown text-beige py-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex gap-12">
+        <div class="w-1/3">
+          <p class="font-accent text-terracottaLight text-3xl mb-3">ARGENT</p>
+          <p class="text-xs text-warmGray leading-relaxed">東京・蔵前のアトリエから、てしごとのシルバーアクセサリーをお届けします。</p>
+        </div>
+        <div class="w-1/3">
+          <p class="text-sm font-medium mb-3">LINKS</p>
+          <ul class="space-y-1 text-xs text-warmGray">
+            <li class="cursor-pointer hover:text-beige" onclick="showPage('products')">SHOP</li>
+            <li class="cursor-pointer hover:text-beige" onclick="showPage('about')">ABOUT</li>
+            <li class="cursor-pointer hover:text-beige" onclick="showPage('contact')">CONTACT</li>
+            <li class="cursor-pointer hover:text-beige">特定商取引法表記</li>
+            <li class="cursor-pointer hover:text-beige">プライバシーポリシー</li>
+          </ul>
+        </div>
+        <div class="w-1/3">
+          <p class="text-sm font-medium mb-3">CONTACT</p>
+          <p class="text-xs text-warmGray">info@argent-jewelry.jp</p>
+          <p class="text-xs text-warmGray mt-1">営業時間：平日 10:00〜18:00</p>
+        </div>
+      </div>
+      <div class="border-t border-warmGray/30 mt-8 pt-4 text-center text-xs text-warmGray">
+        © 2025 ARGENT アルジャン. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ②ABOUT PAGE -->
+<div id="page-about" class="page">
+  <div class="max-w-4xl mx-auto px-6 py-16">
+    <div class="text-center mb-12">
+      <p class="font-accent text-terracotta text-xl">our story</p>
+      <h1 class="font-serif text-4xl text-darkBrown mt-1">ARGENTについて</h1>
+      <div class="w-16 h-0.5 bg-terracotta mx-auto mt-4"></div>
+    </div>
+
+    <!-- Creator Section -->
+    <div class="flex gap-12 items-start mb-16">
+      <div class="w-2/5">
+        <img src="https://images.unsplash.com/photo-1556760544-74068565f05c?w=600&q=80" class="w-full aspect-square object-cover rounded-sm shadow-md" alt="creator">
+        <div class="beige-texture p-4 mt-4 rounded-sm">
+          <p class="font-accent text-terracotta text-lg">Yuki Tanaka</p>
+          <p class="text-xs text-warmGray">田中 由紀 / Creator & Silversmith</p>
+        </div>
+      </div>
+      <div class="w-3/5">
+        <p class="font-accent text-terracotta text-lg mb-3">creator's message</p>
+        <h2 class="font-serif text-2xl text-darkBrown mb-4">手で触れる、<br>温もりのあるものを</h2>
+        <p class="text-warmGray text-sm leading-relaxed mb-4">ARGENTは2018年、東京・蔵前の小さなアトリエから始まりました。学生時代から金属工芸を学び、「量産品には出せない質感」を追い求めた結果、純銀を素材にしたハンドメイドジュエリーに辿り着きました。</p>
+        <p class="text-warmGray text-sm leading-relaxed mb-4">シルバーは生きています。使い込むほどに味が出て、あなたの体温に馴染んでいく。そんな「経年変化」を楽しんでほしくて、一つひとつに鎚目を刻んでいます。</p>
+        <p class="text-warmGray text-sm leading-relaxed">毎日身につけるものだから、丁寧に、誠実に。ARGENTのアクセサリーが、あなたの毎日のお守りになりますように。</p>
+      </div>
+    </div>
+
+    <!-- Process Section -->
+    <div class="beige-texture p-8 rounded-sm mb-12">
+      <p class="font-accent text-terracotta text-xl text-center mb-2">making process</p>
+      <h2 class="font-serif text-3xl text-darkBrown text-center mb-8">制作工程</h2>
+      <div class="grid grid-cols-3 gap-6">
+        <div class="text-center">
+          <div class="w-full aspect-video overflow-hidden rounded-sm mb-3">
+            <img src="https://images.unsplash.com/photo-1574634534894-89d7576c8259?w=400&q=80" class="w-full h-full object-cover" alt="sketch">
+          </div>
+          <p class="font-accent text-terracotta">01. Design</p>
+          <p class="text-xs text-warmGray mt-1">スケッチから始まるデザイン。自然や旅からインスピレーションを得ています。</p>
+        </div>
+        <div class="text-center">
+          <div class="w-full aspect-video overflow-hidden rounded-sm mb-3">
+            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&q=80" class="w-full h-full object-cover" alt="hammering">
+          </div>
+          <p class="font-accent text-terracotta">02. Hammering</p>
+          <p class="text-xs text-warmGray mt-1">銀板を鎚で叩き、形を作る。この工程で個性が生まれます。</p>
+        </div>
+        <div class="text-center">
+          <div class="w-full aspect-video overflow-hidden rounded-sm mb-3">
+            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&q=80" class="w-full h-full object-cover" alt="polishing">
+          </div>
+          <p class="font-accent text-terracotta">03. Finishing</p>
+          <p class="text-xs text-warmGray mt-1">丁寧に磨き上げ、光沢を出す最終工程。ここに時間をかけます。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Values -->
+    <div class="grid grid-cols-3 gap-6 mb-12">
+      <div class="text-center p-6 bg-white rounded-sm shadow-sm">
+        <p class="font-accent text-terracotta text-4xl mb-2">100%</p>
+        <p class="text-sm font-medium text-darkBrown">ハンドメイド</p>
+        <p class="text-xs text-warmGray mt-1">すべて手作業で制作</p>
+      </div>
+      <div class="text-center p-6 bg-white rounded-sm shadow-sm">
+        <p class="font-accent text-terracotta text-4xl mb-2">SV925</p>
+        <p class="text-sm font-medium text-darkBrown">スターリングシルバー</p>
+        <p class="text-xs text-warmGray mt-1">高品質の素材のみ使用</p>
+      </div>
+      <div class="text-center p-6 bg-white rounded-sm shadow-sm">
+        <p class="font-accent text-terracotta text-4xl mb-2">7年</p>
+        <p class="text-sm font-medium text-darkBrown">制作経験</p>
+        <p class="text-xs text-warmGray mt-1">蔵前アトリエより</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ③CONTACT PAGE -->
+<div id="page-contact" class="page">
+  <div class="max-w-2xl mx-auto px-6 py-16">
+    <div class="text-center mb-10">
+      <p class="font-accent text-terracotta text-xl">get in touch</p>
+      <h1 class="font-serif text-4xl text-darkBrown">お問い合わせ</h1>
+      <div class="w-16 h-0.5 bg-terracotta mx-auto mt-4"></div>
+      <p class="text-warmGray text-sm mt-4">ご質問・カスタムオーダーのご相談はこちらから。<br>通常2営業日以内にご返信いたします。</p>
+    </div>
+    <div class="bg-white rounded-sm shadow-sm p-8">
+      <div class="space-y-5">
+        <div>
+          <label class="block text-sm font-medium text-darkBrown mb-1.5">お名前 <span class="text-terracotta">*</span></label>
+          <input type="text" placeholder="田中 花子" class="w-full border border-beige rounded-sm px-4 py-2.5 text-sm bg-offwhite">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-darkBrown mb-1.5">メールアドレス <span class="text-terracotta">*</span></label>
+          <input type="email" placeholder="hanako@example.com" class="w-full border border-beige rounded-sm px-4 py-2.5 text-sm bg-offwhite">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-darkBrown mb-1.5">お問い合わせ種別</label>
+          <select class="w-full border border-beige rounded-sm px-4 py-2.5 text-sm bg-offwhite text-warmGray">
+            <option>商品について</option>
+            <option>注文について</option>
+            <option>カスタムオーダー</option>
+            <option>その他</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-darkBrown mb-1.5">メッセージ <span class="text-terracotta">*</span></label>
+          <textarea rows="6" placeholder="ご質問内容をご記入ください..." class="w-full border border-beige rounded-sm px-4 py-2.5 text-sm bg-offwhite resize-none"></textarea>
+        </div>
+        <button class="btn-terracotta w-full py-3 rounded-sm text-sm tracking-widest font-sans">送信する</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ④PRODUCT LIST PAGE -->
+<div id="page-products" class="page">
+  <div class="max-w-6xl mx-auto px-6 py-12">
+    <div class="text-center mb-8">
+      <p class="font-accent text-terracotta text-xl">collection</p>
+      <h1 class="font-serif text-4xl text-darkBrown">すべてのアイテム</h1>
+      <div class="w-16 h-0.5 bg-terracotta mx-auto mt-4"></div>
+    </div>
+    <!-- Search & Filter -->
+    <div class="flex gap-4 mb-6 items-center">
+      <div class="flex-1 relative">
+        <input type="text" placeholder="アイテムを検索..." class="w-full border border-beige rounded-sm pl-10 pr-4 py-2.5 text-sm bg-white">
+        <span class="absolute left-3 top-3 text-warmGray text-sm">🔍</span>
+      </div>
+      <div class="flex gap-2">
+        <button class="btn-terracotta px-4 py-2.5 rounded-sm text-xs">ALL</button>
+        <button class="btn-outline px-4 py-2.5 rounded-sm text-xs">リング</button>
+        <button class="btn-outline px-4 py-2.5 rounded-sm text-xs">ネックレス</button>
+        <button class="btn-outline px-4 py-2.5 rounded-sm text-xs">バングル</button>
+        <button class="btn-outline px-4 py-2.5 rounded-sm text-xs">ピアス</button>
+      </div>
+    </div>
+    <!-- Products Grid -->
+    <div class="grid grid-cols-4 gap-6">
+      <div class="card-hover cursor-pointer bg-white rounded-sm shadow-sm overflow-hidden" onclick="showPage('product-detail')">
+        <div class="aspect-square overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+          <span class="absolute top-2 right-2 tag bg-terracotta text-white">NEW</span>
+        </div>
+        <div class="p-4">
+          <p class="font-accent text-terracotta text-sm">Silver Ring No.01</p>
+          <div class="text-xs text-terracotta mb-1">★★★★★ <span class="text-warmGray">(24)</span></div>
+          <p class="text-darkBrown font-medium text-sm">¥8,800</p>
+        </div>
+      </div>
+      <div class="card-hover cursor-pointer bg-white rounded-sm shadow-sm overflow-hidden" onclick="showPage('product-detail')">
+        <div class="aspect-square overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-4">
+          <p class="font-accent text-terracotta text-sm">Feather Necklace</p>
+          <div class="text-xs text-terracotta mb-1">★★★★★ <span class="text-warmGray">(18)</span></div>
+          <p class="text-darkBrown font-medium text-sm">¥12,800</p>
+        </div>
+      </div>
+      <div class="card-hover cursor-pointer bg-white rounded-sm shadow-sm overflow-hidden" onclick="showPage('product-detail')">
+        <div class="aspect-square overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-4">
+          <p class="font-accent text-terracotta text-sm">Bangle 03</p>
+          <div class="text-xs text-terracotta mb-1">★★★★☆ <span class="text-warmGray">(12)</span></div>
+          <p class="text-darkBrown font-medium text-sm">¥15,400</p>
+        </div>
+      </div>
+      <div class="card-hover cursor-pointer bg-white rounded-sm shadow-sm overflow-hidden" onclick="showPage('product-detail')">
+        <div class="aspect-square overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1573408301185-9519f94816b4?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-4">
+          <p class="font-accent text-terracotta text-sm">Signet Ring</p>
+          <div class="text-xs text-terracotta mb-1">★★★★★ <span class="text-warmGray">(31)</span></div>
+          <p class="text-darkBrown font-medium text-sm">¥9,800</p>
+        </div>
+      </div>
+      <div class="card-hover cursor-pointer bg-white rounded-sm shadow-sm overflow-hidden" onclick="showPage('product-detail')">
+        <div class="aspect-square overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-4">
+          <p class="font-accent text-terracotta text-sm">Chain Bracelet</p>
+          <div class="text-xs text-terracotta mb-1">★★★★☆ <span class="text-warmGray">(9)</span></div>
+          <p class="text-darkBrown font-medium text-sm">¥11,200</p>
+        </div>
+      </div>
+      <div class="card-hover cursor-pointer bg-white rounded-sm shadow-sm overflow-hidden" onclick="showPage('product-detail')">
+        <div class="aspect-square overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1598560917807-1bae44bd2be8?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-4">
+          <p class="font-accent text-terracotta text-sm">Cross Pendant</p>
+          <div class="text-xs text-terracotta mb-1">★★★★★ <span class="text-warmGray">(22)</span></div>
+          <p class="text-darkBrown font-medium text-sm">¥14,600</p>
+        </div>
+      </div>
+      <div class="card-hover cursor-pointer bg-white rounded-sm shadow-sm overflow-hidden" onclick="showPage('product-detail')">
+        <div class="aspect-square overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+          <span class="absolute top-2 left-2 tag bg-warmGray text-white">残り2</span>
+        </div>
+        <div class="p-4">
+          <p class="font-accent text-terracotta text-sm">Ear Cuff Set</p>
+          <div class="text-xs text-terracotta mb-1">★★★★☆ <span class="text-warmGray">(7)</span></div>
+          <p class="text-darkBrown font-medium text-sm">¥6,800</p>
+        </div>
+      </div>
+      <div class="card-hover cursor-pointer bg-white rounded-sm shadow-sm overflow-hidden" onclick="showPage('product-detail')">
+        <div class="aspect-square overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1586878341523-3d84e01a3cf0?w=400&q=80" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-4">
+          <p class="font-accent text-terracotta text-sm">Wave Ring</p>
+          <div class="text-xs text-terracotta mb-1">★★★★★ <span class="text-warmGray">(15)</span></div>
+          <p class="text-darkBrown font-medium text-sm">¥7,400</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤PRODUCT DETAIL PAGE -->
+<div id="page-product-detail" class="page">
+  <div class="max-w-5xl mx-auto px-6 py-12">
+    <p class="text-xs text-warmGray mb-6 cursor-pointer" onclick="showPage('products')">← 一覧に戻る</p>
+    <div class="flex gap-10">
+      <!-- Images -->
+      <div class="w-1/2">
+        <div class="aspect-square overflow-hidden rounded-sm shadow-md mb-3 bg-white">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&q=80" class="w-full h-full object-cover" alt="product">
+        </div>
+        <div class="flex gap-2">
+          <div class="w-16 h-16 overflow-hidden rounded-sm border-2 border-terracotta cursor-pointer"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=200&q=80" class="w-full h-full object-cover"></div>
+          <div class="w-16 h-16 overflow-hidden rounded-sm border border-beige cursor-pointer"><img src="https://images.unsplash.com/photo-1573408301185-9519f94816b4?w=200&q=80" class="w-full h-full object-cover"></div>
+          <div class="w-16 h-16 overflow-hidden rounded-sm border border-beige cursor-pointer"><img src="https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=200&q=80" class="w-full h-full object-cover"></div>
+        </div>
+      </div>
+      <!-- Info -->
+      <div class="w-1/2">
+        <p class="text-xs text-warmGray mb-1">RING / シルバーリング</p>
+        <h1 class="font-serif text-3xl text-darkBrown mb-1">Silver Ring No.01</h1>
+        <div class="text-terracotta text-sm mb-3">★★★★★ <span class="text-warmGray text-xs">(24件のレビュー)</span></div>
+        <p class="text-2xl font-medium text-darkBrown mb-4">¥8,800 <span class="text-sm text-warmGray font-normal">（税込）</span></p>
+        <div class="w-full h-px bg-beige mb-4"></div>
+        <p class="text-sm text-warmGray leading-relaxed mb-5">鎚目を丁寧に刻んだスターリングシルバーのリング。シンプルながら手作業ならではの表情が美しく、どんなスタイルにも合わせやすい一点です。着けるたびに味が増していく経年変化も楽しめます。</p>
+        <div class="mb-4">
+          <label class="text-sm font-medium text-darkBrown block mb-2">サイズを選ぶ</label>
+          <div class="flex gap-2 flex-wrap">
+            <button class="w-10 h-10 border border-beige rounded-sm text-xs hover:border-terracotta">10</button>
+            <button class="w-10 h-10 border-2 border-terracotta rounded-sm text-xs bg-terracotta text-white">11</button>
+            <button class="w-10 h-10 border border-beige rounded-sm text-xs hover:border-terracotta">12</button>
+            <button class="w-10 h-10 border border-beige rounded-sm text-xs hover:border-terracotta">13</button>
+            <button class="w-10 h-10 border border-beige rounded-sm text-xs hover:border-terracotta">14</button>
+            <button class="w-10 h-10 border border-beige rounded-sm text-xs opacity-40 cursor-not-allowed line-through">15</button>
+          </div>
+          <p class="text-xs text-warmGray mt-1">※ 15号は売り切れです</p>
+        </div>
+        <button onclick="showPage('cart')" class="btn-terracotta w-full py-3 rounded-sm text-sm tracking-widest mb-2">カートに追加</button>
+        <button class="btn-outline w-full py-3 rounded-sm text-sm tracking-widest">♡ お気に入りに追加</button>
+        <div class="beige-texture rounded-sm p-4 mt-4">
+          <p class="text-xs text-warmGray">📦 通常3〜5営業日以内に発送</p>
+          <p class="text-xs text-warmGray mt-1">🔄 到着後14日以内返品OK</p>
+          <p class="text-xs text-warmGray mt-1">✉️ カスタムサイズもご相談ください</p>
+        </div>
+      </div>
+    </div>
+    <!-- Reviews -->
+    <div class="mt-12 border-t border-beige pt-8">
+      <h2 class="font-serif text-2xl text-darkBrown mb-6">レビュー</h2>
+      <div class="space-y-4">
+        <div class="bg-white rounded-sm p-5 shadow-sm">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-8 h-8 rounded-full bg-beige flex items-center justify-center text-sm">A</div>
+            <div>
+              <p class="text-sm font-medium text-darkBrown">あおい</p>
+              <p class="text-terracotta text-xs">★★★★★</p>
+            </div>
+            <p class="text-xs text-warmGray ml-auto">2025.03.12</p>
+          </div>
+          <p class="text-sm text-warmGray leading-relaxed">想像以上に素敵でした！鎚目のニュアンスが写真よりもずっと繊細で、毎日つけています。指に馴染む感じがとても好きです。</p>
+        </div>
+        <div class="bg-white rounded-sm p-5 shadow-sm">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-8 h-8 rounded-full bg-beige flex items-center justify-center text-sm">M</div>
+            <div>
+              <p class="text-sm font-medium text-darkBrown">みな</p>
+              <p class="text-terracotta text-xs">★★★★★</p>
+            </div>
+            <p class="text-xs text-warmGray ml-auto">2025.02.28</p>
+          </div>
+          <p class="text-sm text-warmGray leading-relaxed">プレゼントに購入しました。パッケージも可愛く、贈り物にぴったり。相手もとても喜んでくれました。</p>
+        </div>
+        <div class="bg-white rounded-sm p-5 shadow-sm">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-8 h-8 rounded-full bg-beige flex items-center justify-center text-sm">K</div>
+            <div>
+              <p class="text-sm font-medium text-darkBrown">けいこ</p>
+              <p class="text-terracotta text-xs">★★★★☆</p>
+            </div>
+            <p class="text-xs text-warmGray ml-auto">2025.01.15</p>
+          </div>
+          <p class="text-sm text-warmGray leading-relaxed">品質はとても良いです。サイズ感はやや大きめに感じたので、次は一つ小さいサイズにしようと思います。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑥CART PAGE -->
+<div id="page-cart" class="page">
+  <div class="max-w-4xl mx-auto px-6 py-12">
+    <h1 class="font-serif text-3xl text-darkBrown mb-8">カート</h1>
+    <div class="flex gap-8">
+      <div class="flex-1">
+        <!-- Cart Item -->
+        <div class="bg-white rounded-sm shadow-sm p-5 flex gap-5 mb-3">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=200&q=80" class="w-20 h-20 object-cover rounded-sm">
+          <div class="flex-1">
+            <p class="font-accent text-terracotta">Silver Ring No.01</p>
+            <p class="text-xs text-warmGray">サイズ: 11号</p>
+            <p class="text-sm font-medium text-darkBrown mt-1">¥8,800</p>
+            <div class="flex items-center gap-2 mt-2">
+              <div class="qty-btn">−</div>
+              <span class="text-sm w-6 text-center">1</span>
+              <div class="qty-btn">+</div>
+              <span class="text-xs text-warmGray ml-3 cursor-pointer hover:text-terracotta">削除</span>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-medium text-darkBrown">¥8,800</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-sm shadow-sm p-5 flex gap-5 mb-3">
+          <img src="https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=200&q=80" class="w-20 h-20 object-cover rounded-sm">
+          <div class="flex-1">
+            <p class="font-accent text-terracotta">Feather Necklace</p>
+            <p class="text-xs text-warmGray">カラー: シルバー</p>
+            <p class="text-sm font-medium text-darkBrown mt-1">¥12,800</p>
+            <div class="flex items-center gap-2 mt-2">
+              <div class="qty-btn">−</div>
+              <span class="text-sm w-6 text-center">1</span>
+              <div class="qty-btn">+</div>
+              <span class="text-xs text-warmGray ml-3 cursor-pointer hover:text-terracotta">削除</span>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-medium text-darkBrown">¥12,800</p>
+          </div>
+        </div>
+      </div>
+      <!-- Order Summary -->
+      <div class="w-72">
+        <div class="beige-texture rounded-sm p-6">
+          <h2 class="font-medium text-darkBrown mb-4">注文サマリー</h2>
+          <div class="space-y-2 text-sm text-warmGray">
+            <div class="flex justify-between"><span>小計</span><span>¥21,600</span></div>
+            <div class="flex justify-between"><span>送料</span><span>¥660</span></div>
+            <div class="flex justify-between text-terracotta"><span>クーポン割引</span><span>−¥0</span></div>
+          </div>
+          <div class="border-t border-warmGray/20 mt-4 pt-4 flex justify-between font-medium text-darkBrown">
+            <span>合計</span><span>¥22,260</span>
+          </div>
+          <button onclick="showPage('checkout')" class="btn-terracotta w-full py-3 rounded-sm text-sm tracking-widest mt-4">注文手続きへ</button>
+          <button onclick="showPage('products')" class="w-full py-2 text-xs text-warmGray hover:text-terracotta mt-2">← 買い物を続ける</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑦CHECKOUT PAGE -->
+<div id="page-checkout" class="page">
+  <div class="max-w-4xl mx-auto px-6 py-12">
+    <!-- Step Indicator -->
+    <div class="flex items-center justify-center gap-0 mb-10">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-full step-done flex items-center justify-center text-xs font-bold">✓</div>
+        <span class="text-xs text-warmGray">カート</span>
+      </div>
+      <div class="w-16 h-px bg-terracotta mx-2"></div>
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-full step-active flex items-center justify-center text-xs font-bold">2</div>
+        <span class="text-xs text-darkBrown font-medium">お届け先</span>
+      </div>
+      <div class="w-16 h-px bg-beige mx-2"></div>
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-full step-inactive flex items-center justify-center text-xs">3</div>
+        <span class="text-xs text-warmGray">確認</span>
+      </div>
+      <div class="w-16 h-px bg-beige mx-2"></div>
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-full step-inactive flex items-center justify-center text-xs">4</div>
+        <span class="text-xs text-warmGray">完了</span>
+      </div>
+    </div>
+    <div class="flex gap-8">
+      <div class="flex-1">
+        <h2 class="font-serif text-2xl text-darkBrown mb-5">お届け先情報</h2>
+        <div class="bg-white rounded-sm shadow-sm p-6 space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-darkBrown mb-1">姓 <span class="text-terracotta">*</span></label>
+              <input type="text" placeholder="田中" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-darkBrown mb-1">名 <span class="text-terracotta">*</span></label>
+              <input type="text" placeholder="花子" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-darkBrown mb-1">郵便番号 <span class="text-terracotta">*</span></label>
+            <input type="text" placeholder="123-4567" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-darkBrown mb-1">都道府県 <span class="text-terracotta">*</span></label>
+            <select class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite text-warmGray">
+              <option>東京都</option><option>神奈川県</option><option>大阪府</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-darkBrown mb-1">住所 <span class="text-terracotta">*</span></label>
+            <input type="text" placeholder="台東区蔵前1-2-3" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-darkBrown mb-1">電話番号 <span class="text-terracotta">*</span></label>
+            <input type="text" placeholder="090-1234-5678" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite">
+          </div>
+        </div>
+        <h2 class="font-serif text-2xl text-darkBrown mb-5 mt-8">お支払い方法</h2>
+        <div class="bg-white rounded-sm shadow-sm p-6 space-y-3">
+          <label class="flex items-center gap-3 cursor-pointer p-3 border-2 border-terracotta rounded-sm">
+            <input type="radio" name="payment" checked class="accent-terracotta">
+            <span class="text-sm">クレジットカード</span>
+            <span class="ml-auto text-xs text-warmGray">VISA / MC / AMEX / JCB</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer p-3 border border-beige rounded-sm">
+            <input type="radio" name="payment" class="accent-terracotta">
+            <span class="text-sm">PayPay</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer p-3 border border-beige rounded-sm">
+            <input type="radio" name="payment" class="accent-terracotta">
+            <span class="text-sm">銀行振込</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer p-3 border border-beige rounded-sm">
+            <input type="radio" name="payment" class="accent-terracotta">
+            <span class="text-sm">代金引換</span>
+          </label>
+        </div>
+        <button onclick="showPage('checkout-complete')" class="btn-terracotta w-full py-3 rounded-sm text-sm tracking-widest mt-6">注文を確定する</button>
+      </div>
+      <div class="w-64">
+        <div class="beige-texture rounded-sm p-5 sticky top-24">
+          <h3 class="font-medium text-darkBrown mb-3 text-sm">ご注文内容</h3>
+          <div class="space-y-2 text-xs text-warmGray">
+            <div class="flex justify-between"><span>Silver Ring No.01</span><span>¥8,800</span></div>
+            <div class="flex justify-between"><span>Feather Necklace</span><span>¥12,800</span></div>
+            <div class="flex justify-between"><span>送料</span><span>¥660</span></div>
+          </div>
+          <div class="border-t border-warmGray/20 mt-3 pt-3 flex justify-between text-sm font-medium text-darkBrown">
+            <span>合計</span><span>¥22,260</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑧CHECKOUT COMPLETE PAGE -->
+<div id="page-checkout-complete" class="page">
+  <div class="max-w-2xl mx-auto px-6 py-20 text-center">
+    <div class="w-16 h-16 rounded-full bg-terracotta/20 flex items-center justify-center mx-auto mb-6">
+      <span class="text-3xl">✓</span>
+    </div>
+    <p class="font-accent text-terracotta text-2xl mb-2">Thank you!</p>
+    <h1 class="font-serif text-3xl text-darkBrown mb-4">ご注文が完了しました</h1>
+    <p class="text-warmGray text-sm mb-6 leading-relaxed">ご注文ありがとうございます。<br>確認メールをお送りしましたので、ご確認ください。</p>
+    <div class="beige-texture rounded-sm p-6 mb-8 text-left">
+      <div class="flex justify-between text-sm mb-2">
+        <span class="text-warmGray">注文番号</span>
+        <span class="font-medium text-darkBrown">#ARG-20250524-0023</span>
+      </div>
+      <div class="flex justify-between text-sm mb-2">
+        <span class="text-warmGray">お支払い金額</span>
+        <span class="font-medium text-darkBrown">¥22,260</span>
+      </div>
+      <div class="flex justify-between text-sm">
+        <span class="text-warmGray">お届け予定</span>
+        <span class="font-medium text-darkBrown">3〜5営業日</span>
+      </div>
+    </div>
+    <div class="flex gap-4 justify-center">
+      <button onclick="showPage('mypage')" class="btn-terracotta px-8 py-3 rounded-sm text-sm tracking-wider">マイページへ</button>
+      <button onclick="showPage('top')" class="btn-outline px-8 py-3 rounded-sm text-sm tracking-wider">トップページへ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ⑨LOGIN PAGE -->
+<div id="page-login" class="page">
+  <div class="max-w-md mx-auto px-6 py-16">
+    <div class="text-center mb-8">
+      <p class="font-accent text-terracotta text-2xl">ARGENT</p>
+      <h1 class="font-serif text-3xl text-darkBrown mt-1">ログイン</h1>
+    </div>
+    <div class="bg-white rounded-sm shadow-sm p-8">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-darkBrown mb-1.5">メールアドレス</label>
+          <input type="email" placeholder="hanako@example.com" class="w-full border border-beige rounded-sm px-4 py-2.5 text-sm bg-offwhite">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-darkBrown mb-1.5">パスワード</label>
+          <input type="password" placeholder="••••••••" class="w-full border border-beige rounded-sm px-4 py-2.5 text-sm bg-offwhite">
+        </div>
+        <div class="flex justify-between items-center">
+          <label class="flex items-center gap-2 text-xs text-warmGray cursor-pointer"><input type="checkbox" class="accent-terracotta"> ログイン状態を保持</label>
+          <span class="text-xs text-terracotta cursor-pointer hover:underline">パスワードを忘れた方</span>
+        </div>
+        <button onclick="showPage('mypage')" class="btn-terracotta w-full py-3 rounded-sm text-sm tracking-widest">ログイン</button>
+        <div class="text-center text-xs text-warmGray pt-2">
+          まだ会員登録していない方は <span class="text-terracotta cursor-pointer hover:underline" onclick="showPage('register')">新規登録</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑩REGISTER PAGE -->
+<div id="page-register" class="page">
+  <div class="max-w-md mx-auto px-6 py-16">
+    <div class="text-center mb-8">
+      <p class="font-accent text-terracotta text-2xl">ARGENT</p>
+      <h1 class="font-serif text-3xl text-darkBrown mt-1">新規会員登録</h1>
+    </div>
+    <div class="bg-white rounded-sm shadow-sm p-8">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-darkBrown mb-1.5">お名前 <span class="text-terracotta">*</span></label>
+          <input type="text" placeholder="田中 花子" class="w-full border border-beige rounded-sm px-4 py-2.5 text-sm bg-offwhite">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-darkBrown mb-1.5">メールアドレス <span class="text-terracotta">*</span></label>
+          <input type="email" placeholder="hanako@example.com" class="w-full border border-beige rounded-sm px-4 py-2.5 text-sm bg-offwhite">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-darkBrown mb-1.5">パスワード <span class="text-terracotta">*</span></label>
+          <input type="password" placeholder="8文字以上" class="w-full border border-beige rounded-sm px-4 py-2.5 text-sm bg-offwhite">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-darkBrown mb-1.5">パスワード（確認） <span class="text-terracotta">*</span></label>
+          <input type="password" placeholder="もう一度入力" class="w-full border border-beige rounded-sm px-4 py-2.5 text-sm bg-offwhite">
+        </div>
+        <label class="flex items-start gap-2 text-xs text-warmGray cursor-pointer">
+          <input type="checkbox" class="accent-terracotta mt-0.5">
+          <span>利用規約およびプライバシーポリシーに同意します</span>
+        </label>
+        <button onclick="showPage('mypage')" class="btn-terracotta w-full py-3 rounded-sm text-sm tracking-widest">登録する</button>
+        <div class="text-center text-xs text-warmGray">
+          すでに会員の方は <span class="text-terracotta cursor-pointer hover:underline" onclick="showPage('login')">ログイン</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑪MY PAGE -->
+<div id="page-mypage" class="page">
+  <div class="max-w-5xl mx-auto px-6 py-12">
+    <h1 class="font-serif text-3xl text-darkBrown mb-8">マイページ</h1>
+    <div class="flex gap-8">
+      <!-- Sidebar -->
+      <div class="w-52">
+        <div class="bg-white rounded-sm shadow-sm p-4">
+          <div class="text-center mb-4">
+            <div class="w-14 h-14 rounded-full bg-beige flex items-center justify-center mx-auto text-xl">👤</div>
+            <p class="text-sm font-medium text-darkBrown mt-2">田中 花子</p>
+            <p class="text-xs text-warmGray">hanako@example.com</p>
+          </div>
+          <div class="space-y-1">
+            <div class="sidebar-link active text-sm" onclick="">注文履歴</div>
+            <div class="sidebar-link text-sm" onclick="">お気に入り</div>
+            <div class="sidebar-link text-sm" onclick="">アカウント情報</div>
+            <div class="sidebar-link text-sm" onclick="">ポイント</div>
+            <div class="sidebar-link text-sm text-terracotta" onclick="showPage('login')">ログアウト</div>
+          </div>
+        </div>
+      </div>
+      <!-- Main Content -->
+      <div class="flex-1">
+        <!-- Points Banner -->
+        <div class="beige-texture rounded-sm p-5 mb-5 flex items-center justify-between">
+          <div>
+            <p class="text-xs text-warmGray">現在のポイント残高</p>
+            <p class="font-accent text-terracotta text-3xl">880 <span class="text-sm">pt</span></p>
+          </div>
+          <div class="text-right">
+            <p class="text-xs text-warmGray">次回から使えるポイント</p>
+            <p class="text-sm text-darkBrown font-medium">1,000pt = ¥100割引</p>
+          </div>
+        </div>
+        <!-- Order History -->
+        <div class="bg-white rounded-sm shadow-sm">
+          <div class="p-4 border-b border-beige">
+            <h2 class="font-medium text-darkBrown">注文履歴</h2>
+          </div>
+          <div class="divide-y divide-beige">
+            <div class="p-4 flex items-center gap-4 hover:bg-offwhite cursor-pointer" onclick="showPage('order-detail')">
+              <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=100&q=80" class="w-12 h-12 object-cover rounded-sm">
+              <div class="flex-1">
+                <p class="text-xs text-warmGray">#ARG-20250524-0023</p>
+                <p class="text-sm text-darkBrown">Silver Ring No.01 ほか1点</p>
+                <p class="text-xs text-warmGray">2025.05.24</p>
+              </div>
+              <div class="text-right">
+                <p class="text-sm font-medium text-darkBrown">¥22,260</p>
+                <span class="tag bg-terracotta/20 text-terracotta text-xs">発送済み</span>
+              </div>
+            </div>
+            <div class="p-4 flex items-center gap-4 hover:bg-offwhite cursor-pointer" onclick="showPage('order-detail')">
+              <img src="https://images.unsplash.com/photo-1573408301185-9519f94816b4?w=100&q=80" class="w-12 h-12 object-cover rounded-sm">
+              <div class="flex-1">
+                <p class="text-xs text-warmGray">#ARG-20250410-0015</p>
+                <p class="text-sm text-darkBrown">Signet Ring</p>
+                <p class="text-xs text-warmGray">2025.04.10</p>
+              </div>
+              <div class="text-right">
+                <p class="text-sm font-medium text-darkBrown">¥9,800</p>
+                <span class="tag bg-green-100 text-green-700 text-xs">受取完了</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑫ORDER DETAIL PAGE -->
+<div id="page-order-detail" class="page">
+  <div class="max-w-3xl mx-auto px-6 py-12">
+    <p class="text-xs text-warmGray mb-4 cursor-pointer" onclick="showPage('mypage')">← マイページに戻る</p>
+    <h1 class="font-serif text-3xl text-darkBrown mb-2">注文詳細</h1>
+    <p class="text-sm text-warmGray mb-8">注文番号：#ARG-20250524-0023</p>
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <div class="bg-white rounded-sm shadow-sm p-5">
+        <p class="text-xs text-warmGray mb-1">注文日</p>
+        <p class="text-sm font-medium text-darkBrown">2025年5月24日</p>
+      </div>
+      <div class="bg-white rounded-sm shadow-sm p-5">
+        <p class="text-xs text-warmGray mb-1">配送状況</p>
+        <p class="text-sm font-medium text-terracotta">発送済み（追跡番号：1234567890）</p>
+      </div>
+    </div>
+    <div class="bg-white rounded-sm shadow-sm mb-4">
+      <div class="p-4 border-b border-beige font-medium text-darkBrown text-sm">注文商品</div>
+      <div class="divide-y divide-beige">
+        <div class="p-4 flex items-center gap-4">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=100&q=80" class="w-14 h-14 object-cover rounded-sm">
+          <div class="flex-1">
+            <p class="text-sm text-darkBrown">Silver Ring No.01</p>
+            <p class="text-xs text-warmGray">サイズ: 11号 × 1点</p>
+          </div>
+          <p class="text-sm font-medium text-darkBrown">¥8,800</p>
+        </div>
+        <div class="p-4 flex items-center gap-4">
+          <img src="https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=100&q=80" class="w-14 h-14 object-cover rounded-sm">
+          <div class="flex-1">
+            <p class="text-sm text-darkBrown">Feather Necklace</p>
+            <p class="text-xs text-warmGray">× 1点</p>
+          </div>
+          <p class="text-sm font-medium text-darkBrown">¥12,800</p>
+        </div>
+      </div>
+      <div class="p-4 border-t border-beige">
+        <div class="flex justify-between text-xs text-warmGray mb-1"><span>小計</span><span>¥21,600</span></div>
+        <div class="flex justify-between text-xs text-warmGray mb-1"><span>送料</span><span>¥660</span></div>
+        <div class="flex justify-between text-sm font-medium text-darkBrown border-t border-beige pt-2 mt-2"><span>合計</span><span>¥22,260</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PAGES (共通レイアウト) -->
+
+<!-- ⑬ADMIN DASHBOARD -->
+<div id="page-admin-dashboard" class="page">
+  <div class="flex min-h-screen">
+    <div class="admin-sidebar flex-shrink-0">
+      <div class="p-5 border-b border-warmGray/30">
+        <p class="font-accent text-terracottaLight text-xl">ARGENT</p>
+        <p class="text-xs text-warmGray mt-0.5">管理画面</p>
+      </div>
+      <nav class="mt-4 space-y-0.5">
+        <div class="admin-sidebar-link active" onclick="showPage('admin-dashboard')">📊 ダッシュボード</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-products')">📦 商品管理</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-product-edit')">➕ 商品追加/編集</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-orders')">📋 注文管理</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-pages')">📝 ページ管理</div>
+        <div class="admin-sidebar-link mt-8 border-t border-warmGray/30 pt-4" onclick="showPage('top')">← サイトに戻る</div>
+      </nav>
+    </div>
+    <div class="flex-1 bg-offwhite p-8">
+      <h1 class="text-2xl font-medium text-darkBrown mb-6">ダッシュボード</h1>
+      <!-- Stat Cards -->
+      <div class="grid grid-cols-3 gap-5 mb-8">
+        <div class="bg-white rounded-sm shadow-sm p-5">
+          <p class="text-xs text-warmGray mb-1">本日の売上</p>
+          <p class="text-3xl font-medium text-darkBrown">¥128,400</p>
+          <p class="text-xs text-terracotta mt-1">↑ 前日比 +12%</p>
+        </div>
+        <div class="bg-white rounded-sm shadow-sm p-5">
+          <p class="text-xs text-warmGray mb-1">注文数</p>
+          <p class="text-3xl font-medium text-darkBrown">23</p>
+          <p class="text-xs text-terracotta mt-1">↑ 前日比 +3件</p>
+        </div>
+        <div class="bg-white rounded-sm shadow-sm p-5">
+          <p class="text-xs text-warmGray mb-1">アクセス数</p>
+          <p class="text-3xl font-medium text-darkBrown">1,240 <span class="text-base font-normal">PV</span></p>
+          <p class="text-xs text-warmGray mt-1">ユニーク: 430</p>
+        </div>
+      </div>
+      <!-- Charts area (mock) -->
+      <div class="grid grid-cols-2 gap-5 mb-8">
+        <div class="bg-white rounded-sm shadow-sm p-5">
+          <h3 class="text-sm font-medium text-darkBrown mb-4">週間売上グラフ</h3>
+          <div class="flex items-end gap-2 h-28">
+            <div class="flex-1 flex flex-col items-center gap-1"><div class="w-full bg-terracotta/60 rounded-t" style="height:50%"></div><span class="text-xs text-warmGray">月</span></div>
+            <div class="flex-1 flex flex-col items-center gap-1"><div class="w-full bg-terracotta/60 rounded-t" style="height:75%"></div><span class="text-xs text-warmGray">火</span></div>
+            <div class="flex-1 flex flex-col items-center gap-1"><div class="w-full bg-terracotta/60 rounded-t" style="height:40%"></div><span class="text-xs text-warmGray">水</span></div>
+            <div class="flex-1 flex flex-col items-center gap-1"><div class="w-full bg-terracotta/60 rounded-t" style="height:90%"></div><span class="text-xs text-warmGray">木</span></div>
+            <div class="flex-1 flex flex-col items-center gap-1"><div class="w-full bg-terracotta rounded-t" style="height:100%"></div><span class="text-xs text-warmGray">金</span></div>
+            <div class="flex-1 flex flex-col items-center gap-1"><div class="w-full bg-terracotta/60 rounded-t" style="height:80%"></div><span class="text-xs text-warmGray">土</span></div>
+            <div class="flex-1 flex flex-col items-center gap-1"><div class="w-full bg-terracotta/60 rounded-t" style="height:65%"></div><span class="text-xs text-warmGray">日</span></div>
+          </div>
+        </div>
+        <div class="bg-white rounded-sm shadow-sm p-5">
+          <h3 class="text-sm font-medium text-darkBrown mb-4">在庫アラート</h3>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs p-2 bg-red-50 rounded">
+              <span class="text-darkBrown">Ear Cuff Set</span>
+              <span class="text-red-500 font-medium">残り2点</span>
+            </div>
+            <div class="flex items-center justify-between text-xs p-2 bg-red-50 rounded">
+              <span class="text-darkBrown">Wave Ring (15号)</span>
+              <span class="text-red-500 font-medium">在庫切れ</span>
+            </div>
+            <div class="flex items-center justify-between text-xs p-2 bg-yellow-50 rounded">
+              <span class="text-darkBrown">Feather Necklace</span>
+              <span class="text-yellow-600 font-medium">残り4点</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Recent Orders -->
+      <div class="bg-white rounded-sm shadow-sm">
+        <div class="p-4 border-b border-beige flex justify-between items-center">
+          <h3 class="text-sm font-medium text-darkBrown">最近の注文</h3>
+          <span class="text-xs text-terracotta cursor-pointer" onclick="showPage('admin-orders')">すべて見る →</span>
+        </div>
+        <table class="w-full text-xs">
+          <thead class="bg-offwhite text-warmGray">
+            <tr><th class="p-3 text-left">注文番号</th><th class="p-3 text-left">顧客名</th><th class="p-3 text-left">商品</th><th class="p-3 text-right">金額</th><th class="p-3 text-center">状態</th></tr>
+          </thead>
+          <tbody class="divide-y divide-beige">
+            <tr class="hover:bg-offwhite"><td class="p-3">#0023</td><td class="p-3">田中 花子</td><td class="p-3">Silver Ring No.01 ほか1点</td><td class="p-3 text-right">¥22,260</td><td class="p-3 text-center"><span class="tag bg-blue-100 text-blue-700">発送済み</span></td></tr>
+            <tr class="hover:bg-offwhite"><td class="p-3">#0022</td><td class="p-3">山田 太郎</td><td class="p-3">Feather Necklace</td><td class="p-3 text-right">¥12,800</td><td class="p-3 text-center"><span class="tag bg-yellow-100 text-yellow-700">準備中</span></td></tr>
+            <tr class="hover:bg-offwhite"><td class="p-3">#0021</td><td class="p-3">鈴木 あおい</td><td class="p-3">Bangle 03</td><td class="p-3 text-right">¥15,400</td><td class="p-3 text-center"><span class="tag bg-green-100 text-green-700">完了</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑭ADMIN PRODUCT LIST -->
+<div id="page-admin-products" class="page">
+  <div class="flex min-h-screen">
+    <div class="admin-sidebar flex-shrink-0">
+      <div class="p-5 border-b border-warmGray/30"><p class="font-accent text-terracottaLight text-xl">ARGENT</p><p class="text-xs text-warmGray mt-0.5">管理画面</p></div>
+      <nav class="mt-4 space-y-0.5">
+        <div class="admin-sidebar-link" onclick="showPage('admin-dashboard')">📊 ダッシュボード</div>
+        <div class="admin-sidebar-link active" onclick="showPage('admin-products')">📦 商品管理</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-product-edit')">➕ 商品追加/編集</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-orders')">📋 注文管理</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-pages')">📝 ページ管理</div>
+        <div class="admin-sidebar-link mt-8 border-t border-warmGray/30 pt-4" onclick="showPage('top')">← サイトに戻る</div>
+      </nav>
+    </div>
+    <div class="flex-1 bg-offwhite p-8">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-medium text-darkBrown">商品管理</h1>
+        <button onclick="showPage('admin-product-edit')" class="btn-terracotta px-4 py-2 rounded-sm text-xs tracking-wider">＋ 商品を追加</button>
+      </div>
+      <div class="bg-white rounded-sm shadow-sm overflow-hidden">
+        <div class="p-4 border-b border-beige flex gap-3">
+          <input type="text" placeholder="商品名で検索..." class="border border-beige rounded-sm px-3 py-1.5 text-xs bg-offwhite w-48">
+          <select class="border border-beige rounded-sm px-3 py-1.5 text-xs bg-offwhite text-warmGray">
+            <option>すべてのカテゴリ</option><option>リング</option><option>ネックレス</option><option>バングル</option>
+          </select>
+        </div>
+        <table class="w-full text-xs">
+          <thead class="bg-offwhite text-warmGray">
+            <tr><th class="p-3 text-left">商品</th><th class="p-3 text-right">価格</th><th class="p-3 text-center">在庫</th><th class="p-3 text-center">状態</th><th class="p-3 text-center">操作</th></tr>
+          </thead>
+          <tbody class="divide-y divide-beige text-darkBrown">
+            <tr class="hover:bg-offwhite"><td class="p-3"><div class="flex items-center gap-3"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=60&q=80" class="w-10 h-10 object-cover rounded-sm"><span>Silver Ring No.01</span></div></td><td class="p-3 text-right">¥8,800</td><td class="p-3 text-center">15</td><td class="p-3 text-center"><span class="tag bg-green-100 text-green-700">公開中</span></td><td class="p-3 text-center flex gap-1 justify-center"><button onclick="showPage('admin-product-edit')" class="btn-outline px-2 py-0.5 rounded text-xs">編集</button><button class="px-2 py-0.5 rounded text-xs border border-red-200 text-red-500 hover:bg-red-50">削除</button></td></tr>
+            <tr class="hover:bg-offwhite"><td class="p-3"><div class="flex items-center gap-3"><img src="https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=60&q=80" class="w-10 h-10 object-cover rounded-sm"><span>Feather Necklace</span></div></td><td class="p-3 text-right">¥12,800</td><td class="p-3 text-center">4</td><td class="p-3 text-center"><span class="tag bg-green-100 text-green-700">公開中</span></td><td class="p-3 text-center flex gap-1 justify-center"><button onclick="showPage('admin-product-edit')" class="btn-outline px-2 py-0.5 rounded text-xs">編集</button><button class="px-2 py-0.5 rounded text-xs border border-red-200 text-red-500 hover:bg-red-50">削除</button></td></tr>
+            <tr class="hover:bg-offwhite"><td class="p-3"><div class="flex items-center gap-3"><img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=60&q=80" class="w-10 h-10 object-cover rounded-sm"><span>Bangle 03</span></div></td><td class="p-3 text-right">¥15,400</td><td class="p-3 text-center">8</td><td class="p-3 text-center"><span class="tag bg-green-100 text-green-700">公開中</span></td><td class="p-3 text-center flex gap-1 justify-center"><button onclick="showPage('admin-product-edit')" class="btn-outline px-2 py-0.5 rounded text-xs">編集</button><button class="px-2 py-0.5 rounded text-xs border border-red-200 text-red-500 hover:bg-red-50">削除</button></td></tr>
+            <tr class="hover:bg-offwhite"><td class="p-3"><div class="flex items-center gap-3"><img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=60&q=80" class="w-10 h-10 object-cover rounded-sm"><span>Ear Cuff Set</span></div></td><td class="p-3 text-right">¥6,800</td><td class="p-3 text-center text-red-500 font-bold">2</td><td class="p-3 text-center"><span class="tag bg-yellow-100 text-yellow-700">在庫少</span></td><td class="p-3 text-center flex gap-1 justify-center"><button onclick="showPage('admin-product-edit')" class="btn-outline px-2 py-0.5 rounded text-xs">編集</button><button class="px-2 py-0.5 rounded text-xs border border-red-200 text-red-500 hover:bg-red-50">削除</button></td></tr>
+            <tr class="hover:bg-offwhite"><td class="p-3"><div class="flex items-center gap-3"><img src="https://images.unsplash.com/photo-1586878341523-3d84e01a3cf0?w=60&q=80" class="w-10 h-10 object-cover rounded-sm"><span>Wave Ring</span></div></td><td class="p-3 text-right">¥7,400</td><td class="p-3 text-center text-red-500 font-bold">0</td><td class="p-3 text-center"><span class="tag bg-red-100 text-red-700">在庫切れ</span></td><td class="p-3 text-center flex gap-1 justify-center"><button onclick="showPage('admin-product-edit')" class="btn-outline px-2 py-0.5 rounded text-xs">編集</button><button class="px-2 py-0.5 rounded text-xs border border-red-200 text-red-500 hover:bg-red-50">削除</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑮ADMIN PRODUCT EDIT -->
+<div id="page-admin-product-edit" class="page">
+  <div class="flex min-h-screen">
+    <div class="admin-sidebar flex-shrink-0">
+      <div class="p-5 border-b border-warmGray/30"><p class="font-accent text-terracottaLight text-xl">ARGENT</p><p class="text-xs text-warmGray mt-0.5">管理画面</p></div>
+      <nav class="mt-4 space-y-0.5">
+        <div class="admin-sidebar-link" onclick="showPage('admin-dashboard')">📊 ダッシュボード</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-products')">📦 商品管理</div>
+        <div class="admin-sidebar-link active" onclick="showPage('admin-product-edit')">➕ 商品追加/編集</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-orders')">📋 注文管理</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-pages')">📝 ページ管理</div>
+        <div class="admin-sidebar-link mt-8 border-t border-warmGray/30 pt-4" onclick="showPage('top')">← サイトに戻る</div>
+      </nav>
+    </div>
+    <div class="flex-1 bg-offwhite p-8">
+      <h1 class="text-2xl font-medium text-darkBrown mb-6">商品追加 / 編集</h1>
+      <div class="grid grid-cols-3 gap-6">
+        <div class="col-span-2 space-y-4">
+          <div class="bg-white rounded-sm shadow-sm p-6 space-y-4">
+            <div>
+              <label class="block text-xs font-medium text-darkBrown mb-1.5">商品名 <span class="text-terracotta">*</span></label>
+              <input type="text" value="Silver Ring No.01" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-medium text-darkBrown mb-1.5">価格（税込）<span class="text-terracotta">*</span></label>
+                <input type="number" value="8800" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite">
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-darkBrown mb-1.5">在庫数 <span class="text-terracotta">*</span></label>
+                <input type="number" value="15" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-darkBrown mb-1.5">カテゴリ</label>
+              <select class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite text-darkBrown">
+                <option>リング</option><option>ネックレス</option><option>バングル</option><option>ピアス / イヤーカフ</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-darkBrown mb-1.5">商品説明</label>
+              <textarea rows="5" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite resize-none">鎚目を丁寧に刻んだスターリングシルバーのリング。シンプルながら手作業ならではの表情が美しく、どんなスタイルにも合わせやすい一点です。</textarea>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="bg-white rounded-sm shadow-sm p-5">
+            <label class="block text-xs font-medium text-darkBrown mb-3">商品画像</label>
+            <div class="border-2 border-dashed border-beige rounded-sm p-6 text-center cursor-pointer hover:border-terracotta transition-colors">
+              <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=200&q=80" class="w-full aspect-square object-cover rounded-sm mb-2">
+              <p class="text-xs text-warmGray">クリックして画像を変更</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-sm shadow-sm p-5">
+            <label class="block text-xs font-medium text-darkBrown mb-3">公開設定</label>
+            <div class="space-y-2">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="publish" checked class="accent-terracotta">
+                <span class="text-sm text-darkBrown">公開</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="publish" class="accent-terracotta">
+                <span class="text-sm text-darkBrown">下書き</span>
+              </label>
+            </div>
+            <button onclick="showPage('admin-products')" class="btn-terracotta w-full py-2.5 rounded-sm text-xs tracking-wider mt-4">保存する</button>
+            <button onclick="showPage('admin-products')" class="w-full py-2 text-xs text-warmGray hover:text-terracotta mt-1">キャンセル</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑯ADMIN ORDERS -->
+<div id="page-admin-orders" class="page">
+  <div class="flex min-h-screen">
+    <div class="admin-sidebar flex-shrink-0">
+      <div class="p-5 border-b border-warmGray/30"><p class="font-accent text-terracottaLight text-xl">ARGENT</p><p class="text-xs text-warmGray mt-0.5">管理画面</p></div>
+      <nav class="mt-4 space-y-0.5">
+        <div class="admin-sidebar-link" onclick="showPage('admin-dashboard')">📊 ダッシュボード</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-products')">📦 商品管理</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-product-edit')">➕ 商品追加/編集</div>
+        <div class="admin-sidebar-link active" onclick="showPage('admin-orders')">📋 注文管理</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-pages')">📝 ページ管理</div>
+        <div class="admin-sidebar-link mt-8 border-t border-warmGray/30 pt-4" onclick="showPage('top')">← サイトに戻る</div>
+      </nav>
+    </div>
+    <div class="flex-1 bg-offwhite p-8">
+      <h1 class="text-2xl font-medium text-darkBrown mb-6">注文管理</h1>
+      <div class="flex gap-3 mb-5">
+        <span class="tag bg-darkBrown text-beige px-3 py-1 cursor-pointer">すべて (23)</span>
+        <span class="tag bg-yellow-100 text-yellow-700 px-3 py-1 cursor-pointer">準備中 (3)</span>
+        <span class="tag bg-blue-100 text-blue-700 px-3 py-1 cursor-pointer">発送済み (12)</span>
+        <span class="tag bg-green-100 text-green-700 px-3 py-1 cursor-pointer">完了 (8)</span>
+      </div>
+      <div class="bg-white rounded-sm shadow-sm overflow-hidden">
+        <table class="w-full text-xs">
+          <thead class="bg-offwhite text-warmGray">
+            <tr><th class="p-3 text-left">注文番号</th><th class="p-3 text-left">顧客名</th><th class="p-3 text-left">商品</th><th class="p-3 text-right">金額</th><th class="p-3 text-center">ステータス変更</th></tr>
+          </thead>
+          <tbody class="divide-y divide-beige">
+            <tr class="hover:bg-offwhite">
+              <td class="p-3 font-medium">#0023</td>
+              <td class="p-3">田中 花子</td>
+              <td class="p-3">Silver Ring No.01 ほか1点</td>
+              <td class="p-3 text-right">¥22,260</td>
+              <td class="p-3 text-center">
+                <select class="border border-beige rounded text-xs px-2 py-1 bg-offwhite text-darkBrown">
+                  <option>準備中</option><option selected>発送済み</option><option>完了</option><option>キャンセル</option>
+                </select>
+              </td>
+            </tr>
+            <tr class="hover:bg-offwhite">
+              <td class="p-3 font-medium">#0022</td>
+              <td class="p-3">山田 太郎</td>
+              <td class="p-3">Feather Necklace</td>
+              <td class="p-3 text-right">¥12,800</td>
+              <td class="p-3 text-center">
+                <select class="border border-beige rounded text-xs px-2 py-1 bg-offwhite text-darkBrown">
+                  <option selected>準備中</option><option>発送済み</option><option>完了</option><option>キャンセル</option>
+                </select>
+              </td>
+            </tr>
+            <tr class="hover:bg-offwhite">
+              <td class="p-3 font-medium">#0021</td>
+              <td class="p-3">鈴木 あおい</td>
+              <td class="p-3">Bangle 03</td>
+              <td class="p-3 text-right">¥15,400</td>
+              <td class="p-3 text-center">
+                <select class="border border-beige rounded text-xs px-2 py-1 bg-offwhite text-darkBrown">
+                  <option>準備中</option><option>発送済み</option><option selected>完了</option><option>キャンセル</option>
+                </select>
+              </td>
+            </tr>
+            <tr class="hover:bg-offwhite">
+              <td class="p-3 font-medium">#0020</td>
+              <td class="p-3">佐藤 めぐみ</td>
+              <td class="p-3">Signet Ring</td>
+              <td class="p-3 text-right">¥9,800</td>
+              <td class="p-3 text-center">
+                <select class="border border-beige rounded text-xs px-2 py-1 bg-offwhite text-darkBrown">
+                  <option>準備中</option><option>発送済み</option><option selected>完了</option><option>キャンセル</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑰ADMIN PAGE MANAGEMENT -->
+<div id="page-admin-pages" class="page">
+  <div class="flex min-h-screen">
+    <div class="admin-sidebar flex-shrink-0">
+      <div class="p-5 border-b border-warmGray/30"><p class="font-accent text-terracottaLight text-xl">ARGENT</p><p class="text-xs text-warmGray mt-0.5">管理画面</p></div>
+      <nav class="mt-4 space-y-0.5">
+        <div class="admin-sidebar-link" onclick="showPage('admin-dashboard')">📊 ダッシュボード</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-products')">📦 商品管理</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-product-edit')">➕ 商品追加/編集</div>
+        <div class="admin-sidebar-link" onclick="showPage('admin-orders')">📋 注文管理</div>
+        <div class="admin-sidebar-link active" onclick="showPage('admin-pages')">📝 ページ管理</div>
+        <div class="admin-sidebar-link mt-8 border-t border-warmGray/30 pt-4" onclick="showPage('top')">← サイトに戻る</div>
+      </nav>
+    </div>
+    <div class="flex-1 bg-offwhite p-8">
+      <h1 class="text-2xl font-medium text-darkBrown mb-6">ページ管理</h1>
+      <div class="grid grid-cols-2 gap-5">
+        <!-- Hero Banner -->
+        <div class="bg-white rounded-sm shadow-sm p-5 col-span-2">
+          <h2 class="text-sm font-medium text-darkBrown mb-3">トップページ バナー</h2>
+          <div class="flex gap-4 items-start">
+            <div class="w-48 h-28 overflow-hidden rounded-sm border border-beige flex-shrink-0">
+              <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&q=80" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 space-y-3">
+              <div>
+                <label class="block text-xs text-warmGray mb-1">見出しテキスト</label>
+                <input type="text" value="あなたの日常に、てしごとのぬくもりを。" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite">
+              </div>
+              <div>
+                <label class="block text-xs text-warmGray mb-1">サブテキスト</label>
+                <input type="text" value="東京・蔵前のアトリエから、てしごとのシルバーアクセサリーをお届けします。" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite">
+              </div>
+              <div class="flex gap-2">
+                <label class="flex-1 border-2 border-dashed border-beige rounded-sm p-3 text-center cursor-pointer hover:border-terracotta transition-colors">
+                  <p class="text-xs text-warmGray">📸 バナー画像を変更</p>
+                </label>
+                <button class="btn-terracotta px-4 py-2 rounded-sm text-xs">保存</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Concept Text -->
+        <div class="bg-white rounded-sm shadow-sm p-5">
+          <h2 class="text-sm font-medium text-darkBrown mb-3">コンセプトテキスト</h2>
+          <div class="space-y-3">
+            <div>
+              <label class="block text-xs text-warmGray mb-1">タイトル</label>
+              <input type="text" value="手仕事から生まれる一点もの" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite">
+            </div>
+            <div>
+              <label class="block text-xs text-warmGray mb-1">本文</label>
+              <textarea rows="4" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite resize-none">東京・蔵前のアトリエで、一つひとつ手で作り上げる純銀のアクセサリー。</textarea>
+            </div>
+            <button class="btn-terracotta px-4 py-2 rounded-sm text-xs w-full">保存</button>
+          </div>
+        </div>
+        <!-- SNS / Footer -->
+        <div class="bg-white rounded-sm shadow-sm p-5">
+          <h2 class="text-sm font-medium text-darkBrown mb-3">フッター情報</h2>
+          <div class="space-y-3">
+            <div>
+              <label class="block text-xs text-warmGray mb-1">お問い合わせメール</label>
+              <input type="email" value="info@argent-jewelry.jp" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite">
+            </div>
+            <div>
+              <label class="block text-xs text-warmGray mb-1">Instagram URL</label>
+              <input type="text" value="https://instagram.com/argent_jp" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite">
+            </div>
+            <div>
+              <label class="block text-xs text-warmGray mb-1">営業時間</label>
+              <input type="text" value="平日 10:00〜18:00" class="w-full border border-beige rounded-sm px-3 py-2 text-sm bg-offwhite">
+            </div>
+            <button class="btn-terracotta px-4 py-2 rounded-sm text-xs w-full">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end padding-top wrapper -->
+
+<script>
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + pageId);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+}
+</script>
+</body>
+</html>
